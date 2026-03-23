@@ -2,13 +2,17 @@ import Link from 'next/link';
 import { Alert } from '@avenra/ui/src/components/alert/alert';
 import { Badge } from '@avenra/ui/src/components/badge/badge';
 
+import { PagerNav } from '../../pager-nav';
 import { featuredLinks } from '../../site-content';
+import { getAdjacentPages } from '../../site-content';
 
 export const metadata = {
   title: 'Getting Started'
 };
 
 export default function GettingStartedPage() {
+  const { previous, next } = getAdjacentPages('/docs/getting-started');
+
   return (
     <div className="page-stack">
       <section className="page-header">
@@ -58,6 +62,8 @@ export default function GettingStartedPage() {
           </Link>
         ))}
       </section>
+
+      <PagerNav previous={previous} next={next} />
     </div>
   );
 }

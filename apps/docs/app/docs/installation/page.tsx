@@ -1,6 +1,8 @@
 import { Badge } from '@avenra/ui/src/components/badge/badge';
 
+import { PagerNav } from '../../pager-nav';
 import { commandSnippets, installationSteps } from '../../site-content';
+import { getAdjacentPages } from '../../site-content';
 
 export const metadata = {
   title: 'Installation'
@@ -15,6 +17,8 @@ function CodeBlock({ lines }: { lines: readonly string[] }) {
 }
 
 export default function InstallationPage() {
+  const { previous, next } = getAdjacentPages('/docs/installation');
+
   return (
     <div className="page-stack">
       <section className="page-header">
@@ -53,6 +57,8 @@ export default function InstallationPage() {
           ))}
         </ol>
       </article>
+
+      <PagerNav previous={previous} next={next} />
     </div>
   );
 }

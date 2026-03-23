@@ -138,6 +138,11 @@ textarea {
   background: rgba(31, 41, 55, 0.06);
 }
 
+.site-nav__link--active {
+  background: rgba(15, 76, 129, 0.1);
+  color: var(--site-brand);
+}
+
 .site-main {
   padding: 3rem 0 4.5rem;
 }
@@ -343,7 +348,8 @@ textarea {
 
 .feature-grid,
 .link-grid,
-.component-groups {
+.component-groups,
+.component-doc-sections {
   display: grid;
   gap: 1rem;
 }
@@ -371,6 +377,17 @@ textarea {
 
 .component-group .avenra-card__body {
   margin-top: 1rem;
+}
+
+.component-group__meta,
+.component-group__actions {
+  margin-top: 0.85rem;
+}
+
+.component-group__usage {
+  margin: 1rem 0 0;
+  color: var(--site-muted);
+  line-height: 1.7;
 }
 
 .component-list {
@@ -443,6 +460,34 @@ textarea {
   color: var(--site-muted);
 }
 
+.component-doc-backlink a {
+  color: var(--site-brand);
+  font-weight: 600;
+}
+
+.pager-nav {
+  display: grid;
+  gap: 1rem;
+}
+
+.pager-nav__link {
+  display: grid;
+  gap: 0.25rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--site-border);
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.56);
+  box-shadow: var(--site-shadow);
+}
+
+.pager-nav__meta {
+  color: var(--site-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 @media (min-width: 760px) {
   .site-nav {
     display: flex;
@@ -458,7 +503,9 @@ textarea {
   }
 
   .content-grid,
-  .component-groups {
+  .component-groups,
+  .component-doc-sections,
+  .pager-nav {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 

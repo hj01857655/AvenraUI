@@ -1,6 +1,8 @@
 import { Alert } from '@avenra/ui/src/components/alert/alert';
 import { Badge } from '@avenra/ui/src/components/badge/badge';
 
+import { PagerNav } from '../../pager-nav';
+import { getAdjacentPages } from '../../site-content';
 import { themingPrinciples } from '../../site-content';
 
 export const metadata = {
@@ -8,6 +10,8 @@ export const metadata = {
 };
 
 export default function ThemingPage() {
+  const { previous, next } = getAdjacentPages('/docs/theming');
+
   return (
     <div className="page-stack">
       <section className="page-header">
@@ -45,6 +49,8 @@ export default function ThemingPage() {
         The repository already has separate `tokens` and `themes` packages, but the docs are still
         describing the intended layering more than a polished public API. That is normal for this phase.
       </Alert>
+
+      <PagerNav previous={previous} next={next} />
     </div>
   );
 }

@@ -14,7 +14,7 @@ function isActive(pathname: string, href: string) {
 }
 
 export function SiteNav() {
-  const pathname = usePathname();
+  const pathname = usePathname() ?? '/';
 
   return (
     <nav className="site-nav" aria-label="Primary">

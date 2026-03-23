@@ -1,7 +1,8 @@
+import Link from 'next/link';
 import { Badge } from '@avenra/ui/src/components/badge/badge';
 import { Card } from '@avenra/ui/src/components/card/card';
 
-import { componentGroups } from '../site-content';
+import { componentDocs, getComponentDoc } from './component-docs';
 
 export const metadata = {
   title: 'Components'
@@ -22,22 +23,24 @@ export default function ComponentsPage() {
       </section>
 
       <section className="component-groups" aria-label="Component groups">
-        {componentGroups.map((group) => (
+        {Object.values(componentDocs).map((doc) => (
           <Card
-            key={group.title}
-            title={group.title}
-            description={group.description}
+            key={doc.slug}
+            title={doc.title}
+            description={doc.summary}
             className="surface-card component-group"
           >
-            <ul className="component-list">
-              {group.items.map((item) => (
-                <li key={item}>
-                  <Badge variant="neutral" size="sm">
-                    {item}
-                  </Badge>
-                </li>
-              ))}
-            </ul>
+            <div className="component-group__meta">
+              <Badge variant="neutral" size="sm">
+                {doc.category}
+              </Badge>
+            </div>
+            <p className="component-group__usage">{doc.usage}</p>
+            <div className="component-group__actions">
+              <Link href={`/components/${doc.slug}`} className="doc-card__link">
+                Open component doc
+              </Link>
+            </div>
           </Card>
         ))}
       </section>

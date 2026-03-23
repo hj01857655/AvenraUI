@@ -16,6 +16,11 @@ export interface ComponentGroup {
   items: string[];
 }
 
+export interface OrderedPage {
+  href: string;
+  label: string;
+}
+
 export const primaryNavigation: SiteLink[] = [
   { href: '/', label: 'Home' },
   { href: '/components', label: 'Components' },
@@ -117,3 +122,21 @@ export const commandSnippets = {
 } as const;
 
 export const componentCount = componentGroups.reduce((total, group) => total + group.items.length, 0);
+
+export const docsPageOrder: OrderedPage[] = [
+  { href: '/docs/getting-started', label: 'Getting started' },
+  { href: '/docs/installation', label: 'Installation' },
+  { href: '/docs/theming', label: 'Theming' }
+];
+
+export function getAdjacentPages(currentHref: string) {
+  const index = docsPageOrder.findIndex((item) => item.href === currentHref);
+  if (index === -1) {
+    return { previous: null, next: null };
+  }
+
+  return {
+    previous: index > 0 ? docsPageOrder[index - 1] : null,
+    next: index < docsPageOrder.length - 1 ? docsPageOrder[index + 1] : null
+  };
+}

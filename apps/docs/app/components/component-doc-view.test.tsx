@@ -15,7 +15,7 @@ describe('ComponentDocView', () => {
       })
     ).toBeInTheDocument();
 
-    expect(screen.getByText(/import \{ Button \} from '@avenra\/ui';/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/import \{ Button \} from '@avenra\/ui';/i)).toHaveLength(2);
     expect(screen.getByRole('link', { name: /next: input/i })).toHaveAttribute(
       'href',
       '/components/input'

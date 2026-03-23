@@ -19,7 +19,11 @@ export function PagerNav({
   return (
     <nav className="pager-nav" aria-label="Page navigation">
       {previous ? (
-        <Link href={previous.href} className="pager-nav__link pager-nav__link--previous">
+        <Link
+          href={previous.href}
+          className="pager-nav__link pager-nav__link--previous"
+          aria-label={`Previous: ${previous.label}`}
+        >
           <span className="pager-nav__meta">Previous</span>
           <strong>{previous.label}</strong>
         </Link>
@@ -28,9 +32,13 @@ export function PagerNav({
       )}
 
       {next ? (
-        <Link href={next.href} className="pager-nav__link pager-nav__link--next">
-          <span className="pager-nav__meta">Next: {next.label}</span>
-          <strong>{next.href}</strong>
+        <Link
+          href={next.href}
+          className="pager-nav__link pager-nav__link--next"
+          aria-label={`Next: ${next.label}`}
+        >
+          <span className="pager-nav__meta">Next</span>
+          <strong>{next.label}</strong>
         </Link>
       ) : null}
     </nav>

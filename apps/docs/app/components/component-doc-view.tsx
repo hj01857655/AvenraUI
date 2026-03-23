@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { Badge, Card } from '@avenra/ui/src';
+import { Badge } from '@avenra/ui/src/components/badge/badge';
+import { Card } from '@avenra/ui/src/components/card/card';
 
 import { PagerNav } from '../pager-nav';
 import type { ComponentDoc } from './component-docs';
@@ -40,7 +41,10 @@ export function ComponentDocView({
         <article className="content-panel">
           <h2>Import</h2>
           <CodeBlock code={doc.packageImport} />
-          <p>Import from the public package entry in app code. The docs use direct source imports only for repository-local rendering.</p>
+          <p>
+            Import from the public package entry in app code. The docs use direct source imports
+            only for repository-local rendering.
+          </p>
         </article>
       </div>
 
