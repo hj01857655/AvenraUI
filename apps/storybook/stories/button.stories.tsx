@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Alert, Avatar, Badge, Breadcrumb, Button, Card, Dialog, EmptyState, Inline, Input, Progress, Stack, Tabs, Textarea } from '@avenra/ui';
+import { Alert, Avatar, Badge, Breadcrumb, Button, Card, Dialog, EmptyState, Inline, Input, Progress, Stack, Tabs, Textarea, Tooltip } from '@avenra/ui';
 
 const meta = {
   title: 'Components/Button',
@@ -45,6 +45,11 @@ export const WithFormPreview: Story = {
           { label: 'Button stories' }
         ]}
       />
+      <Tooltip content="Focused helper text">
+        <Button size="sm" variant="secondary">
+          Hover for details
+        </Button>
+      </Tooltip>
       <Input
         id="storybook-email"
         label="Email"
@@ -111,6 +116,9 @@ export const FeedbackStates: Story = {
           { label: 'Current milestone' }
         ]}
       />
+      <Tooltip content="Release confidence is trending up">
+        <Badge variant="success">Tooltip active</Badge>
+      </Tooltip>
       <Alert title="Heads up" variant="warning">
         A few story examples still need product copy polish.
       </Alert>

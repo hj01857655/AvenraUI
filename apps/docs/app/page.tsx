@@ -19,7 +19,8 @@ import {
   Select,
   Stack,
   Switch,
-  Textarea
+  Textarea,
+  Tooltip
 } from '@avenra/ui';
 
 const highlights = [
@@ -66,25 +67,27 @@ export default function HomePage() {
                 { label: 'Breadcrumb' }
               ]}
             />
-            <IconButton
-              aria-label="Open filters"
-              icon={(
-                <svg
-                  aria-hidden="true"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  className="size-4"
-                >
-                  <path
-                    d="M4 6h12M6.5 10h7M8.5 14h3"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              )}
-              variant="secondary"
-            />
+            <Tooltip content="Open filtering options">
+              <IconButton
+                aria-label="Open filters"
+                icon={(
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    className="size-4"
+                  >
+                    <path
+                      d="M4 6h12M6.5 10h7M8.5 14h3"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                )}
+                variant="secondary"
+              />
+            </Tooltip>
             <Button loading>Loading</Button>
             <Input
               id="preview-email"
@@ -183,6 +186,11 @@ export default function HomePage() {
                 { label: 'Highlights' }
               ]}
             />
+            <Tooltip content="Reusable guidance on demand">
+              <Badge variant="info" size="sm">
+                Hover me
+              </Badge>
+            </Tooltip>
             <Inline gap="sm">
               <Badge variant="neutral" size="sm">
                 Layout

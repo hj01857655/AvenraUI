@@ -245,6 +245,28 @@
   color: var(--color-text-muted);
 }
 
+.avenra-tooltip {
+  position: relative;
+  display: inline-flex;
+}
+
+.avenra-tooltip__content {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.5rem);
+  transform: translateX(-50%);
+  z-index: 40;
+  max-width: 18rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-text);
+  color: var(--color-surface-elevated);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  box-shadow: var(--shadow-md);
+  white-space: nowrap;
+}
+
 .avenra-field {
   display: grid;
   gap: 0.5rem;
