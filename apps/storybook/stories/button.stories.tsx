@@ -1,5 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Alert, Avatar, Badge, Breadcrumb, Button, Card, Dialog, EmptyState, Inline, Input, Popover, Progress, Stack, Tabs, Textarea, Tooltip } from '@avenra/ui';
+import {
+  Alert,
+  Avatar,
+  Badge,
+  Breadcrumb,
+  Button,
+  Card,
+  Dialog,
+  EmptyState,
+  Inline,
+  Popover,
+  Progress,
+  Skeleton,
+  Stack,
+  Tabs,
+  Textarea,
+  Tooltip
+} from '@avenra/ui';
 
 const meta = {
   title: 'Components/Button',
@@ -55,7 +72,8 @@ export const WithFormPreview: Story = {
         content={<p>Keep supporting actions near the trigger without blocking the whole page.</p>}
         trigger={<Button size="sm">Open popover</Button>}
       />
-      <Alert title="Publishing warning" variant="warning">
+      <Skeleton width="100%" height="3.5rem" shape="rounded" />
+      <Alert title="Draft notice" variant="warning">
         This draft still needs one pass before publishing.
       </Alert>
       <Card
@@ -120,7 +138,8 @@ export const FeedbackStates: Story = {
         content={<p>Use popovers for contextual controls that do not need a full dialog.</p>}
         trigger={<Badge variant="warning">Open popover</Badge>}
       />
-      <Alert title="Review note" variant="warning">
+      <Skeleton width="100%" height="2.75rem" />
+      <Alert title="Copy review" variant="warning">
         A few story examples still need product copy polish.
       </Alert>
       <EmptyState
@@ -128,7 +147,7 @@ export const FeedbackStates: Story = {
         description="Plan your first release milestone to turn this dashboard into a live roadmap."
         action={<Button size="sm">Schedule release</Button>}
       />
-      <Inline gap="sm">
+      <Inline align="center" gap="sm">
         <Badge variant="neutral">Stable</Badge>
         <Badge variant="info">Preview</Badge>
         <Badge variant="success">Navigation</Badge>

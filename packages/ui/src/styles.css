@@ -304,6 +304,57 @@
   color: var(--color-text-muted);
 }
 
+.avenra-skeleton {
+  display: block;
+  width: 100%;
+  min-height: 1rem;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--color-border) 72%, white) 0%,
+    color-mix(in srgb, var(--color-border) 42%, white) 50%,
+    color-mix(in srgb, var(--color-border) 72%, white) 100%
+  );
+  background-size: 200% 100%;
+  animation: avenra-skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
+.avenra-skeleton--rectangular {
+  border-radius: var(--radius-sm);
+}
+
+.avenra-skeleton--rounded {
+  border-radius: var(--radius-md);
+}
+
+.avenra-skeleton--circular {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 9999px;
+}
+
+.avenra-skeleton--sm {
+  min-height: 0.75rem;
+}
+
+.avenra-skeleton--md {
+  min-height: 1rem;
+}
+
+.avenra-skeleton--lg {
+  min-height: 1.5rem;
+}
+
+@keyframes avenra-skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
 .avenra-field {
   display: grid;
   gap: 0.5rem;
