@@ -2,6 +2,21 @@
   "name": "@avenra/ui",
   "version": "0.1.0",
   "private": false,
+  "description": "React component library for the Avenra design system.",
+  "license": "MIT",
+  "homepage": "https://github.com/hj01857655/AvenraUI#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hj01857655/AvenraUI.git",
+    "directory": "packages/ui"
+  },
+  "keywords": [
+    "react",
+    "component-library",
+    "design-system",
+    "ui",
+    "avenra"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

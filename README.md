@@ -1,8 +1,27 @@
 # Avenra UI
 
-Avenra UI is a React-first component library and design system monorepo. The current direction is to build a solid foundation first: shared tokens and themes, a typed UI package, a docs app, a Storybook sandbox, and a repeatable component delivery workflow.
+Avenra UI is a React component library and design-system monorepo. The workspace contains the public `@avenra/ui` package together with docs, Storybook, tokens, themes, and supporting packages.
 
-This repository is in the early build-out stage. It already contains the first wave of high-frequency components and the package boundaries for a larger design system, but it is not positioned yet as a finished public library release.
+## Install `@avenra/ui`
+
+```powershell
+pnpm add @avenra/ui react react-dom
+```
+
+`@avenra/ui` is published as a compiled package. Consumers should import from the package root instead of `src/`.
+
+## Use the package
+
+Always import components from the public package entrypoint and import styles from the public style entry:
+
+```tsx
+import { Button } from '@avenra/ui';
+import '@avenra/ui/styles.css';
+
+export function Example() {
+  return <Button>Click me</Button>;
+}
+```
 
 ## Current focus
 
@@ -26,10 +45,13 @@ The `@avenra/ui` package already exports these components:
 - `Card`
 - `Checkbox`
 - `Dialog`
+- `Drawer`
+- `DropdownMenu`
 - `EmptyState`
 - `IconButton`
 - `Inline`
 - `Input`
+- `Pagination`
 - `Popover`
 - `Progress`
 - `Radio`
@@ -38,6 +60,7 @@ The `@avenra/ui` package already exports these components:
 - `Switch`
 - `Tabs`
 - `Textarea`
+- `Toast`
 - `Tooltip`
 
 This is the first wave of foundation components, not the final surface area of the library.
@@ -97,6 +120,8 @@ pnpm typecheck
 pnpm test:ui
 pnpm --filter @avenra/docs dev
 pnpm --filter @avenra/storybook dev
+pnpm --filter @avenra/ui build
+pnpm --filter @avenra/ui typecheck
 pnpm --filter @avenra/ui test
 ```
 
@@ -116,15 +141,6 @@ Near-term gaps still visible in the repo:
 - Storybook and package-level polish are still evolving
 - heavier components such as data-heavy widgets are intentionally deferred
 - several packages are present as structure and foundation, not as mature product surfaces yet
-
-## Direction
-
-The repository is currently moving in the direction of a complete design-system platform, but the implementation strategy is staged:
-
-1. stabilize the monorepo, tokens, themes, docs, and component workflow
-2. expand the high-frequency component set
-3. improve quality, examples, accessibility, and developer ergonomics
-4. only then move into heavier and more opinionated component areas
 
 ## Repository
 
