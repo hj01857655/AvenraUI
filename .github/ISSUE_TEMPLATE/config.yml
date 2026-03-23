@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: AvenraUI repository
+    url: https://github.com/hj01857655/AvenraUI
+    about: Review the repository README and contributing guide before opening an issue.

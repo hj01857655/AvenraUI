@@ -1,0 +1,42 @@
+name: Feature request
+description: Propose an enhancement for AvenraUI
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or opportunity
+      description: What developer or product need should this solve?
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Target area
+      options:
+        - apps/docs
+        - apps/storybook
+        - packages/ui
+        - packages/tokens
+        - packages/themes
+        - packages/icons
+        - packages/utils
+        - packages/configs
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Examples, references, screenshots, or API sketches.
