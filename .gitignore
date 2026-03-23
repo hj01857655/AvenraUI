@@ -1,0 +1,10 @@
+node_modules
+pnpm-lock.yaml
+.next
+out
+dist
+coverage
+.storybook-static
+.vite
+.DS_Store
+*.log

@@ -1,0 +1,14 @@
+{
+  "name": "@avenra/tokens",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "style": "./src/css/tokens.css",
+  "scripts": {
+    "build": "tsc --project tsconfig.json --emitDeclarationOnly",
+    "lint": "tsc --noEmit --project tsconfig.json",
+    "test": "pnpm exec node -e \"console.log('tokens: no tests yet')\"",
+    "typecheck": "tsc --noEmit --project tsconfig.json"
+  }
+}

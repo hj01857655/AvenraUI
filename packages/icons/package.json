@@ -1,0 +1,13 @@
+{
+  "name": "@avenra/icons",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "tsc --project tsconfig.json --emitDeclarationOnly",
+    "lint": "tsc --noEmit --project tsconfig.json",
+    "test": "pnpm exec node -e \"console.log('icons: no tests yet')\"",
+    "typecheck": "tsc --noEmit --project tsconfig.json"
+  }
+}

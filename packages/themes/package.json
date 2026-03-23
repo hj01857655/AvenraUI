@@ -1,0 +1,14 @@
+{
+  "name": "@avenra/themes",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "style": "./src/css/themes.css",
+  "scripts": {
+    "build": "tsc --project tsconfig.json --emitDeclarationOnly",
+    "lint": "tsc --noEmit --project tsconfig.json",
+    "test": "pnpm exec node -e \"console.log('themes: no tests yet')\"",
+    "typecheck": "tsc --noEmit --project tsconfig.json"
+  }
+}

@@ -1,0 +1,135 @@
+:root {
+  color-scheme: light dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(59, 130, 246, 0.16), transparent 28%),
+    linear-gradient(180deg, #f8fbff 0%, #eef4ff 100%);
+  color: #0f172a;
+}
+
+main {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 5rem;
+}
+
+.docs-home {
+  display: grid;
+  gap: 3rem;
+}
+
+.docs-hero {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+}
+
+.docs-hero__copy {
+  max-width: 42rem;
+}
+
+.docs-eyebrow {
+  display: inline-flex;
+  min-height: 32px;
+  align-items: center;
+  padding: 0 0.75rem;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.08);
+  color: #1d4ed8;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.docs-hero h1 {
+  margin: 1rem 0;
+  font-size: clamp(2.25rem, 5vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.docs-hero p {
+  margin: 0;
+  max-width: 36rem;
+  color: #475569;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+
+.docs-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.docs-preview-card,
+.docs-card {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 1.5rem;
+  box-shadow: 0 30px 80px -50px rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(16px);
+}
+
+.docs-preview-card {
+  overflow: hidden;
+}
+
+.docs-preview-card__header {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.docs-preview-card__dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: rgba(148, 163, 184, 0.5);
+}
+
+.docs-preview-card__body {
+  display: grid;
+  gap: 0.875rem;
+  padding: 1.25rem;
+}
+
+.docs-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.docs-card {
+  padding: 1.5rem;
+}
+
+.docs-card h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
+.docs-card p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.7;
+}
+
+@media (min-width: 768px) {
+  .docs-hero {
+    grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+  }
+
+  .docs-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

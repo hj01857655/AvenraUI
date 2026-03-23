@@ -1,0 +1,21 @@
+{
+  "name": "@avenra/storybook",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "storybook": "^9.1.15",
+    "@storybook/react-vite": "^9.1.15"
+  },
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build": "storybook build",
+    "lint": "pnpm exec node -e \"console.log('storybook: lint pending dependency install')\"",
+    "test": "pnpm exec node -e \"console.log('storybook: tests pending bootstrap')\"",
+    "typecheck": "tsc --noEmit"
+  }
+}

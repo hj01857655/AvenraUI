@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "baseUrl": ".",
+    "paths": {
+      "@avenra/ui": ["../../packages/ui/src/index.ts"],
+      "@avenra/ui/*": ["../../packages/ui/*"],
+      "@avenra/utils": ["../../packages/utils/src/index.ts"],
+      "@avenra/utils/*": ["../../packages/utils/*"]
+    }
+  },
+  "include": [".storybook/**/*.ts", "stories/**/*.ts", "stories/**/*.tsx"]
+}

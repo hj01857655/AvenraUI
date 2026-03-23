@@ -1,0 +1,9 @@
+.theme-light {
+  color-scheme: light;
+}
+
+.theme-dark {
+  color-scheme: dark;
+  --color-surface: #0f172a;
+  --color-text: #f8fafc;
+}

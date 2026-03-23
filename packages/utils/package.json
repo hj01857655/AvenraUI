@@ -1,0 +1,14 @@
+{
+  "name": "@avenra/utils",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "tsc --project tsconfig.json --emitDeclarationOnly",
+    "lint": "tsc --noEmit --project tsconfig.json",
+    "test": "pnpm exec node -e \"console.log('utils: no tests yet')\"",
+    "typecheck": "tsc --noEmit --project tsconfig.json"
+  }
+}
