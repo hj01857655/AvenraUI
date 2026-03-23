@@ -35,6 +35,18 @@ describe('component docs registry', () => {
     expect(buttonDoc?.accessibility.length).toBeGreaterThan(0);
   });
 
+  it('includes dropdown-menu in the docs registry with overlay-specific metadata', () => {
+    const dropdownMenuDoc = getComponentDoc('dropdown-menu');
+
+    expect(dropdownMenuDoc).not.toBeNull();
+    expect(dropdownMenuDoc?.title).toBe('Dropdown Menu');
+    expect(dropdownMenuDoc?.category).toBe('Overlay surfaces');
+    expect(dropdownMenuDoc?.props.some((prop) => prop.name === 'items')).toBe(true);
+    expect(dropdownMenuDoc?.accessibility).toEqual(
+      expect.arrayContaining([expect.stringMatching(/aria-haspopup=\"menu\"/i)])
+    );
+  });
+
   it('builds catalog groups from the documented components without gaps or duplicates', () => {
     const catalogSlugs = componentCatalogGroups.flatMap((group) => group.slugs);
     const catalogGroupTitles = componentCatalogGroups.map((group) => group.title);

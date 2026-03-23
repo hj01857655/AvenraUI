@@ -558,6 +558,42 @@ const componentDocContent = {
       }
     ]
   },
+  'dropdown-menu': {
+    slug: 'dropdown-menu',
+    title: 'Dropdown Menu',
+    packageImport: "import { DropdownMenu } from '@avenra/ui';",
+    category: 'Overlay surfaces',
+    summary: 'Compact action list that opens from a trigger element for contextual item-level commands.',
+    usage:
+      'Use DropdownMenu when the user needs a short set of secondary actions without leaving the current layout or expanding permanent toolbar chrome.',
+    exampleCode: [
+      "import { Button, DropdownMenu } from '@avenra/ui';",
+      '',
+      'export function WorkspaceActions() {',
+      '  return (',
+      '    <DropdownMenu',
+      '      title="Workspace actions"',
+      '      trigger={<Button variant="secondary">Open menu</Button>}',
+      '      items={[',
+      "        { label: 'Rename workspace', onSelect: () => undefined },",
+      "        { label: 'Duplicate workspace', onSelect: () => undefined },",
+      "        { label: 'Archive workspace', onSelect: () => undefined, tone: 'danger' }",
+      '      ]}',
+      '    />',
+      '  );',
+      '}'
+    ].join('\n'),
+    sections: [
+      {
+        title: 'When to use',
+        body: 'Choose DropdownMenu for concise contextual actions attached to a trigger. If the interaction needs rich content, form fields, or long explanations, move up to Popover or Drawer instead.'
+      },
+      {
+        title: 'Action design',
+        body: 'Keep labels short, verb-led, and visually scannable. Reserve the danger tone for destructive actions so the menu remains easy to parse under pressure.'
+      }
+    ]
+  },
   drawer: {
     slug: 'drawer',
     title: 'Drawer',
@@ -1003,6 +1039,22 @@ export const componentDocMetadata = {
       'Keep the flow short and focused; long multi-step tasks need stronger focus management than this lightweight modal currently provides.'
     ]
   },
+  'dropdown-menu': {
+    props: [
+      { name: 'trigger', type: 'ReactElement', required: true, description: 'Element cloned to toggle the menu open state.' },
+      { name: 'items', type: 'Array<{ label: string; onSelect: () => void; disabled?: boolean; tone?: "default" | "danger" }>', required: true, description: 'Ordered menu actions rendered inside the dropdown surface.' },
+      { name: 'title', type: 'string', description: 'Optional heading rendered above the action list.' },
+      { name: 'open', type: 'boolean', description: 'Controlled open state when parent logic orchestrates visibility.' },
+      { name: 'defaultOpen', type: 'boolean', description: 'Initial uncontrolled open state.' },
+      { name: 'onOpenChange', type: '(open: boolean) => void', description: 'Receives open-state changes for controlled usage.' }
+    ],
+    states: ['Closed', 'Open', 'Danger action'],
+    accessibility: [
+      'The trigger exposes `aria-haspopup="menu"` and mirrors open state with `aria-expanded`.',
+      'The popup uses `role="menu"`, and each action uses `role="menuitem"` for assistive technology compatibility.',
+      'Pressing Escape or clicking outside dismisses the menu without requiring pointer-only interaction.'
+    ]
+  },
   drawer: {
     props: [
       { name: 'trigger', type: 'ReactElement', required: true, description: 'Element cloned to open the drawer.' },
@@ -1108,3 +1160,4 @@ export const componentDocList = Object.values(componentDocs);
 export function getComponentDoc(slug: string) {
   return componentDocList.find((item) => item.slug === slug) ?? null;
 }
+

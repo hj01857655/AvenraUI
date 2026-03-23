@@ -27,4 +27,29 @@ describe('ComponentDocView', () => {
       '/components/input'
     );
   });
+
+  it('renders dropdown-menu documentation with example import and preview trigger', () => {
+    render(
+      <ComponentDocView
+        doc={componentDocs['dropdown-menu']}
+        previous={componentDocs.dialog}
+        next={componentDocs.drawer}
+      />
+    );
+
+    expect(screen.getByRole('heading', { level: 1, name: /dropdown menu/i })).toBeInTheDocument();
+    expect(
+      screen.getAllByText(/import \{ Button, DropdownMenu \} from '@avenra\/ui';/i)
+    ).toHaveLength(1);
+    expect(screen.getByRole('button', { name: /open menu/i })).toBeInTheDocument();
+    expect(screen.getByText('items')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /previous: dialog/i })).toHaveAttribute(
+      'href',
+      '/components/dialog'
+    );
+    expect(screen.getByRole('link', { name: /next: drawer/i })).toHaveAttribute(
+      'href',
+      '/components/drawer'
+    );
+  });
 });

@@ -9,6 +9,7 @@ import { Card } from '@avenra/ui/src/components/card/card';
 import { Checkbox } from '@avenra/ui/src/components/checkbox/checkbox';
 import { Dialog } from '@avenra/ui/src/components/dialog/dialog';
 import { Drawer } from '@avenra/ui/src/components/drawer/drawer';
+import { DropdownMenu } from '@avenra/ui/src/components/dropdown-menu/dropdown-menu';
 import { EmptyState } from '@avenra/ui/src/components/empty-state/empty-state';
 import { IconButton } from '@avenra/ui/src/components/icon-button/icon-button';
 import { Inline } from '@avenra/ui/src/components/inline/inline';
@@ -138,6 +139,20 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
               <Button>Save changes</Button>
             </Stack>
           </Drawer>
+        </PreviewCanvas>
+      );
+    case 'dropdown-menu':
+      return (
+        <PreviewCanvas>
+          <DropdownMenu
+            title="Workspace actions"
+            trigger={<Button variant="secondary">Open menu</Button>}
+            items={[
+              { label: 'Rename workspace', onSelect: () => undefined },
+              { label: 'Duplicate workspace', onSelect: () => undefined },
+              { label: 'Archive workspace', onSelect: () => undefined, tone: 'danger' }
+            ]}
+          />
         </PreviewCanvas>
       );
     case 'empty-state':

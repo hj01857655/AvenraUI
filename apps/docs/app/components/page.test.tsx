@@ -49,6 +49,10 @@ describe('components directory page', () => {
       'href',
       '/components/drawer'
     );
+    expect(screen.getByRole('link', { name: /open dropdown menu doc/i })).toHaveAttribute(
+      'href',
+      '/components/dropdown-menu'
+    );
     expect(screen.getByRole('link', { name: /open tooltip doc/i })).toHaveAttribute(
       'href',
       '/components/tooltip'

@@ -81,7 +81,7 @@ export const componentGroups = componentCatalogGroups.map(({ title, description,
 
 export const componentCount = componentDocList.length;
 
-const homepageShowcaseSlugs = ['skeleton', 'drawer', 'tooltip', 'progress'] as const satisfies readonly ComponentDoc['slug'][];
+const homepageShowcaseSlugs = ['skeleton', 'drawer', 'dropdown-menu', 'tooltip'] as const satisfies readonly ComponentDoc['slug'][];
 
 const componentDocsBySlug = new Map(componentDocList.map((doc) => [doc.slug, doc] as const));
 
