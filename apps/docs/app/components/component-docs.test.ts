@@ -35,6 +35,18 @@ describe('component docs registry', () => {
     expect(buttonDoc?.accessibility.length).toBeGreaterThan(0);
   });
 
+  it('includes drawer in the docs registry with overlay flow metadata', () => {
+    const drawerDoc = getComponentDoc('drawer');
+
+    expect(drawerDoc).not.toBeNull();
+    expect(drawerDoc?.title).toBe('Drawer');
+    expect(drawerDoc?.category).toBe('Overlay surfaces');
+    expect(drawerDoc?.props.some((prop) => prop.name === 'trigger')).toBe(true);
+    expect(drawerDoc?.accessibility).toEqual(
+      expect.arrayContaining([expect.stringMatching(/role="dialog"/i)])
+    );
+  });
+
   it('includes dropdown-menu in the docs registry with overlay-specific metadata', () => {
     const dropdownMenuDoc = getComponentDoc('dropdown-menu');
 
@@ -43,7 +55,7 @@ describe('component docs registry', () => {
     expect(dropdownMenuDoc?.category).toBe('Overlay surfaces');
     expect(dropdownMenuDoc?.props.some((prop) => prop.name === 'items')).toBe(true);
     expect(dropdownMenuDoc?.accessibility).toEqual(
-      expect.arrayContaining([expect.stringMatching(/aria-haspopup=\"menu\"/i)])
+      expect.arrayContaining([expect.stringMatching(/aria-haspopup="menu"/i)])
     );
   });
 

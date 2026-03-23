@@ -52,4 +52,23 @@ describe('ComponentDocView', () => {
       '/components/drawer'
     );
   });
+
+  it('renders drawer documentation with example import and preview trigger', () => {
+    render(
+      <ComponentDocView doc={componentDocs.drawer} previous={componentDocs['dropdown-menu']} next={componentDocs.popover} />
+    );
+
+    expect(screen.getByRole('heading', { level: 1, name: /drawer/i })).toBeInTheDocument();
+    expect(screen.getAllByText(/import \{ Button, Drawer \} from '@avenra\/ui';/i)).toHaveLength(1);
+
+    expect(screen.getByText(/workspace settings/i)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /previous: dropdown menu/i })).toHaveAttribute(
+      'href',
+      '/components/dropdown-menu'
+    );
+    expect(screen.getByRole('link', { name: /next: popover/i })).toHaveAttribute(
+      'href',
+      '/components/popover'
+    );
+  });
 });
