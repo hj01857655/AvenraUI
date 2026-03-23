@@ -3,6 +3,7 @@ import { Badge } from '@avenra/ui/src/components/badge/badge';
 import { Card } from '@avenra/ui/src/components/card/card';
 
 import { PagerNav } from '../pager-nav';
+import { ComponentPreview } from './component-preview';
 import type { ComponentDoc } from './component-docs';
 
 function CodeBlock({ code }: { code: string }) {
@@ -10,6 +11,19 @@ function CodeBlock({ code }: { code: string }) {
     <pre className="code-block">
       <code>{code}</code>
     </pre>
+  );
+}
+
+function ListPanel({ title, items }: { title: string; items: string[] }) {
+  return (
+    <article className="content-panel">
+      <h2>{title}</h2>
+      <ul className="content-list">
+        {items.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    </article>
   );
 }
 
@@ -49,9 +63,43 @@ export function ComponentDocView({
       </div>
 
       <article className="content-panel">
+        <h2>Preview</h2>
+        <ComponentPreview slug={doc.slug} />
+      </article>
+
+      <article className="content-panel">
         <h2>Example</h2>
         <CodeBlock code={doc.exampleCode} />
       </article>
+
+      <section className="component-doc-meta-grid">
+        <article className="content-panel">
+          <h2>Props</h2>
+          <dl className="component-prop-list">
+            {doc.props.map((prop) => (
+              <div key={prop.name} className="component-prop-list__item">
+                <div className="component-prop-list__header">
+                  <code>{prop.name}</code>
+                  {prop.required ? (
+                    <Badge variant="warning" size="sm">
+                      Required
+                    </Badge>
+                  ) : (
+                    <Badge variant="neutral" size="sm">
+                      Optional
+                    </Badge>
+                  )}
+                </div>
+                <p className="component-prop-list__type">{prop.type}</p>
+                <p className="component-prop-list__description">{prop.description}</p>
+              </div>
+            ))}
+          </dl>
+        </article>
+
+        <ListPanel title="States" items={doc.states} />
+        <ListPanel title="Accessibility" items={doc.accessibility} />
+      </section>
 
       <section className="component-doc-sections">
         {doc.sections.map((section) => (

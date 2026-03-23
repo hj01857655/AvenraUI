@@ -7,6 +7,10 @@
       "DOM",
       "DOM.Iterable"
     ],
+    "types": [
+      "vitest/globals",
+      "@testing-library/jest-dom"
+    ],
     "allowJs": false,
     "incremental": true,
     "plugins": [

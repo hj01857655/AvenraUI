@@ -1,3 +1,9 @@
+export {
+  componentCount,
+  componentGroupDefinitions,
+  componentGroups
+} from './components/component-catalog';
+
 export interface SiteLink {
   href: string;
   label: string;
@@ -11,6 +17,12 @@ export interface FeatureCard {
 }
 
 export interface ComponentGroup {
+  title: string;
+  description: string;
+  items: string[];
+}
+
+export interface ComponentGroupDefinition {
   title: string;
   description: string;
   items: string[];
@@ -68,34 +80,6 @@ export const featureCards: FeatureCard[] = [
   }
 ];
 
-export const componentGroups: ComponentGroup[] = [
-  {
-    title: 'Actions and navigation',
-    description: 'Core controls used to move through product workflows and trigger work.',
-    items: ['Button', 'IconButton', 'Breadcrumb', 'Tabs']
-  },
-  {
-    title: 'Forms and input',
-    description: 'Input primitives for capture, selection, and inline editing flows.',
-    items: ['Input', 'Textarea', 'Select', 'Checkbox', 'Radio', 'Switch']
-  },
-  {
-    title: 'Feedback and status',
-    description: 'Status messaging and progress surfaces for real product states.',
-    items: ['Alert', 'Badge', 'Progress', 'EmptyState']
-  },
-  {
-    title: 'Layout and display',
-    description: 'Display primitives that help structure dense interfaces cleanly.',
-    items: ['Card', 'Avatar', 'Inline', 'Stack']
-  },
-  {
-    title: 'Overlay surfaces',
-    description: 'Contextual UI for layered actions and supporting information.',
-    items: ['Dialog', 'Popover', 'Tooltip']
-  }
-];
-
 export const repositoryFacts = [
   'Monorepo managed with pnpm workspaces',
   'Next.js app for docs and Storybook app for isolated component work',
@@ -120,8 +104,6 @@ export const commandSnippets = {
   dev: ['pnpm dev', 'pnpm --filter @avenra/docs dev', 'pnpm --filter @avenra/storybook dev'],
   quality: ['pnpm build', 'pnpm lint', 'pnpm test', 'pnpm typecheck']
 } as const;
-
-export const componentCount = componentGroups.reduce((total, group) => total + group.items.length, 0);
 
 export const docsPageOrder: OrderedPage[] = [
   { href: '/docs/getting-started', label: 'Getting started' },

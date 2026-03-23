@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Badge } from '@avenra/ui/src/components/badge/badge';
 import { Card } from '@avenra/ui/src/components/card/card';
 
-import { componentDocs, getComponentDoc } from './component-docs';
+import { componentCatalogGroups } from './component-catalog';
 
 export const metadata = {
   title: 'Components'
@@ -22,28 +22,40 @@ export default function ComponentsPage() {
         </p>
       </section>
 
-      <section className="component-groups" aria-label="Component groups">
-        {Object.values(componentDocs).map((doc) => (
-          <Card
-            key={doc.slug}
-            title={doc.title}
-            description={doc.summary}
-            className="surface-card component-group"
-          >
-            <div className="component-group__meta">
-              <Badge variant="neutral" size="sm">
-                {doc.category}
-              </Badge>
+      {componentCatalogGroups.map((group) => {
+        return (
+          <section key={group.title} className="section-block" aria-labelledby={`group-${group.title}`}>
+            <div className="section-heading">
+              <p className="section-heading__eyebrow">Component group</p>
+              <h2 id={`group-${group.title}`}>{group.title}</h2>
+              <p>{group.description}</p>
             </div>
-            <p className="component-group__usage">{doc.usage}</p>
-            <div className="component-group__actions">
-              <Link href={`/components/${doc.slug}`} className="doc-card__link">
-                Open component doc
-              </Link>
+
+            <div className="component-groups">
+              {group.docs.map((doc) => (
+                <Card
+                  key={doc.slug}
+                  title={doc.title}
+                  description={doc.summary}
+                  className="surface-card component-group"
+                >
+                  <div className="component-group__meta">
+                    <Badge variant="neutral" size="sm">
+                      {doc.slug}
+                    </Badge>
+                  </div>
+                  <p className="component-group__usage">{doc.usage}</p>
+                  <div className="component-group__actions">
+                    <Link href={`/components/${doc.slug}`} className="doc-card__link">
+                      Open {doc.title} doc
+                    </Link>
+                  </div>
+                </Card>
+              ))}
             </div>
-          </Card>
-        ))}
-      </section>
+          </section>
+        );
+      })}
     </div>
   );
 }
