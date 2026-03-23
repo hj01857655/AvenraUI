@@ -1,26 +1,38 @@
 {
   "name": "@avenra/ui",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "type": "module",
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "./dist/styles.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
   "peerDependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "tsup": "^8.3.5"
   },
   "scripts": {
-    "build": "tsc --project tsconfig.json --emitDeclarationOnly",
+    "build": "tsup",
     "lint": "tsc --noEmit --project tsconfig.json",
     "test": "vitest run --config ./vitest.config.ts src/components",
     "typecheck": "tsc --noEmit --project tsconfig.json"
   }
-
-
-
-
 }
