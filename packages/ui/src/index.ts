@@ -14,6 +14,7 @@ export * from './components/stack/stack';
 export * from './components/inline/inline';
 export * from './components/tabs/tabs';
 export * from './components/dialog/dialog';
+export * from './components/drawer/drawer';
 export * from './components/avatar/avatar';
 export * from './components/progress/progress';
 export * from './components/breadcrumb/breadcrumb';

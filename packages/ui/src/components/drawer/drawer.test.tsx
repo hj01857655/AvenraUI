@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
-import { Drawer } from './drawer';
+import { Drawer } from '../../index';
 
 describe('Drawer', () => {
   it('opens from an uncontrolled trigger and renders dialog semantics', () => {
