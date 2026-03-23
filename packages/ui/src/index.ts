@@ -21,3 +21,4 @@ export * from './components/breadcrumb/breadcrumb';
 export * from './components/tooltip/tooltip';
 export * from './components/popover/popover';
 export * from './components/skeleton/skeleton';
+export * from './components/toast/toast';

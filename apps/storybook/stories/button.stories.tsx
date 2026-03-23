@@ -15,8 +15,39 @@ import {
   Stack,
   Tabs,
   Textarea,
-  Tooltip
+  ToastProvider,
+  Tooltip,
+  useToast
 } from '@avenra/ui';
+
+function ToastStoryPreview() {
+  const { dismiss, push } = useToast();
+
+  return (
+    <Stack gap="sm" style={{ alignItems: 'flex-start' }}>
+      <Inline align="center" gap="sm">
+        <Button
+          size="sm"
+          onClick={() =>
+            push({
+              title: 'Saved',
+              description: 'Your changes are now available to the team.',
+              variant: 'success'
+            })
+          }
+        >
+          Push toast
+        </Button>
+        <Button size="sm" variant="ghost" onClick={() => dismiss()}>
+          Dismiss latest
+        </Button>
+      </Inline>
+      <p style={{ margin: 0, color: 'var(--avenra-color-text-subtle)' }}>
+        Standard toasts auto-dismiss and can also be removed manually.
+      </p>
+    </Stack>
+  );
+}
 
 const meta = {
   title: 'Components/Button',
@@ -139,6 +170,9 @@ export const FeedbackStates: Story = {
         trigger={<Badge variant="warning">Open popover</Badge>}
       />
       <Skeleton width="100%" height="2.75rem" />
+      <ToastProvider>
+        <ToastStoryPreview />
+      </ToastProvider>
       <Alert title="Copy review" variant="warning">
         A few story examples still need product copy polish.
       </Alert>

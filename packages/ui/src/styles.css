@@ -355,6 +355,73 @@
   }
 }
 
+.avenra-toast-viewport {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 100;
+  display: grid;
+  gap: 0.75rem;
+  width: min(22rem, calc(100vw - 2rem));
+}
+
+.avenra-toast {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-elevated);
+  box-shadow: var(--shadow-md);
+  padding: 0.875rem 1rem;
+}
+
+.avenra-toast--success {
+  border-color: rgba(22, 163, 74, 0.22);
+}
+
+.avenra-toast--error {
+  border-color: rgba(220, 38, 38, 0.22);
+}
+
+.avenra-toast--info {
+  border-color: rgba(37, 99, 235, 0.18);
+}
+
+.avenra-toast__content {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.avenra-toast__title {
+  color: var(--color-text);
+  font-size: 0.9375rem;
+}
+
+.avenra-toast__description {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.avenra-toast__close {
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  line-height: 1;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.avenra-toast__close:hover {
+  color: var(--color-text);
+}
+
+
 .avenra-field {
   display: grid;
   gap: 0.5rem;
@@ -876,20 +943,6 @@
   gap: 0.5rem;
 }
 
-.avenra-dialog__title {
-  margin: 0;
-  font-size: 1.125rem;
-  line-height: 1.4;
-  color: var(--color-text);
-}
-
-.avenra-dialog__description {
-  margin: 0;
-  font-size: 0.9375rem;
-  line-height: 1.7;
-  color: var(--color-text-muted);
-}
-
 .avenra-dialog__body {
   display: grid;
   gap: 0.75rem;
@@ -993,3 +1046,4 @@
     animation: none;
   }
 }
+
