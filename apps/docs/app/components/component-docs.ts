@@ -397,7 +397,33 @@ const componentDocContent = {
       },
       {
         title: 'Accessibility',
-        body: 'Always provide a meaningful `label` when the surrounding UI does not already make the progress meaning obvious.'
+        body: 'Provide a meaningful label so assistive technology can announce what is progressing and how far along it is.'
+      }
+    ]
+  },
+  pagination: {
+    slug: 'pagination',
+    title: 'Pagination',
+    packageImport: "import { Pagination } from '@avenra/ui';",
+    category: 'Actions and navigation',
+    summary: 'Controlled pagination navigation with previous/next controls, page buttons, and ellipsis gaps.',
+    usage:
+      'Use Pagination when collections are split across pages and the user needs both page position awareness and quick movement between nearby pages.',
+    exampleCode: [
+      "import { Pagination } from '@avenra/ui';",
+      '',
+      'export function ResultsPagination() {',
+      '  return <Pagination currentPage={6} totalPages={12} onPageChange={(page) => console.log(page)} />;',
+      '}'
+    ].join('\n'),
+    sections: [
+      {
+        title: 'Controlled state',
+        body: 'Pagination is intentionally controlled, so data loading and routing decisions stay in the consuming feature while the component focuses on rendering page affordances.'
+      },
+      {
+        title: 'Range compression',
+        body: 'The component keeps edge pages visible and inserts ellipsis only when ranges would otherwise become noisy, which makes long result sets easier to scan.'
       }
     ]
   },
@@ -910,6 +936,19 @@ export const componentDocMetadata = {
     accessibility: [
       'Always provide a meaningful `label` so assistive technology can announce what is progressing.',
       'The progressbar exposes `aria-valuemin`, `aria-valuemax`, and `aria-valuenow` automatically.'
+    ]
+  },
+  pagination: {
+    props: [
+      { name: 'currentPage', type: 'number', required: true, description: 'Current active page in the controlled pagination state.' },
+      { name: 'totalPages', type: 'number', required: true, description: 'Total number of available pages.' },
+      { name: 'onPageChange', type: '(page: number) => void', required: true, description: 'Called when the user requests a different page.' },
+      { name: 'siblingCount', type: 'number', description: 'Controls how many neighboring pages stay visible around the current page.' }
+    ],
+    states: ['First page', 'Middle range with ellipsis', 'Last page'],
+    accessibility: [
+      'Pagination renders inside a labeled navigation landmark so assistive technology can identify it as page navigation.',
+      'The active page exposes `aria-current="page"`, and boundary controls disable correctly at the start and end of the range.'
     ]
   },
   skeleton: {

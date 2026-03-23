@@ -15,6 +15,7 @@ import { Inline } from '@avenra/ui/src/components/inline/inline';
 import { Input } from '@avenra/ui/src/components/input/input';
 import { Popover } from '@avenra/ui/src/components/popover/popover';
 import { Progress } from '@avenra/ui/src/components/progress/progress';
+import { Pagination } from '@avenra/ui/src/components/pagination/pagination';
 import { Radio } from '@avenra/ui/src/components/radio/radio';
 import { Skeleton } from '@avenra/ui/src/components/skeleton/skeleton';
 import { Select } from '@avenra/ui/src/components/select/select';
@@ -204,6 +205,12 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
             <Progress value={68} label="Upload progress" />
             <Progress value={32} size="sm" label="Docs migration progress" />
           </Stack>
+        </PreviewCanvas>
+      );
+    case 'pagination':
+      return (
+        <PreviewCanvas>
+          <Pagination currentPage={6} totalPages={12} onPageChange={() => undefined} />
         </PreviewCanvas>
       );
     case 'skeleton':
