@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { Alert } from '@avenra/ui/src/components/alert/alert';
 import { Badge } from '@avenra/ui/src/components/badge/badge';
 import { Card } from '@avenra/ui/src/components/card/card';
-import { Skeleton } from '@avenra/ui/src/components/skeleton/skeleton';
 
 import {
   componentCount,
@@ -11,6 +10,7 @@ import {
   featuredLinks,
   repositoryFacts
 } from './site-content';
+import { HomeComponentShowcase } from './home-component-showcase';
 
 export default function HomePage() {
   return (
@@ -56,22 +56,20 @@ export default function HomePage() {
               </Badge>
             ))}
           </div>
-          <article className="surface-card" aria-label="Loading preview">
-            <h3>Loading states preview</h3>
-            <p>Skeleton placeholders keep layout stable while docs and dashboards fetch real data.</p>
-            <div style={{ display: 'grid', gap: '0.75rem' }}>
-              <Skeleton width="42%" height="0.875rem" />
-              <Skeleton width="100%" height="3rem" shape="rounded" />
-              <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-                <Skeleton shape="circular" size="lg" />
-                <div style={{ display: 'grid', gap: '0.5rem', flex: 1 }}>
-                  <Skeleton width="55%" height="0.875rem" />
-                  <Skeleton width="85%" height="0.875rem" />
-                </div>
-              </div>
-            </div>
-          </article>
         </div>
+      </section>
+
+      <section className="section-block">
+        <div className="section-heading">
+          <p className="section-heading__eyebrow">Component spotlight</p>
+          <h2>Homepage previews now come from the same docs catalog as the component pages.</h2>
+          <p>
+            The homepage is no longer a pile of ad hoc demo blocks. It now highlights a curated
+            subset of completed components from the shared docs registry.
+          </p>
+        </div>
+
+        <HomeComponentShowcase />
       </section>
 
       <section className="section-block">

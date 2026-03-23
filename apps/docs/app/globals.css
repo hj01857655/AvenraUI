@@ -350,7 +350,8 @@ textarea {
 .link-grid,
 .component-groups,
 .component-doc-sections,
-.component-doc-meta-grid {
+.component-doc-meta-grid,
+.home-showcase-grid {
   display: grid;
   gap: 1rem;
 }
@@ -443,6 +444,18 @@ textarea {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(249, 245, 238, 0.92)),
     radial-gradient(circle at top left, rgba(15, 76, 129, 0.06), transparent 34%);
+}
+
+.home-showcase-card__preview {
+  margin-top: 1rem;
+}
+
+.home-showcase-card__preview .component-preview__canvas {
+  min-height: 11rem;
+}
+
+.home-showcase-card__actions {
+  margin-top: 1rem;
 }
 
 .component-prop-list {
@@ -555,6 +568,7 @@ textarea {
   }
 
   .content-grid,
+  .home-showcase-grid,
   .component-groups,
   .component-doc-meta-grid,
   .component-doc-sections,

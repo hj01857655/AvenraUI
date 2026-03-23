@@ -11,6 +11,13 @@ export interface ComponentCatalogGroup extends ComponentCatalogGroupConfig {
   slugs: ComponentDoc['slug'][];
 }
 
+export interface HomepageShowcaseEntry {
+  slug: ComponentDoc['slug'];
+  title: string;
+  summary: string;
+  href: string;
+}
+
 const componentCatalogGroupConfigs: readonly ComponentCatalogGroupConfig[] = [
   {
     title: 'Actions and navigation',
@@ -73,3 +80,22 @@ export const componentGroups = componentCatalogGroups.map(({ title, description,
 }));
 
 export const componentCount = componentDocList.length;
+
+const homepageShowcaseSlugs = ['skeleton', 'drawer', 'tooltip', 'progress'] as const satisfies readonly ComponentDoc['slug'][];
+
+const componentDocsBySlug = new Map(componentDocList.map((doc) => [doc.slug, doc] as const));
+
+export const homepageShowcaseEntries: HomepageShowcaseEntry[] = homepageShowcaseSlugs.map((slug) => {
+  const doc = componentDocsBySlug.get(slug);
+
+  if (!doc) {
+    throw new Error(`Missing homepage showcase component doc for slug: ${slug}`);
+  }
+
+  return {
+    slug: doc.slug,
+    title: doc.title,
+    summary: doc.summary,
+    href: `/components/${doc.slug}`
+  };
+});

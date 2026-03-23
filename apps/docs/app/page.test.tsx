@@ -21,6 +21,17 @@ describe('docs homepage', () => {
       'href',
       '/docs/getting-started'
     );
+    expect(screen.getByText(/component spotlight/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: /homepage previews now come from the same docs catalog as the component pages/i
+      })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /open skeleton doc/i })).toHaveAttribute(
+      'href',
+      '/components/skeleton'
+    );
     expect(within(primaryNav).getByRole('link', { name: /installation/i })).toHaveAttribute(
       'href',
       '/docs/installation'
