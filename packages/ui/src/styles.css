@@ -267,6 +267,43 @@
   white-space: nowrap;
 }
 
+.avenra-popover {
+  position: relative;
+  display: inline-flex;
+}
+
+.avenra-popover__panel {
+  position: absolute;
+  left: 50%;
+  z-index: 40;
+  width: min(20rem, calc(100vw - 2rem));
+  transform: translateX(-50%);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-elevated);
+  box-shadow: var(--shadow-lg);
+  padding: 0.875rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.avenra-popover--bottom .avenra-popover__panel {
+  top: calc(100% + 0.5rem);
+}
+
+.avenra-popover--top .avenra-popover__panel {
+  bottom: calc(100% + 0.5rem);
+}
+
+.avenra-popover__title {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.avenra-popover__content {
+  color: var(--color-text-muted);
+}
+
 .avenra-field {
   display: grid;
   gap: 0.5rem;

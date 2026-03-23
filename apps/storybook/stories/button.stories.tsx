@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Alert, Avatar, Badge, Breadcrumb, Button, Card, Dialog, EmptyState, Inline, Input, Progress, Stack, Tabs, Textarea, Tooltip } from '@avenra/ui';
+import { Alert, Avatar, Badge, Breadcrumb, Button, Card, Dialog, EmptyState, Inline, Input, Popover, Progress, Stack, Tabs, Textarea, Tooltip } from '@avenra/ui';
 
 const meta = {
   title: 'Components/Button',
@@ -50,13 +50,12 @@ export const WithFormPreview: Story = {
           Hover for details
         </Button>
       </Tooltip>
-      <Input
-        id="storybook-email"
-        label="Email"
-        hint="A focused field should feel calm and clear."
-        placeholder="name@company.com"
+      <Popover
+        title="Popover actions"
+        content={<p>Keep supporting actions near the trigger without blocking the whole page.</p>}
+        trigger={<Button size="sm">Open popover</Button>}
       />
-      <Alert title="Needs review" variant="warning">
+      <Alert title="Publishing warning" variant="warning">
         This draft still needs one pass before publishing.
       </Alert>
       <Card
@@ -116,10 +115,12 @@ export const FeedbackStates: Story = {
           { label: 'Current milestone' }
         ]}
       />
-      <Tooltip content="Release confidence is trending up">
-        <Badge variant="success">Tooltip active</Badge>
-      </Tooltip>
-      <Alert title="Heads up" variant="warning">
+      <Popover
+        title="Release actions"
+        content={<p>Use popovers for contextual controls that do not need a full dialog.</p>}
+        trigger={<Badge variant="warning">Open popover</Badge>}
+      />
+      <Alert title="Review note" variant="warning">
         A few story examples still need product copy polish.
       </Alert>
       <EmptyState

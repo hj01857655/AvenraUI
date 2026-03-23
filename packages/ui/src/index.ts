@@ -18,3 +18,4 @@ export * from './components/avatar/avatar';
 export * from './components/progress/progress';
 export * from './components/breadcrumb/breadcrumb';
 export * from './components/tooltip/tooltip';
+export * from './components/popover/popover';

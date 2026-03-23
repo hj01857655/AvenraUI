@@ -14,6 +14,7 @@ import {
   IconButton,
   Inline,
   Input,
+  Popover,
   Progress,
   Radio,
   Select,
@@ -88,7 +89,11 @@ export default function HomePage() {
                 variant="secondary"
               />
             </Tooltip>
-            <Button loading>Loading</Button>
+            <Popover
+              title="Filter actions"
+              content={<p>Refine the component gallery by status, package, or accessibility priority.</p>}
+              trigger={<Button size="sm" variant="secondary">Open popover</Button>}
+            />
             <Input
               id="preview-email"
               label="Email"
@@ -186,11 +191,11 @@ export default function HomePage() {
                 { label: 'Highlights' }
               ]}
             />
-            <Tooltip content="Reusable guidance on demand">
-              <Badge variant="info" size="sm">
-                Hover me
-              </Badge>
-            </Tooltip>
+            <Popover
+              title="Overlay preview"
+              content={<p>Popover keeps supporting actions nearby without forcing a full dialog.</p>}
+              trigger={<Badge variant="warning" size="sm">Open overlay</Badge>}
+            />
             <Inline gap="sm">
               <Badge variant="neutral" size="sm">
                 Layout
