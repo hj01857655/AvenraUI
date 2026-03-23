@@ -3,7 +3,9 @@
 import '@avenra/ui/src/styles.css';
 import {
   Alert,
+  Avatar,
   Badge,
+  Breadcrumb,
   Button,
   Card,
   Checkbox,
@@ -12,6 +14,7 @@ import {
   IconButton,
   Inline,
   Input,
+  Progress,
   Radio,
   Select,
   Stack,
@@ -54,6 +57,15 @@ export default function HomePage() {
             <Button>Primary</Button>
             <Button variant="secondary">Secondary</Button>
             <Button variant="ghost">Ghost</Button>
+            <Avatar name="Avenra UI" size="lg" />
+            <Progress value={68} label="Preview progress" />
+            <Breadcrumb
+              items={[
+                { label: 'Home', href: '/' },
+                { label: 'Components', href: '/components' },
+                { label: 'Breadcrumb' }
+              ]}
+            />
             <IconButton
               aria-label="Open filters"
               icon={(
@@ -163,6 +175,14 @@ export default function HomePage() {
             <Alert title="Design system highlight" variant="info">
               Pair reusable primitives with stateful feedback so product teams ship faster.
             </Alert>
+            <Progress value={72} label="Platform readiness" />
+            <Breadcrumb
+              items={[
+                { label: 'Home', href: '/' },
+                { label: 'Design system', href: '/design-system' },
+                { label: 'Highlights' }
+              ]}
+            />
             <Inline gap="sm">
               <Badge variant="neutral" size="sm">
                 Layout

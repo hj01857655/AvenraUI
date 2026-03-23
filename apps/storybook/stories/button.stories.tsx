@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Alert, Badge, Button, Card, Dialog, EmptyState, Inline, Input, Stack, Tabs, Textarea } from '@avenra/ui';
+import { Alert, Avatar, Badge, Breadcrumb, Button, Card, Dialog, EmptyState, Inline, Input, Progress, Stack, Tabs, Textarea } from '@avenra/ui';
 
 const meta = {
   title: 'Components/Button',
@@ -32,6 +32,19 @@ export const Loading: Story = {
 export const WithFormPreview: Story = {
   render: () => (
     <div style={{ display: 'grid', gap: '1rem', maxWidth: '28rem' }}>
+      <Inline align="center" gap="sm">
+        <Avatar name="Avenra UI" size="lg" />
+        <Avatar name="Docs" />
+        <Avatar size="sm" />
+      </Inline>
+      <Progress value={64} label="Storybook progress" />
+      <Breadcrumb
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Components', href: '/components' },
+          { label: 'Button stories' }
+        ]}
+      />
       <Input
         id="storybook-email"
         label="Email"
@@ -90,6 +103,14 @@ export const FeedbackStates: Story = {
       <Alert title="Build succeeded" variant="success">
         Shared tokens and components compiled without errors.
       </Alert>
+      <Progress value={84} label="Release readiness" />
+      <Breadcrumb
+        items={[
+          { label: 'Dashboard', href: '/' },
+          { label: 'Releases', href: '/releases' },
+          { label: 'Current milestone' }
+        ]}
+      />
       <Alert title="Heads up" variant="warning">
         A few story examples still need product copy polish.
       </Alert>
