@@ -76,7 +76,8 @@ export const experimentalComponentSlugs = [
   'pagination',
   'skeleton',
   'tag-input',
-  'toast'
+  'toast',
+  'upload'
 ] as const;
 
 const stableComponentSlugSet = new Set<string>(stableComponentSlugs);
@@ -850,6 +851,44 @@ const componentDocContent = {
       {
         title: 'Queue behavior',
         body: 'ToastProvider owns the visible stack and targeted dismissal, so one failed action does not wipe out the rest of the feedback history the user still needs to see.'
+      }
+    ]
+  },
+  upload: {
+    slug: 'upload',
+    title: 'Upload',
+    packageImport: "import { Upload } from '@avenra/ui';",
+    category: 'Forms and input',
+    summary: 'Client-managed file selection field with a visible review list and remove actions.',
+    usage:
+      'Use Upload when the user needs to choose one or more local files, review the selected set before submit, and remove mistakes without leaving the current form flow.',
+    exampleCode: [
+      "import { Upload } from '@avenra/ui';",
+      '',
+      'export function ReviewAssetsField() {',
+      '  return (',
+      '    <Upload',
+      '      id="review-assets"',
+      '      label="Project files"',
+      '      hint="Upload the assets needed for review"',
+      '      buttonLabel="Project files"',
+      '      multiple',
+      '    />',
+      '  );',
+      '}'
+    ].join('\n'),
+    sections: [
+      {
+        title: 'Selection plus review',
+        body: 'Upload keeps file choice and review in one place by pairing the hidden native file picker with a visible summary and selected-file list, so the user can confirm exactly what will be sent.'
+      },
+      {
+        title: 'Removal flow',
+        body: 'Each selected file exposes its own remove action, which makes it easy to correct the selection set before submit instead of reopening the picker and rebuilding the whole list.'
+      },
+      {
+        title: 'Shared field contract',
+        body: 'Upload uses the same label, hint, error, required, invalid, and disabled semantics as the rest of the form surface, so it fits into existing FormField wiring without custom accessibility glue.'
       }
     ]
   },
@@ -1780,6 +1819,23 @@ export const componentDocMetadata = {
       ...commonFieldAccessibility,
       'Each committed tag exposes a dedicated remove button so keyboard and assistive technology users can delete specific tokens directly.',
       'Enter and comma commit the current token, while Backspace removes the last committed tag when the text slot is empty.'
+    ]
+  },
+  upload: {
+    props: [
+      { name: 'label', type: 'string', required: true, description: 'Visible field label when Upload owns its own field shell.' },
+      { name: 'value', type: 'File[]', description: 'Controlled selected file list.' },
+      { name: 'defaultValue', type: 'File[]', description: 'Initial selected file list in uncontrolled mode.' },
+      { name: 'buttonLabel', type: 'string', description: 'Visible trigger button label used to open the native file picker.' },
+      { name: 'multiple', type: 'boolean', description: 'Allows choosing multiple files instead of replacing the current selection.' },
+      { name: 'accept', type: 'string', description: 'Native file input accept filter for limiting selectable file types.' },
+      { name: 'onValueChange', type: '(files: File[]) => void', description: 'Called whenever the selected file list changes.' }
+    ],
+    states: ['Empty', 'With selected files', 'Invalid', 'Disabled'],
+    accessibility: [
+      ...commonFieldAccessibility,
+      'Upload keeps the native file input in the accessibility tree while exposing a clearer trigger button, so screen readers still interact with the underlying file selection control.',
+      'Each selected file row exposes a dedicated remove button so keyboard and assistive technology users can correct the selection set without reopening the picker.'
     ]
   },
   tabs: {

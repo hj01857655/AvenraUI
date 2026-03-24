@@ -47,3 +47,4 @@ export * from './components/pagination/pagination';
 export * from './components/skeleton/skeleton';
 export * from './components/tag-input/tag-input';
 export * from './components/toast/toast';
+export * from './components/upload/upload';

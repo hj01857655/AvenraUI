@@ -199,4 +199,16 @@ describe('ComponentDocView', () => {
     expect(screen.getByRole('cell', { name: /no empty preview rows/i })).toBeInTheDocument();
     expect(screen.getAllByText(/import \{ Table \} from '@avenra\/ui';/i)).toHaveLength(2);
   });
+
+  it('renders upload docs with a live selected file list preview', () => {
+    render(
+      <ComponentDocView doc={componentDocs.upload} previous={componentDocs.tooltip} next={componentDocs['empty-state']} />
+    );
+
+    expect(screen.getByRole('heading', { level: 1, name: /upload/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /project files/i })).toBeInTheDocument();
+    expect(screen.getByText('brief.pdf')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /remove preview\.png/i })).toBeInTheDocument();
+    expect(screen.getAllByText(/import \{ Upload \} from '@avenra\/ui';/i)).toHaveLength(2);
+  });
 });

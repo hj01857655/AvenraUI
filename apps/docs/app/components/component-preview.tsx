@@ -38,6 +38,7 @@ import { Tabs } from '@avenra/ui/src/components/tabs/tabs';
 import { Textarea } from '@avenra/ui/src/components/textarea/textarea';
 import { ToastProvider, useToast } from '@avenra/ui/src/components/toast/toast';
 import { Tooltip } from '@avenra/ui/src/components/tooltip/tooltip';
+import { Upload } from '@avenra/ui/src/components/upload/upload';
 
 import type { ComponentDoc } from './component-docs';
 
@@ -592,6 +593,21 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
             <Tooltip content="Opens component usage guidance.">
               <IconButton aria-label="Open help" icon={<span aria-hidden="true">?</span>} />
             </Tooltip>
+        </PreviewCanvas>
+      );
+    case 'upload':
+      return (
+        <PreviewCanvas>
+          <Upload
+            id="preview-upload"
+            label="Project files"
+            hint="Upload the assets needed for review"
+            buttonLabel="Project files"
+            defaultValue={[
+              new File(['brief'], 'brief.pdf', { type: 'application/pdf' }),
+              new File(['preview'], 'preview.png', { type: 'image/png' })
+            ]}
+          />
         </PreviewCanvas>
       );
     default:
