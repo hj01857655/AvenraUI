@@ -677,9 +677,9 @@ const componentDocContent = {
   },
   'dropdown-menu': {
     slug: 'dropdown-menu',
-    title: 'DropdownMenu',
+    title: 'Dropdown Menu',
     packageImport: "import { DropdownMenu } from '@avenra/ui';",
-    category: 'Actions and navigation',
+    category: 'Overlay surfaces',
     summary: 'Compact action list that opens from a trigger element for contextual item-level commands.',
     usage:
       'Use DropdownMenu when the user needs a short set of secondary actions without leaving the current layout or expanding permanent toolbar chrome.',
@@ -715,7 +715,7 @@ const componentDocContent = {
     slug: 'drawer',
     title: 'Drawer',
     packageImport: "import { Drawer } from '@avenra/ui';",
-    category: 'Layout and display',
+    category: 'Overlay surfaces',
     summary: 'Slide-over panel for longer contextual flows that should stay attached to the current page.',
     usage:
       'Use Drawer when the task needs more space than a popover or dialog body but should not force a full route transition.',

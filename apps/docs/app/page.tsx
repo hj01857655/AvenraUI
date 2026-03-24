@@ -4,10 +4,12 @@ import { Badge } from '@avenra/ui/src/components/badge/badge';
 import { Card } from '@avenra/ui/src/components/card/card';
 
 import {
+  adoptionChecklist,
   componentCount,
   componentGroups,
   featureCards,
   featuredLinks,
+  themingBoundaryNotes,
   repositoryFacts
 } from './site-content';
 import { HomeComponentShowcase } from './home-component-showcase';
@@ -18,19 +20,23 @@ export default function HomePage() {
       <section className="hero-grid">
         <div className="hero-copy">
           <Badge variant="info" size="sm">
-            Combined marketing site and docs entry
+            Docs adoption line
           </Badge>
           <h1>A UI system for shipping real product interfaces.</h1>
           <p className="hero-copy__lead">
-            Avenra UI is being built as a React-first design system workspace: tokens, themes,
-            components, docs, and Storybook moving together instead of drifting apart.
+            Avenra UI is a React component library and design-system workspace. This docs site is
+            the minimal external adoption entry: what the library is, what exists today, how to
+            start, and where the current limits still are.
           </p>
           <div className="hero-copy__actions">
-            <Link href="/components" className="cta-link cta-link--primary">
-              Components
-            </Link>
-            <Link href="/docs/getting-started" className="cta-link cta-link--secondary">
+            <Link href="/docs/getting-started" className="cta-link cta-link--primary">
               Getting started
+            </Link>
+            <Link href="/docs/installation" className="cta-link cta-link--secondary">
+              Installation
+            </Link>
+            <Link href="/components" className="cta-link cta-link--secondary">
+              Components
             </Link>
           </div>
           <ul className="fact-list" aria-label="Repository facts">
@@ -42,20 +48,18 @@ export default function HomePage() {
 
         <div className="hero-panel">
           <div className="hero-panel__metric">
-            <span>Current documented direction</span>
-            <strong>{componentCount}+ components in the first visible wave</strong>
+            <span>Current documented surface</span>
+            <strong>{componentCount} components in the current foundation wave</strong>
           </div>
-          <Alert title="Current phase" variant="info">
-            The repository is still in build-out mode. The goal right now is a strong foundation,
-            not a bloated catalog.
+          <Alert title="Current adoption boundary" variant="info">
+            The docs are now structured for adoption, but they still stay honest: Avenra UI is in a
+            strong foundation phase, not at full Element-class breadth yet.
           </Alert>
-          <div className="badge-cluster">
-            {componentGroups.flatMap((group) => group.items).slice(0, 10).map((item) => (
-              <Badge key={item} variant="neutral" size="sm">
-                {item}
-              </Badge>
+          <ol className="content-list content-list--ordered">
+            {adoptionChecklist.map((item) => (
+              <li key={item}>{item}</li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
@@ -74,11 +78,11 @@ export default function HomePage() {
 
       <section className="section-block">
         <div className="section-heading">
-          <p className="section-heading__eyebrow">What is shipping now</p>
-          <h2>Foundation work is the product right now.</h2>
+          <p className="section-heading__eyebrow">What is available now</p>
+          <h2>Adoption starts with a documented foundation, not an inflated promise.</h2>
           <p>
-            This stage is about making the system coherent: package boundaries, visual primitives,
-            docs surfaces, and predictable development workflow.
+            The current docs focus on the first wave of real package surface: common controls,
+            component docs, theming direction, and a clean install-and-read path for adopters.
           </p>
         </div>
 
@@ -97,8 +101,42 @@ export default function HomePage() {
 
       <section className="section-block">
         <div className="section-heading">
+          <p className="section-heading__eyebrow">Usage contract</p>
+          <h2>Use the package root as the main entry and treat deeper internals as implementation detail.</h2>
+          <p>
+            The docs point adopters toward the package-level component entry, while also being
+            clear that theming and styling are still stabilizing as a broader public surface.
+          </p>
+        </div>
+
+        <div className="content-grid">
+          <article className="content-panel">
+            <h2>Current component groups</h2>
+            <ul className="content-list">
+              {componentGroups.map((group) => (
+                <li key={group.title}>
+                  <strong>{group.title}:</strong> {group.items.slice(0, 4).join(', ')}
+                  {group.items.length > 4 ? ', …' : ''}
+                </li>
+              ))}
+            </ul>
+          </article>
+
+          <article className="content-panel">
+            <h2>Current boundary notes</h2>
+            <ul className="content-list">
+              {themingBoundaryNotes.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section className="section-block">
+        <div className="section-heading">
           <p className="section-heading__eyebrow">Start here</p>
-          <h2>Use the docs like a working map of the repository.</h2>
+          <h2>Use the docs like a working map of the current product surface.</h2>
         </div>
 
         <div className="feature-grid">

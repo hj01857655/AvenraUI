@@ -1,10 +1,16 @@
 import Link from 'next/link';
 import { Alert } from '@avenra/ui/src/components/alert/alert';
 import { Badge } from '@avenra/ui/src/components/badge/badge';
+import { Card } from '@avenra/ui/src/components/card/card';
 
+import { componentGroups } from '../../site-content';
 import { PagerNav } from '../../pager-nav';
-import { featuredLinks } from '../../site-content';
-import { getAdjacentPages } from '../../site-content';
+import {
+  adoptionChecklist,
+  currentPositioningNotes,
+  featuredLinks,
+  getAdjacentPages
+} from '../../site-content';
 
 export const metadata = {
   title: 'Getting Started'
@@ -21,37 +27,58 @@ export default function GettingStartedPage() {
         </Badge>
         <h1>Getting started</h1>
         <p>
-          The repository is organized as a pnpm workspace with separate apps for docs and Storybook,
-          plus packages for UI, tokens, themes, utilities, icons, and shared configs.
+          Start here if you need the shortest honest answer to three questions: what Avenra UI is,
+          what can be adopted today, and which docs pages to open next.
         </p>
       </section>
 
       <div className="content-grid">
         <article className="content-panel">
-          <h2>How to read the workspace</h2>
+          <h2>What Avenra UI is today</h2>
           <ul className="content-list">
-            <li>`apps/docs` is the project-facing documentation surface.</li>
-            <li>`apps/storybook` is the isolated component sandbox.</li>
-            <li>`packages/ui` is the React component package.</li>
-            <li>`packages/tokens` and `packages/themes` define the styling contract.</li>
-            <li>`packages/configs` and `packages/utils` keep the workspace consistent.</li>
+            {currentPositioningNotes.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
           </ul>
         </article>
 
         <article className="content-panel">
-          <h2>Suggested flow</h2>
+          <h2>Recommended first route</h2>
           <ol className="content-list content-list--ordered">
-            <li>Start in docs to understand package roles and current scope.</li>
-            <li>Open Storybook while developing or reviewing a component.</li>
-            <li>Make component or token changes in the packages, not in the docs app.</li>
-            <li>Use build, test, lint, and typecheck before treating work as complete.</li>
+            {adoptionChecklist.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
           </ol>
         </article>
       </div>
 
+      <section className="section-block">
+        <div className="section-heading">
+          <p className="section-heading__eyebrow">Current scope</p>
+          <h2>Read the component surface by group before assuming broader product coverage.</h2>
+          <p>
+            The current docs are strongest around foundation components. This is the right place to
+            judge whether the library already covers your immediate UI needs.
+          </p>
+        </div>
+
+        <div className="feature-grid">
+          {componentGroups.map((group) => (
+            <Card
+              key={group.title}
+              title={group.title}
+              description={group.description}
+              className="surface-card"
+            >
+              <p className="component-group__usage">{group.items.join(', ')}</p>
+            </Card>
+          ))}
+        </div>
+      </section>
+
       <Alert title="Current reality" variant="warning">
-        The docs site is still catching up with the codebase. Treat it as an honest map of the current
-        repository, not as finished external product marketing.
+        Treat this docs site as an honest adoption map of the current repository. It is stronger on
+        real foundation coverage than on broad completeness claims.
       </Alert>
 
       <section className="link-grid" aria-label="Next docs pages">

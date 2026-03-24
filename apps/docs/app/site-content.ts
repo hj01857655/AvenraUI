@@ -45,65 +45,105 @@ export const featuredLinks: SiteLink[] = [
   {
     href: '/docs/getting-started',
     label: 'Getting started',
-    description: 'Understand how the monorepo is structured and where each package fits.'
+    description: 'Understand what Avenra UI is today, who the current docs are for, and how to navigate the repo without guessing.'
   },
   {
     href: '/docs/installation',
     label: 'Installation',
-    description: 'Install dependencies, boot the apps, and run the main workspace commands.'
+    description: 'See the current package-consumer import shape, local workspace setup, and the commands used to verify the docs and library.'
   },
   {
     href: '/docs/theming',
     label: 'Theming',
-    description: 'See how tokens, themes, and component styling are meant to layer together.'
+    description: 'See how tokens, themes, and component styling layer together, plus what is public today versus still repo-internal.'
   }
 ];
 
 export const featureCards: FeatureCard[] = [
   {
-    eyebrow: 'System foundation',
-    title: 'Tokens, themes, docs, and components are being built as one stack.',
+    eyebrow: 'Adoption entry',
+    title: 'The docs now frame Avenra UI as a product surface, not just an internal workspace.',
     description:
-      'The repository is shaping the design-system core first so the library can scale without renaming or restructuring later.'
+      'Home, Getting Started, Installation, and Theming are meant to tell an adopter what the library is, what exists now, and where the current limits still are.'
   },
   {
-    eyebrow: 'Current delivery mode',
-    title: 'High-frequency product primitives ship before heavier widgets.',
+    eyebrow: 'Current library scope',
+    title: 'The visible surface is still foundation-first: common controls before heavier enterprise widgets.',
     description:
-      'Buttons, form controls, feedback components, overlays, and layout primitives are the current focus before large data components.'
+      'Buttons, form controls, feedback surfaces, overlays, and layout primitives are documented now. Broader data-heavy components are still intentionally behind them.'
   },
   {
-    eyebrow: 'Developer workflow',
-    title: 'Docs and Storybook are first-class surfaces, not afterthoughts.',
+    eyebrow: 'Styling model',
+    title: 'Tokens and themes are real packages in the repo, while the consumer-facing story stays centered on the UI package.',
     description:
-      'The goal is for each component to have a clear implementation path, preview path, and documentation path from the start.'
+      'The design-system layers already exist, but the docs stay honest that the strongest entry today is the UI package plus the repo docs, not a fully expanded public theming platform.'
   }
 ];
 
 export const repositoryFacts = [
-  'Monorepo managed with pnpm workspaces',
-  'Next.js app for docs and Storybook app for isolated component work',
-  'TypeScript-first package structure with shared configs',
-  'Design tokens and themes separated from the component package'
+  'Current docs entry covers Home, Getting Started, Installation, Theming, and Components',
+  'The current consumer import shape is centered on the @avenra/ui package',
+  'First-wave foundation components are documented before heavier data widgets',
+  'Tokens and themes already exist in the repo as the styling foundation'
 ] as const;
 
 export const installationSteps = [
-  'Clone the repository and install workspace dependencies with pnpm.',
-  'Run the docs app and Storybook together during development.',
-  'Use workspace-level build, lint, test, and typecheck commands before shipping changes.'
+  'Choose the package-consumer path if you are evaluating Avenra UI for app adoption; choose the workspace path if you are contributing inside this repository.',
+  'Use the package root as the component import surface instead of importing implementation files directly.',
+  'Use docs build and focused test commands before calling docs adoption work complete.'
 ] as const;
 
 export const themingPrinciples = [
   'Treat tokens as the stable contract for color, spacing, radius, shadow, motion, and type.',
   'Use themes to compose semantic meaning on top of those tokens instead of hardcoding values inside components.',
-  'Keep app surfaces and the component package aligned by importing the same token and theme layers.'
+  'Keep app surfaces and the component package aligned by importing the same token and theme layers.',
+  'Be explicit about what is public consumer guidance today versus what still exists mainly as repo-internal foundation.'
 ] as const;
 
 export const commandSnippets = {
-  install: ['git clone https://github.com/hj01857655/AvenraUI.git', 'cd AvenraUI', 'pnpm install'],
-  dev: ['pnpm dev', 'pnpm --filter @avenra/docs dev', 'pnpm --filter @avenra/storybook dev'],
-  quality: ['pnpm build', 'pnpm lint', 'pnpm test', 'pnpm typecheck']
+  packageInstall: ['pnpm add @avenra/ui react react-dom'],
+  packageUsage: [
+    "import { Button } from '@avenra/ui';",
+    "import '@avenra/ui/styles.css';",
+    '',
+    'export function Example() {',
+    '  return <Button>Ship it</Button>;',
+    '}'
+  ],
+  repoInstall: ['git clone https://github.com/hj01857655/AvenraUI.git', 'cd AvenraUI', 'pnpm install'],
+  dev: ['pnpm --filter @avenra/docs dev', 'pnpm --filter @avenra/storybook dev'],
+  quality: [
+    'pnpm --filter @avenra/docs build',
+    'pnpm --filter @avenra/ui build',
+    'pnpm --filter @avenra/ui typecheck',
+    'pnpm exec vitest run apps/docs/app/page.test.tsx'
+  ]
 } as const;
+
+export const adoptionChecklist = [
+  'Read the docs homepage for current positioning and entry links.',
+  'Open Installation for package import shape and local workspace commands.',
+  'Use Components to judge the current surface area instead of assuming future scope.',
+  'Use Theming to understand the layered styling model before overriding visuals.'
+] as const;
+
+export const currentPositioningNotes = [
+  'Avenra UI is a React component library and design-system workspace aimed at real product interfaces.',
+  'The current outward-facing story is honest about today’s scope: a strong foundation wave, not full product-library completeness yet.',
+  'Docs and Storybook are support surfaces for adoption and validation, while packages remain the source of implementation truth.'
+] as const;
+
+export const themingLayers = [
+  '`packages/tokens` defines the raw CSS variable contract.',
+  '`packages/themes` layers semantic theme decisions on top of those variables.',
+  '`@avenra/ui` consumes those layers inside the component styles so product surfaces stay visually consistent.'
+] as const;
+
+export const themingBoundaryNotes = [
+  'The current docs describe the styling model and override approach, not a separate public install story for tokens and themes.',
+  'For adopters, the strongest documented entry today is still the UI package and its styles surface.',
+  'If you need deeper theming control, treat the repo packages as implementation context rather than assuming every styling layer is already a mature public API.'
+] as const;
 
 export const docsPageOrder: OrderedPage[] = [
   { href: '/docs/getting-started', label: 'Getting started' },

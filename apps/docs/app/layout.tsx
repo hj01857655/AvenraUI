@@ -8,7 +8,8 @@ export const metadata: Metadata = {
     default: 'Avenra UI',
     template: '%s | Avenra UI'
   },
-  description: 'A React-first UI library and design system workspace built around real product interfaces.'
+  description:
+    'Avenra UI docs for adopting the current React component library surface, installation path, theming model, and documented component coverage.'
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -13,7 +13,7 @@ export function SiteShell({ children }: PropsWithChildren) {
             <span className="site-brand__mark">AV</span>
             <span className="site-brand__copy">
               <strong>Avenra UI</strong>
-              <span>React UI library and design system</span>
+              <span>React UI library, docs entry, and design-system foundation</span>
             </span>
           </Link>
 
@@ -37,7 +37,8 @@ export function SiteShell({ children }: PropsWithChildren) {
           <div>
             <p className="site-footer__eyebrow">Avenra UI</p>
             <p className="site-footer__text">
-              A React-first design system workspace focused on a solid foundation before scale.
+              A React UI library and design-system workspace with docs focused on honest adoption:
+              what exists today, how to start, and where the current boundaries still are.
             </p>
           </div>
           <div className="site-footer__links">

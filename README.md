@@ -1,41 +1,57 @@
 # Avenra UI
 
-Avenra UI is a React component library and design-system monorepo. The workspace contains the public `@avenra/ui` package together with docs, Storybook, tokens, themes, and supporting packages.
+Avenra UI is a React component library and design-system workspace focused on shipping real product interfaces with a stable foundation first.
 
-## Install `@avenra/ui`
+The current public-facing docs line is built around four questions:
 
-```powershell
-pnpm add @avenra/ui react react-dom
-```
+- what the library is
+- what component surface exists today
+- how to start evaluating or installing it
+- how theming is layered without overstating maturity
 
-`@avenra/ui` is published as a compiled package. Consumers should import from the package root instead of `src/`.
+## Current product position
 
-## Use the package
+Avenra UI is not trying to look artificially “complete” before the base is ready.
 
-Always import components from the public package entrypoint and import styles from the public style entry:
+What is true today:
+
+- the repository has a real `@avenra/ui` package boundary
+- the first visible wave of foundation components is documented
+- docs and Storybook both exist as product-facing support surfaces
+- tokens and themes already exist in the repo as the styling foundation
+
+What is not being claimed yet:
+
+- full Element-class breadth across every enterprise pattern
+- a fully expanded public theming platform
+- broad data-heavy component coverage
+
+## Docs entry points
+
+- Docs home: product positioning, current capability, and entry navigation
+- Getting Started: current scope and recommended reading order
+- Installation: package-consumer path and local workspace path
+- Theming: styling layers, override direction, and current boundary notes
+- Components: current documented component surface
+
+## Current package-consumer shape
+
+The current docs and README point adopters to the package root as the main component entry:
 
 ```tsx
 import { Button } from '@avenra/ui';
 import '@avenra/ui/styles.css';
 
 export function Example() {
-  return <Button>Click me</Button>;
+  return <Button>Ship it</Button>;
 }
 ```
 
-## Current focus
-
-The project is currently focused on:
-
-- building a reusable `@avenra/ui` component package with TypeScript-first APIs
-- establishing `tokens + themes + ui` as the design-system core
-- using `apps/docs` and `apps/storybook` as the two main developer surfaces
-- shipping common, high-frequency components before moving into heavier data and enterprise widgets
-- keeping the workspace structure stable so the library can expand without another repo reshuffle
+This is the intended consumer-facing usage contract documented by the repo today.
 
 ## Current component coverage
 
-The `@avenra/ui` package already exports these components:
+The first documented foundation wave currently includes:
 
 - `Alert`
 - `Avatar`
@@ -48,6 +64,8 @@ The `@avenra/ui` package already exports these components:
 - `Drawer`
 - `DropdownMenu`
 - `EmptyState`
+- `Form`
+- `FormField`
 - `IconButton`
 - `Inline`
 - `Input`
@@ -56,36 +74,43 @@ The `@avenra/ui` package already exports these components:
 - `Progress`
 - `Radio`
 - `Select`
+- `Skeleton`
 - `Stack`
 - `Switch`
 - `Tabs`
 - `Textarea`
 - `Toast`
 - `Tooltip`
+- `Combobox`
+- `Command`
+- `Autocomplete`
 
-This is the first wave of foundation components, not the final surface area of the library.
+This is a foundation release wave, not the final surface area of the library.
 
-## What This Repo Is
+## Styling and theming
 
-This repository is a `pnpm` workspace with separate apps and packages:
+The styling model is layered like this:
 
-- `apps/docs` — Next.js documentation site for project-facing docs and examples
-- `apps/storybook` — Storybook sandbox for isolated component development
-- `packages/ui` — React component library
-- `packages/tokens` — raw design tokens and exported CSS variables
-- `packages/themes` — theme definitions layered on top of tokens
+- `packages/tokens` defines raw CSS variables
+- `packages/themes` applies semantic theme meaning on top of those variables
+- `@avenra/ui` consumes that contract in component styles
+
+Current boundary:
+
+- the repo already contains token and theme packages
+- the clearest documented adopter entry today is still the UI package and docs site
+- theming guidance is documented honestly as a layering model and override direction, not as a fully expanded public platform yet
+
+## Workspace structure
+
+- `apps/docs` — Next.js docs site
+- `apps/storybook` — Storybook component sandbox
+- `packages/ui` — React UI package
+- `packages/tokens` — design token foundation
+- `packages/themes` — theme layer
 - `packages/icons` — icon package scaffold
 - `packages/utils` — shared helpers
-- `packages/configs` — shared workspace config presets
-
-## Package Overview
-
-- `@avenra/ui` — React components and library styles
-- `@avenra/tokens` — token exports and CSS token contract
-- `@avenra/themes` — theme CSS and theme composition layer
-- `@avenra/icons` — icon package scaffold
-- `@avenra/utils` — utilities and low-level helpers
-- `@avenra/configs` — shared TypeScript, ESLint, and related config
+- `packages/configs` — workspace config presets
 
 ## Local development
 
@@ -94,53 +119,29 @@ This repository is a `pnpm` workspace with separate apps and packages:
 - Node.js compatible with the current workspace dependencies
 - `pnpm@10.6.0`
 
-### Quick start
+### Bootstrap the workspace
 
 ```powershell
 git clone https://github.com/hj01857655/AvenraUI.git
 cd AvenraUI
 pnpm install
-pnpm dev
 ```
 
-`pnpm dev` starts both:
-
-- `@avenra/docs`
-- `@avenra/storybook`
-
-## Common commands
+### Run docs and Storybook
 
 ```powershell
-pnpm install
-pnpm dev
-pnpm build
-pnpm lint
-pnpm test
-pnpm typecheck
-pnpm test:ui
 pnpm --filter @avenra/docs dev
 pnpm --filter @avenra/storybook dev
-pnpm --filter @avenra/ui build
-pnpm --filter @avenra/ui typecheck
-pnpm --filter @avenra/ui test
 ```
 
-## Project status
+## Verification commands
 
-Current state:
-
-- workspace and package boundaries are in place
-- the first wave of core UI components exists in `packages/ui`
-- docs and Storybook apps are present and wired into the workspace
-- token and theme packages exist as the styling foundation
-- some package areas are still scaffold-stage and not feature-complete
-
-Near-term gaps still visible in the repo:
-
-- docs content is still light
-- Storybook and package-level polish are still evolving
-- heavier components such as data-heavy widgets are intentionally deferred
-- several packages are present as structure and foundation, not as mature product surfaces yet
+```powershell
+pnpm --filter @avenra/docs build
+pnpm --filter @avenra/ui build
+pnpm --filter @avenra/ui typecheck
+pnpm exec vitest run apps/docs/app/page.test.tsx
+```
 
 ## Repository
 
