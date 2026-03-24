@@ -11,8 +11,11 @@ import { Dialog } from '@avenra/ui/src/components/dialog/dialog';
 import { Drawer } from '@avenra/ui/src/components/drawer/drawer';
 import { DropdownMenu } from '@avenra/ui/src/components/dropdown-menu/dropdown-menu';
 import { EmptyState } from '@avenra/ui/src/components/empty-state/empty-state';
+import { Form } from '@avenra/ui/src/components/form/form';
+import { FormField } from '@avenra/ui/src/components/form-field/form-field';
 import { IconButton } from '@avenra/ui/src/components/icon-button/icon-button';
 import { Inline } from '@avenra/ui/src/components/inline/inline';
+
 import { Input } from '@avenra/ui/src/components/input/input';
 import { Popover } from '@avenra/ui/src/components/popover/popover';
 import { Progress } from '@avenra/ui/src/components/progress/progress';
@@ -100,6 +103,40 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
           </Card>
         </PreviewCanvas>
       );
+    case 'form':
+      return (
+        <PreviewCanvas>
+          <Form>
+            <Stack gap="md">
+              <FormField label="Email" hint="We will only use this for account updates" required>
+                <Input type="email" placeholder="team@avenra.dev" />
+              </FormField>
+              <FormField label="Role" error="A role is required">
+                <Select defaultValue="">
+                  <option value="" disabled>Select a role</option>
+                  <option value="designer">Designer</option>
+                  <option value="engineer">Engineer</option>
+                </Select>
+              </FormField>
+            </Stack>
+          </Form>
+        </PreviewCanvas>
+      );
+
+    case 'form-field':
+      return (
+        <PreviewCanvas>
+          <Stack gap="md">
+            <FormField label="Project name" hint="Visible to your workspace" required>
+              <Input placeholder="Avenra UI" />
+            </FormField>
+            <FormField layout="control" hint="Required before continuing" error="You must accept the terms">
+              <Checkbox label="Accept working agreement" />
+            </FormField>
+          </Stack>
+        </PreviewCanvas>
+      );
+
     case 'checkbox':
       return (
         <PreviewCanvas>
@@ -115,18 +152,6 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
         </PreviewCanvas>
       );
     case 'dialog':
-      return (
-        <PreviewCanvas>
-          <Dialog
-            trigger={<Button>Open dialog</Button>}
-            title="Confirm publish"
-            description="This will make the draft visible to your team."
-          >
-            <Button variant="secondary">Close</Button>
-          </Dialog>
-        </PreviewCanvas>
-      );
-    case 'drawer':
       return (
         <PreviewCanvas>
           <Drawer

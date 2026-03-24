@@ -218,7 +218,7 @@ const componentDocContent = {
     title: 'Checkbox',
     packageImport: "import { Checkbox } from '@avenra/ui';",
     category: 'Forms and input',
-    summary: 'Multi-select field primitive with consistent label, hint, and error treatment.',
+    summary: 'Independent binary choice control with shared field messaging support.',
     usage:
       'Use Checkbox when users can independently turn options on or off without excluding other choices.',
     exampleCode: [
@@ -560,9 +560,9 @@ const componentDocContent = {
   },
   'dropdown-menu': {
     slug: 'dropdown-menu',
-    title: 'Dropdown Menu',
+    title: 'DropdownMenu',
     packageImport: "import { DropdownMenu } from '@avenra/ui';",
-    category: 'Overlay surfaces',
+    category: 'Actions and navigation',
     summary: 'Compact action list that opens from a trigger element for contextual item-level commands.',
     usage:
       'Use DropdownMenu when the user needs a short set of secondary actions without leaving the current layout or expanding permanent toolbar chrome.',
@@ -598,7 +598,7 @@ const componentDocContent = {
     slug: 'drawer',
     title: 'Drawer',
     packageImport: "import { Drawer } from '@avenra/ui';",
-    category: 'Overlay surfaces',
+    category: 'Layout and display',
     summary: 'Slide-over panel for longer contextual flows that should stay attached to the current page.',
     usage:
       'Use Drawer when the task needs more space than a popover or dialog body but should not force a full route transition.',
@@ -625,6 +625,58 @@ const componentDocContent = {
       {
         title: 'Dismissal model',
         body: 'The current implementation supports trigger open, close button, overlay click, and Escape dismissal, which covers the standard slide-over flow.'
+      }
+    ]
+  },
+  form: {
+    slug: 'form',
+    title: 'Form',
+    packageImport: "import { Form } from '@avenra/ui';",
+category: 'Forms and input',
+    summary: 'Form-level context that propagates disabled and submitting state across fields.',
+    usage:
+      'Use Form to coordinate submit and disabled state across related fields without replacing native form semantics or forcing a form-library dependency.',
+    exampleCode: [
+      "import { Button, Form } from '@avenra/ui';",
+      '',
+      'export function AccountForm() {',
+      '  return (',
+      '    <Form submitting={false}>',
+      '      <Button type="submit">Save</Button>',
+      '    </Form>',
+      '  );',
+      '}'
+    ].join('\n'),
+    sections: [
+      {
+        title: 'State model',
+        body: 'Form provides disabled and submitting state through context so wrapped controls can stay consistent without each feature wiring that state manually.'
+      }
+    ]
+  },
+  'form-field': {
+    slug: 'form-field',
+    title: 'FormField',
+    packageImport: "import { FormField } from '@avenra/ui';",
+category: 'Forms and input',
+    summary: 'Unified field shell for label, hint, error, required, invalid, and disabled state.',
+    usage:
+      'Use FormField as the standard structure around text inputs and choice controls so labels, hints, errors, and accessibility wiring stay consistent across the library.',
+    exampleCode: [
+      "import { FormField, Input } from '@avenra/ui';",
+      '',
+      'export function EmailField() {',
+      '  return (',
+      '    <FormField label="Email" hint="We\'ll use this for account updates." required>',
+      '      <Input placeholder="name@example.com" />',
+      '    </FormField>',
+      '  );',
+      '}'
+    ].join('\n'),
+    sections: [
+      {
+        title: 'Layout modes',
+        body: 'Use the default stacked layout for text-like controls and the control layout for Checkbox, Radio, and Switch so the field shell stays consistent without duplicating labels.'
       }
     ]
   },
@@ -908,8 +960,8 @@ export const componentDocMetadata = {
   },
   checkbox: {
     props: [
-      { name: 'label', type: 'string', required: true, description: 'Visible choice label tied to the input.' },
-      { name: 'hint', type: 'string', description: 'Optional supporting explanation under the field.' },
+      { name: 'label', type: 'string', required: true, description: 'Visible choice label.' },
+
       { name: 'error', type: 'string', description: 'Validation message and invalid styling trigger.' }
     ],
     states: ['Unchecked', 'Checked', 'Disabled', 'Invalid'],
@@ -1041,32 +1093,53 @@ export const componentDocMetadata = {
   },
   'dropdown-menu': {
     props: [
-      { name: 'trigger', type: 'ReactElement', required: true, description: 'Element cloned to toggle the menu open state.' },
-      { name: 'items', type: 'Array<{ label: string; onSelect: () => void; disabled?: boolean; tone?: "default" | "danger" }>', required: true, description: 'Ordered menu actions rendered inside the dropdown surface.' },
-      { name: 'title', type: 'string', description: 'Optional heading rendered above the action list.' },
-      { name: 'open', type: 'boolean', description: 'Controlled open state when parent logic orchestrates visibility.' },
-      { name: 'defaultOpen', type: 'boolean', description: 'Initial uncontrolled open state.' },
-      { name: 'onOpenChange', type: '(open: boolean) => void', description: 'Receives open-state changes for controlled usage.' }
+      { name: 'trigger', type: 'ReactElement', required: true, description: 'Element cloned to open or close the menu.' },
+      { name: 'items', type: 'DropdownMenuItem[]', required: true, description: 'Ordered menu items with labels, actions, and optional disabled or danger state.' },
+      { name: 'title', type: 'string', description: 'Optional small heading shown above the item list.' }
     ],
     states: ['Closed', 'Open', 'Danger action'],
     accessibility: [
-      'The trigger exposes `aria-haspopup="menu"` and mirrors open state with `aria-expanded`.',
-      'The popup uses `role="menu"`, and each action uses `role="menuitem"` for assistive technology compatibility.',
-      'Pressing Escape or clicking outside dismisses the menu without requiring pointer-only interaction.'
+      'The trigger exposes `aria-haspopup="menu"` and `aria-expanded`, while menu items render with `role="menuitem"`.',
+      'Use concise action labels and reserve the danger tone for destructive actions so the list stays scannable.'
     ]
   },
   drawer: {
     props: [
       { name: 'trigger', type: 'ReactElement', required: true, description: 'Element cloned to open the drawer.' },
-      { name: 'title', type: 'string', required: true, description: 'Accessible heading announced for the slide-over.' },
-      { name: 'description', type: 'string', description: 'Optional support copy tied through `aria-describedby`.' },
-      { name: 'open', type: 'boolean', description: 'Controlled open state for orchestration from parent logic.' },
-      { name: 'onOpenChange', type: '(open: boolean) => void', description: 'Change callback for controlled or observed state transitions.' }
+      { name: 'title', type: 'string', required: true, description: 'Accessible heading inside the drawer panel.' },
+      { name: 'description', type: 'string', description: 'Optional supporting copy under the title.' },
+      { name: 'children', type: 'ReactNode', description: 'Drawer body content.' }
     ],
-    states: ['Closed', 'Open', 'Controlled'],
+    states: ['Closed', 'Open'],
     accessibility: [
-      'Drawer renders with `role="dialog"` and `aria-modal="true"` so assistive technology treats it as a layered task surface.',
-      'The title and optional description ids are wired automatically, and Escape dismissal is supported out of the box.'
+      'Drawer uses `role="dialog"` with `aria-modal="true"` and wires title and description ids for the panel.',
+      'Dismissal supports close button, overlay click, and Escape to match the standard slide-over interaction.'
+    ]
+  },
+  form: {
+    props: [
+      { name: 'disabled', type: 'boolean', description: 'Disables every wrapped field through shared form context.' },
+      { name: 'submitting', type: 'boolean', description: 'Marks the form as busy and propagates non-interactive state to wrapped fields.' },
+      { name: 'onSubmit', type: 'FormEventHandler<HTMLFormElement>', description: 'Uses the native form submit contract.' }
+    ],
+    states: ['Default', 'Disabled', 'Submitting'],
+    accessibility: [
+      'Form preserves the native `form` element so submit semantics, keyboard submission, and browser validation hooks remain available.',
+      'Disabled and submitting state are propagated through context rather than duplicated on each control.'
+    ]
+  },
+  'form-field': {
+    props: [
+      { name: 'label', type: 'string', description: 'Visible field label for stacked layout fields.' },
+      { name: 'hint', type: 'string', description: 'Supporting guidance connected through aria-describedby.' },
+      { name: 'error', type: 'string', description: 'Validation message that also marks the field invalid.' },
+      { name: 'required', type: 'boolean', description: 'Adds required semantics and visible required treatment.' },
+      { name: 'layout', type: "'stacked' | 'control'", description: 'Uses stacked layout for text controls and control layout for labeled choice controls.' }
+    ],
+    states: ['Default', 'Required', 'Invalid', 'Disabled'],
+    accessibility: [
+      'FormField generates and wires label, hint, and error ids so wrapped controls expose consistent aria-labelledby, aria-describedby, and aria-invalid behavior.',
+      'Use the control layout for Checkbox, Radio, and Switch so the child component keeps its own visible label without duplicating text.'
     ]
   },
   popover: {
