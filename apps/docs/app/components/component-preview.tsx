@@ -21,6 +21,7 @@ import { FormField } from '@avenra/ui/src/components/form-field/form-field';
 import { IconButton } from '@avenra/ui/src/components/icon-button/icon-button';
 import { Inline } from '@avenra/ui/src/components/inline/inline';
 import { Input } from '@avenra/ui/src/components/input/input';
+import { MultiSelect } from '@avenra/ui/src/components/multi-select/multi-select';
 import { Pagination } from '@avenra/ui/src/components/pagination/pagination';
 import { Popover } from '@avenra/ui/src/components/popover/popover';
 import { Progress } from '@avenra/ui/src/components/progress/progress';
@@ -364,6 +365,24 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
             label="Email"
             hint="Use the address tied to your workspace"
             defaultValue="team@avenra.dev"
+          />
+        </PreviewCanvas>
+      );
+    case 'multi-select':
+      return (
+        <PreviewCanvas>
+          <MultiSelect
+            id="preview-multi-select"
+            label="Frameworks"
+            hint="Pick every framework active in this workspace"
+            placeholder="Search frameworks"
+            defaultValue={['react', 'vue']}
+            options={[
+              { value: 'react', label: 'React' },
+              { value: 'vue', label: 'Vue' },
+              { value: 'svelte', label: 'Svelte' },
+              { value: 'angular', label: 'Angular', disabled: true }
+            ]}
           />
         </PreviewCanvas>
       );

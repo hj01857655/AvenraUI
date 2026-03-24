@@ -39,6 +39,7 @@ export * from './components/drawer/drawer';
 export * from './components/dropdown-menu/dropdown-menu';
 export * from './components/form/form';
 export * from './components/form-field/form-field';
+export * from './components/multi-select/multi-select';
 export * from './components/pagination/pagination';
 export * from './components/skeleton/skeleton';
 export * from './components/tag-input/tag-input';

@@ -69,6 +69,7 @@ export const experimentalComponentSlugs = [
   'dropdown-menu',
   'form',
   'form-field',
+  'multi-select',
   'pagination',
   'skeleton',
   'tag-input',
@@ -514,6 +515,51 @@ const componentDocContent = {
       {
         title: 'Validation',
         body: 'Pass `error` when the field state is invalid. Whether Input owns the shell itself or sits inside `FormField`, the control keeps `aria-invalid`, `aria-describedby`, `required`, and disabled semantics aligned.'
+      }
+    ]
+  },
+  'multi-select': {
+    slug: 'multi-select',
+    title: 'Multi Select',
+    packageImport: "import { MultiSelect } from '@avenra/ui';",
+    category: 'Forms and input',
+    summary: 'Searchable multi-select field that keeps chosen options visible as removable inline chips.',
+    usage:
+      'Use MultiSelect when the user needs to pick several values from a known option set and the product should keep both current selections and remaining choices visible in one compact field.',
+    exampleCode: [
+      "import { MultiSelect } from '@avenra/ui';",
+      '',
+      'const frameworkOptions = [',
+      "  { value: 'react', label: 'React' },",
+      "  { value: 'vue', label: 'Vue' },",
+      "  { value: 'svelte', label: 'Svelte' }",
+      '];',
+      '',
+      'export function FrameworkField() {',
+      '  return (',
+      '    <MultiSelect',
+      '      id="frameworks"',
+      '      label="Frameworks"',
+      '      hint="Pick every framework active in this workspace"',
+      '      placeholder="Search frameworks"',
+      "      defaultValue={['react', 'vue']}",
+      '      options={frameworkOptions}',
+      '    />',
+      '  );',
+      '}'
+    ].join('\n'),
+    sections: [
+      {
+        title: 'Search and pick flow',
+        body: 'MultiSelect keeps typing, filtering, and repeated selection in a single surface so the user can add several values without reopening a new dialog or dropdown each time.'
+      },
+      {
+        title: 'Selected value visibility',
+        body: 'Committed selections stay visible as inline chips with dedicated remove actions, which makes review and editing faster than hiding state inside a collapsed placeholder string.'
+      },
+      {
+        title: 'Shared field contract',
+        body: 'MultiSelect uses the same label, hint, error, required, invalid, and disabled contract as the rest of the Avenra form surface, so teams can drop it into existing form layouts without special handling.'
       }
     ]
   },
@@ -1299,6 +1345,22 @@ export const componentDocMetadata = {
     ],
     states: ['Default', 'Focused', 'Invalid', 'Disabled'],
     accessibility: commonFieldAccessibility
+  },
+  'multi-select': {
+    props: [
+      { name: 'options', type: 'MultiSelectOption[]', required: true, description: 'Available options rendered in the popup listbox.' },
+      { name: 'defaultValue', type: 'string[]', description: 'Initial selected option values in uncontrolled mode.' },
+      { name: 'value', type: 'string[]', description: 'Controlled selected option values.' },
+      { name: 'placeholder', type: 'string', description: 'Prompt shown while the filter input is empty.' },
+      { name: 'onValueChange', type: '(value: string[]) => void', description: 'Called whenever the selected values change.' },
+      { name: 'emptyMessage', type: 'string', description: 'Fallback copy rendered when the filter has no matching options.' }
+    ],
+    states: ['Closed', 'Open', 'Filtered', 'With selected values', 'Disabled'],
+    accessibility: [
+      ...commonFieldAccessibility,
+      'The text input exposes combobox semantics while the popup keeps a multi-select listbox model so keyboard and assistive technology users can review available choices and current selection state together.',
+      'Each selected value exposes its own remove button, and Backspace removes the last selected value when the filter query is empty.'
+    ]
   },
   inline: {
     props: [

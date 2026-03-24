@@ -1,4 +1,4 @@
-import { cleanup, render, screen, within } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { ComponentDocView } from './component-doc-view';
@@ -136,5 +136,20 @@ describe('ComponentDocView', () => {
     expect(screen.getByText('React')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /remove design system/i })).toBeInTheDocument();
     expect(screen.getAllByText(/import \{ TagInput \} from '@avenra\/ui';/i)).toHaveLength(2);
+  });
+
+  it('renders multi select docs with selected chips and a live listbox preview', () => {
+    render(
+      <ComponentDocView doc={componentDocs['multi-select']} previous={componentDocs.input} next={componentDocs.radio} />
+    );
+
+    expect(screen.getByRole('heading', { level: 1, name: /multi select/i })).toBeInTheDocument();
+    const input = screen.getByRole('combobox', { name: /frameworks/i });
+    expect(input).toBeInTheDocument();
+    expect(screen.getByText('React')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /remove vue/i })).toBeInTheDocument();
+    fireEvent.focus(input);
+    expect(screen.getByRole('listbox')).toBeInTheDocument();
+    expect(screen.getAllByText(/import \{ MultiSelect \} from '@avenra\/ui';/i)).toHaveLength(2);
   });
 });
