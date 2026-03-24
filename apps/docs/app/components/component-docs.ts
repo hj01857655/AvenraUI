@@ -289,8 +289,12 @@ const componentDocContent = {
         body: 'Checkbox is for independent toggles inside a set. If only one option may stay active, switch to Radio instead.'
       },
       {
-        title: 'Validation',
+        title: 'Shared field contract',
         body: 'Use direct props for a standalone choice, or wrap Checkbox with `FormField layout="control"` when the field also needs shared hint, error, required, invalid, or disabled messaging.'
+      },
+      {
+        title: 'Disabled and invalid state',
+        body: 'Checkbox follows the same disabled and invalid contract as Radio and Switch, so mixed selection groups can stay visually and semantically aligned.'
       }
     ]
   },
@@ -326,6 +330,10 @@ const componentDocContent = {
       {
         title: 'Selection and query control',
         body: 'Combobox separates selected value from input text so products can control search text, selected option, and open state independently while still keeping the same label, hint, error, required, invalid, and disabled contract as the rest of the form system.'
+      },
+      {
+        title: 'Keyboard selection flow',
+        body: 'Opening the surface preserves the current selection, Home and End jump to the start or end of the enabled result set, and Enter commits the active option without leaving the field flow.'
       },
       {
         title: 'When to use',
@@ -403,7 +411,7 @@ const componentDocContent = {
     sections: [
       {
         title: 'Typeahead threshold',
-        body: 'Use `minQueryLength` to avoid opening large suggestion sets before the user has provided enough signal for useful matching.'
+        body: 'Use `minQueryLength` to avoid opening large suggestion sets before the user has provided enough signal for useful matching. Before the threshold is met, the surface should explain what input is needed instead of pretending no matches exist.'
       },
       {
         title: 'Relationship to Combobox',
@@ -706,6 +714,10 @@ const componentDocContent = {
       {
         title: 'Grouping',
         body: 'Use a shared `name` across related radios so the browser enforces the single-select behavior correctly.'
+      },
+      {
+        title: 'Shared field contract',
+        body: 'Radio inherits the same hint, error, required, invalid, and disabled wiring as Checkbox and Switch, which keeps selection groups consistent whether they are direct fields or wrapped by `FormField`.'
       }
     ]
   },
@@ -736,8 +748,12 @@ const componentDocContent = {
         body: 'Keep Select for concise option sets. If options become long, searchable, or async, that is a different component problem.'
       },
       {
-        title: 'Accessibility',
+        title: 'Shared field contract',
         body: 'Select keeps the same label, hint, error, required, invalid, and disabled contract as Input so teams do not need separate wiring patterns per field type.'
+      },
+      {
+        title: 'Selection surface',
+        body: 'Because Select stays native, it is the right baseline for short stable lists, disabled review states, and flows where browser option behavior is already good enough.'
       }
     ]
   },
@@ -1006,6 +1022,10 @@ category: 'Forms and input',
       {
         title: 'Semantics',
         body: 'The underlying input uses `role=\"switch\"` while keeping the same hint and error pattern as the rest of the form controls.'
+      },
+      {
+        title: 'Shared field contract',
+        body: 'Switch uses the same hint, error, required, invalid, and disabled wiring as Checkbox and Radio, so settings lists do not need a different field wrapper strategy.'
       }
     ]
   },
@@ -1196,11 +1216,15 @@ export const componentDocMetadata = {
   checkbox: {
     props: [
       { name: 'label', type: 'string', required: true, description: 'Visible choice label.' },
-
+      { name: 'hint', type: 'string', description: 'Optional supporting guidance shown through the shared field shell.' },
+      { name: 'required', type: 'boolean', description: 'Marks the choice as required when the workflow cannot continue without it.' },
       { name: 'error', type: 'string', description: 'Validation message and invalid styling trigger.' }
     ],
     states: ['Unchecked', 'Checked', 'Disabled', 'Invalid'],
-    accessibility: commonChoiceAccessibility
+    accessibility: [
+      ...commonChoiceAccessibility,
+      'Checkbox shares the same disabled and invalid messaging contract as Radio and Switch, whether it renders directly or inside `FormField layout="control"`.'
+    ]
   },
   'empty-state': {
     props: [
@@ -1306,12 +1330,14 @@ export const componentDocMetadata = {
       { name: 'label', type: 'string', required: true, description: 'Visible choice label.' },
       { name: 'name', type: 'string', description: 'Shared browser grouping key for mutually exclusive choices.' },
       { name: 'hint', type: 'string', description: 'Optional support copy.' },
+      { name: 'required', type: 'boolean', description: 'Marks the radio as required when one option in the group must be chosen.' },
       { name: 'error', type: 'string', description: 'Validation state and message.' }
     ],
     states: ['Unchecked', 'Checked', 'Disabled', 'Invalid'],
     accessibility: [
       ...commonChoiceAccessibility,
-      'Use a shared `name` value for the group so native single-select behavior stays intact.'
+      'Use a shared `name` value for the group so native single-select behavior stays intact.',
+      'Disabled and invalid state use the same field wrapper contract as Checkbox and Switch.'
     ]
   },
   select: {
@@ -1319,12 +1345,14 @@ export const componentDocMetadata = {
       { name: 'label', type: 'string', required: true, description: 'Visible field label when Select owns its own field shell.' },
       { name: 'children', type: 'ReactNode', required: true, description: 'Native `option` elements or grouped options.' },
       { name: 'hint', type: 'string', description: 'Optional supporting guidance.' },
+      { name: 'required', type: 'boolean', description: 'Marks the field as required within the shared field contract.' },
       { name: 'error', type: 'string', description: 'Validation state and message.' }
     ],
     states: ['Default', 'Focused', 'Invalid', 'Disabled'],
     accessibility: [
       ...commonFieldAccessibility,
-      'Because this is a native select wrapper, keyboard navigation and option announcement follow browser behavior.'
+      'Because this is a native select wrapper, keyboard navigation and option announcement follow browser behavior.',
+      'Disabled and invalid state match the other selection controls so mixed forms do not need special-case handling.'
     ]
   },
   dialog: {
@@ -1406,7 +1434,7 @@ export const componentDocMetadata = {
     states: ['Closed', 'Open', 'Filtered', 'No results', 'Controlled'],
     accessibility: [
       'Combobox keeps the input, popup, and active option linked through combobox, listbox, and option semantics.',
-      'Keyboard navigation supports Arrow keys, Enter selection, and Escape dismissal without losing the current query.',
+      'Keyboard navigation supports Arrow keys, Home, End, Enter selection, and Escape dismissal without losing the current query.',
       'The control keeps the same label, hint, error, required, invalid, and disabled contract as the text-field primitives.'
     ]
   },
@@ -1438,6 +1466,7 @@ export const componentDocMetadata = {
     accessibility: [
       'Autocomplete preserves editable text entry while exposing matching suggestions through a popup listbox.',
       'Selection can be committed with Enter or pointer click, while Escape closes the popup without clearing the field.',
+      'Waiting for the query threshold should explain what input is needed instead of implying that matching results do not exist.',
       'Waiting for the query threshold should not change the surrounding field semantics for label, hint, error, required, invalid, or disabled state.'
     ]
   },
@@ -1471,12 +1500,14 @@ export const componentDocMetadata = {
     props: [
       { name: 'label', type: 'string', required: true, description: 'Visible toggle label.' },
       { name: 'hint', type: 'string', description: 'Optional supporting explanation.' },
+      { name: 'required', type: 'boolean', description: 'Marks the toggle as required when the setting must be acknowledged.' },
       { name: 'error', type: 'string', description: 'Validation message and invalid styling trigger.' }
     ],
     states: ['Off', 'On', 'Disabled', 'Invalid'],
     accessibility: [
       ...commonChoiceAccessibility,
-      'The control exposes `role="switch"` so assistive technology announces it as a binary setting toggle.'
+      'The control exposes `role="switch"` so assistive technology announces it as a binary setting toggle.',
+      'Disabled and invalid state use the same field wrapper contract as Checkbox and Radio.'
     ]
   },
   tabs: {

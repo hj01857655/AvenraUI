@@ -16,7 +16,7 @@ describe('Autocomplete', () => {
     const input = screen.getByRole('combobox', { name: 'Search fruit' });
     fireEvent.focus(input);
 
-    expect(screen.getByText('No results found')).toBeInTheDocument();
+    expect(screen.getByText('Type 2 or more characters to search')).toBeInTheDocument();
 
     fireEvent.change(input, { target: { value: 'ap' } });
 
@@ -52,5 +52,16 @@ describe('Autocomplete', () => {
 
     expect(input).toHaveAttribute('required');
     expect(input).toHaveAttribute('aria-invalid', 'true');
+  });
+
+  it('shows a threshold guidance message before search starts', () => {
+    render(<Autocomplete label="Country" minQueryLength={2} options={options} />);
+
+    const input = screen.getByRole('combobox', { name: 'Country' });
+
+    fireEvent.focus(input);
+
+    expect(screen.getByText('Type 2 or more characters to search')).toBeInTheDocument();
+    expect(screen.queryByText('No results found')).not.toBeInTheDocument();
   });
 });

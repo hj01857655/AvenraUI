@@ -105,4 +105,33 @@ describe('Combobox', () => {
     expect(input).toHaveAttribute('aria-disabled', 'true');
     expect(input).toBeDisabled();
   });
+
+  it('highlights the selected option on open and supports Home plus End navigation', () => {
+    render(
+      <Combobox
+        label="Framework"
+        defaultValue="banana"
+        options={[
+          { label: 'Apple', value: 'apple' },
+          { label: 'Apricot', value: 'apricot', disabled: true },
+          { label: 'Banana', value: 'banana' }
+        ]}
+      />,
+    );
+
+    const input = screen.getByRole('combobox', { name: 'Framework' });
+
+    fireEvent.focus(input);
+
+    const appleOption = screen.getByRole('option', { name: 'Apple' });
+    const bananaOption = screen.getByRole('option', { name: 'Banana' });
+
+    expect(input).toHaveAttribute('aria-activedescendant', bananaOption.getAttribute('id'));
+
+    fireEvent.keyDown(input, { key: 'Home' });
+    expect(input).toHaveAttribute('aria-activedescendant', appleOption.getAttribute('id'));
+
+    fireEvent.keyDown(input, { key: 'End' });
+    expect(input).toHaveAttribute('aria-activedescendant', bananaOption.getAttribute('id'));
+  });
 });

@@ -11,6 +11,7 @@ export type AutocompleteProps = Omit<ComboboxProps, 'options'> & {
 
 export function Autocomplete({
   defaultInputValue,
+  emptyMessage = 'No results found',
   inputValue,
   minQueryLength = 0,
   onInputValueChange,
@@ -24,10 +25,17 @@ export function Autocomplete({
     return resolvedInputValue.trim().length >= minQueryLength ? options : [];
   }, [minQueryLength, options, resolvedInputValue]);
 
+  const waitingForThreshold = resolvedInputValue.trim().length < minQueryLength;
+  const resolvedEmptyMessage =
+    minQueryLength > 0 && waitingForThreshold
+      ? `Type ${minQueryLength} or more characters to search`
+      : emptyMessage;
+
   return (
     <Combobox
       {...props}
       defaultInputValue={defaultInputValue}
+      emptyMessage={resolvedEmptyMessage}
       inputValue={resolvedInputValue}
       onInputValueChange={(nextValue) => {
         if (inputValue === undefined) {

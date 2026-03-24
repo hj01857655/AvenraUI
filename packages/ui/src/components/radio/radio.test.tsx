@@ -146,4 +146,14 @@ describe('Radio', () => {
     expect(radio).toHaveAttribute('required');
     expect(radio).toHaveAttribute('aria-invalid', 'true');
   });
+
+  it('inherits disabled state from FormField control layout', () => {
+    render(
+      <FormField disabled layout="control">
+        <Radio label="Readonly access" name="access" />
+      </FormField>,
+    );
+
+    expect(screen.getByRole('radio', { name: 'Readonly access' })).toBeDisabled();
+  });
 });

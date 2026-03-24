@@ -115,4 +115,14 @@ describe('Switch', () => {
     expect(toggle).toHaveAttribute('required');
     expect(toggle).toHaveAttribute('aria-invalid', 'true');
   });
+
+  it('inherits disabled state from FormField control layout', () => {
+    render(
+      <FormField disabled layout="control">
+        <Switch label="Readonly notifications" />
+      </FormField>,
+    );
+
+    expect(screen.getByRole('switch', { name: 'Readonly notifications' })).toBeDisabled();
+  });
 });

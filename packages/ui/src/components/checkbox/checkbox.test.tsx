@@ -87,4 +87,14 @@ describe('Checkbox', () => {
     expect(checkbox).toHaveAttribute('required');
     expect(checkbox).toHaveAttribute('aria-invalid', 'true');
   });
+
+  it('inherits disabled state from FormField control layout', () => {
+    render(
+      <FormField hint="Context hint" disabled layout="control">
+        <Checkbox label="Disable analytics" />
+      </FormField>,
+    );
+
+    expect(screen.getByRole('checkbox', { name: 'Disable analytics' })).toBeDisabled();
+  });
 });

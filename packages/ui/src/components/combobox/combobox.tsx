@@ -155,8 +155,12 @@ function ComboboxControl({
       return;
     }
 
-    setHighlightedIndex(-1);
-  }, [filteredOptions, isOpen]);
+    const selectedIndex = filteredOptions.findIndex(
+      (option) => option.value === selectedValue && !option.disabled,
+    );
+
+    setHighlightedIndex(selectedIndex);
+  }, [filteredOptions, isOpen, selectedValue]);
 
   useEffect(() => {
     const selected = options.find((option) => option.value === selectedValue);
@@ -251,6 +255,28 @@ function ComboboxControl({
       }
     }
 
+    if (event.key === 'Home' && isOpen) {
+      event.preventDefault();
+
+      for (let index = 0; index < filteredOptions.length; index += 1) {
+        if (!filteredOptions[index]?.disabled) {
+          setHighlightedIndex(index);
+          return;
+        }
+      }
+    }
+
+    if (event.key === 'End' && isOpen) {
+      event.preventDefault();
+
+      for (let index = filteredOptions.length - 1; index >= 0; index -= 1) {
+        if (!filteredOptions[index]?.disabled) {
+          setHighlightedIndex(index);
+          return;
+        }
+      }
+    }
+
     if (event.key === 'Enter' && isOpen && activeOption) {
       event.preventDefault();
       selectOption(activeOption);
@@ -263,7 +289,17 @@ function ComboboxControl({
   };
 
   return (
-    <div className="avenra-combobox" ref={rootRef}>
+    <div
+      className="avenra-combobox"
+      ref={rootRef}
+      onBlur={(event) => {
+        const nextFocused = event.relatedTarget;
+
+        if (!nextFocused || !event.currentTarget.contains(nextFocused as Node)) {
+          setIsOpen(false);
+        }
+      }}
+    >
       <input
         {...props}
         id={comboboxId}
@@ -311,6 +347,7 @@ function ComboboxControl({
                     disabled={option.disabled}
                     className={cn(
                       'avenra-combobox__option',
+                      selectedValue === option.value && 'avenra-combobox__option--selected',
                       index === highlightedIndex && 'avenra-combobox__option--active',
                     )}
                     onMouseDown={(event) => event.preventDefault()}

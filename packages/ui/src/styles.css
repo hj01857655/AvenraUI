@@ -749,6 +749,12 @@
   background-repeat: no-repeat;
 }
 
+.avenra-select:disabled {
+  cursor: not-allowed;
+  color: var(--color-text-muted);
+  background-color: color-mix(in srgb, var(--color-surface-muted) 70%, white);
+}
+
 .avenra-textarea {
   min-height: 132px;
   resize: vertical;
@@ -1258,8 +1264,14 @@
 }
 
 .avenra-combobox__option:hover,
+.avenra-combobox__option:focus-visible,
 .avenra-combobox__option--active {
+  outline: none;
   background: color-mix(in srgb, var(--color-primary) 10%, white);
+}
+
+.avenra-combobox__option--selected {
+  font-weight: 600;
 }
 
 .avenra-combobox__option:disabled {

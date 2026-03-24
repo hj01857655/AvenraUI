@@ -90,4 +90,16 @@ describe('Select', () => {
     expect(select).toHaveAttribute('required');
     expect(select).toHaveAttribute('aria-invalid', 'true');
   });
+
+  it('inherits disabled state from FormField to match the other selection controls', () => {
+    render(
+      <FormField label="Wrapped team" disabled>
+        <Select>
+          <option value="design">Design</option>
+        </Select>
+      </FormField>,
+    );
+
+    expect(screen.getByRole('combobox', { name: 'Wrapped team' })).toBeDisabled();
+  });
 });

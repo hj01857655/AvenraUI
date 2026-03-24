@@ -106,17 +106,29 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
     case 'autocomplete':
       return (
         <PreviewCanvas>
-          <Autocomplete
-            label="Country"
-            placeholder="Search countries"
-            emptyMessage="No country found"
-            minQueryLength={2}
-            options={[
-              { value: 'ar', label: 'Argentina' },
-              { value: 'au', label: 'Australia' },
-              { value: 'at', label: 'Austria' }
-            ]}
-          />
+          <Stack gap="md">
+            <Autocomplete
+              label="Country"
+              placeholder="Type 2+ characters"
+              emptyMessage="No country found"
+              minQueryLength={2}
+              options={[
+                { value: 'ar', label: 'Argentina' },
+                { value: 'au', label: 'Australia' },
+                { value: 'at', label: 'Austria' }
+              ]}
+            />
+            <Autocomplete
+              label="Readonly country"
+              placeholder="Disabled autocomplete"
+              minQueryLength={2}
+              disabled
+              options={[
+                { value: 'ca', label: 'Canada' },
+                { value: 'cl', label: 'Chile' }
+              ]}
+            />
+          </Stack>
         </PreviewCanvas>
       );
     case 'avatar':
@@ -235,24 +247,40 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
               hint="Stay informed when new components ship"
               defaultChecked
             />
-            <Checkbox id="preview-checkbox-2" label="Include release candidates" />
+            <Checkbox
+              id="preview-checkbox-2"
+              label="Include release candidates"
+              error="Pick the release channels you want to follow"
+            />
+            <Checkbox id="preview-checkbox-3" label="Lock audit exports" disabled />
           </Stack>
         </PreviewCanvas>
       );
     case 'combobox':
       return (
         <PreviewCanvas>
-          <Combobox
-            label="Framework"
-            placeholder="Search frameworks"
-            emptyMessage="No framework found"
-            options={[
-              { value: 'react', label: 'React' },
-              { value: 'vue', label: 'Vue' },
-              { value: 'svelte', label: 'Svelte' }
-            ]}
-            defaultValue="react"
-          />
+          <Stack gap="md">
+            <Combobox
+              label="Framework"
+              placeholder="Search frameworks"
+              emptyMessage="No framework found"
+              options={[
+                { value: 'react', label: 'React' },
+                { value: 'vue', label: 'Vue', disabled: true },
+                { value: 'svelte', label: 'Svelte' }
+              ]}
+              defaultValue="react"
+            />
+            <Combobox
+              label="Readonly framework"
+              options={[
+                { value: 'next', label: 'Next.js' },
+                { value: 'remix', label: 'Remix' }
+              ]}
+              defaultValue="next"
+              disabled
+            />
+          </Stack>
         </PreviewCanvas>
       );
     case 'command':
@@ -421,17 +449,24 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
               defaultChecked
             />
             <Radio id="preview-radio-2" name="preview-access" label="Project editor access" />
+            <Radio id="preview-radio-3" name="preview-access" label="Readonly access" disabled />
           </Stack>
         </PreviewCanvas>
       );
     case 'select':
       return (
         <PreviewCanvas>
-          <Select id="preview-select" label="Role" hint="Choose the baseline permission set" defaultValue="editor">
-            <option value="viewer">Viewer</option>
-            <option value="editor">Editor</option>
-            <option value="owner">Owner</option>
-          </Select>
+          <Stack gap="md">
+            <Select id="preview-select" label="Role" hint="Choose the baseline permission set" defaultValue="editor">
+              <option value="viewer">Viewer</option>
+              <option value="editor">Editor</option>
+              <option value="owner">Owner</option>
+            </Select>
+            <Select id="preview-select-disabled" label="Readonly role" defaultValue="viewer" disabled>
+              <option value="viewer">Viewer</option>
+              <option value="editor">Editor</option>
+            </Select>
+          </Stack>
         </PreviewCanvas>
       );
     case 'stack':
@@ -447,12 +482,15 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
     case 'switch':
       return (
         <PreviewCanvas>
-          <Switch
-            id="preview-switch"
-            label="Sync deployment notifications"
-            hint="Keep publish and incident updates visible"
-            defaultChecked
-          />
+          <Stack gap="sm">
+            <Switch
+              id="preview-switch"
+              label="Sync deployment notifications"
+              hint="Keep publish and incident updates visible"
+              defaultChecked
+            />
+            <Switch id="preview-switch-disabled" label="Readonly sync" disabled />
+          </Stack>
         </PreviewCanvas>
       );
     case 'tabs':
