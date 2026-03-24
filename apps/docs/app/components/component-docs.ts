@@ -3,6 +3,8 @@ export interface ComponentDocSection {
   body: string;
 }
 
+export type ComponentSupportLevel = 'stable' | 'experimental';
+
 export interface ComponentDocProp {
   name: string;
   type: string;
@@ -27,7 +29,53 @@ export interface ComponentDocContent {
   sections: ComponentDocSection[];
 }
 
-export interface ComponentDoc extends ComponentDocContent, ComponentDocMetadata {}
+export interface ComponentDocGovernance {
+  support: ComponentSupportLevel;
+  supportLabel: 'Stable' | 'Experimental';
+  supportSummary: string;
+}
+
+export interface ComponentDoc extends ComponentDocContent, ComponentDocMetadata, ComponentDocGovernance {}
+
+export const stableComponentSlugs = [
+  'alert',
+  'avatar',
+  'badge',
+  'breadcrumb',
+  'button',
+  'card',
+  'checkbox',
+  'dialog',
+  'empty-state',
+  'icon-button',
+  'inline',
+  'input',
+  'popover',
+  'progress',
+  'radio',
+  'select',
+  'stack',
+  'switch',
+  'tabs',
+  'textarea',
+  'tooltip'
+] as const;
+
+export const experimentalComponentSlugs = [
+  'autocomplete',
+  'combobox',
+  'command',
+  'drawer',
+  'dropdown-menu',
+  'form',
+  'form-field',
+  'pagination',
+  'skeleton',
+  'toast'
+] as const;
+
+const stableComponentSlugSet = new Set<string>(stableComponentSlugs);
+const experimentalComponentSlugSet = new Set<string>(experimentalComponentSlugs);
 
 const componentDocContent = {
   button: {
@@ -1377,13 +1425,57 @@ export const componentDocMetadata = {
   }
 } as const satisfies Record<keyof typeof componentDocContent, ComponentDocMetadata>;
 
-export const componentDocs = (Object.keys(componentDocContent) as Array<
-  keyof typeof componentDocContent
->).reduce(
+const componentDocKeys = Object.keys(componentDocContent) as Array<keyof typeof componentDocContent>;
+const duplicatedSupportSlugs = componentDocKeys.filter(
+  (slug) => stableComponentSlugSet.has(slug) && experimentalComponentSlugSet.has(slug)
+);
+const uncategorizedSupportSlugs = componentDocKeys.filter(
+  (slug) => !stableComponentSlugSet.has(slug) && !experimentalComponentSlugSet.has(slug)
+);
+
+if (duplicatedSupportSlugs.length > 0) {
+  throw new Error(`Component support slugs duplicated across stable and experimental: ${duplicatedSupportSlugs.join(', ')}`);
+}
+
+if (uncategorizedSupportSlugs.length > 0) {
+  throw new Error(`Component support slugs missing governance classification: ${uncategorizedSupportSlugs.join(', ')}`);
+}
+
+function getComponentSupportLevel(slug: keyof typeof componentDocContent): ComponentSupportLevel {
+  return stableComponentSlugSet.has(slug) ? 'stable' : 'experimental';
+}
+
+function getComponentSupportSummary(level: ComponentSupportLevel) {
+  return level === 'stable'
+    ? 'Stable surface. This component is part of the current formal Avenra UI support contract.'
+    : 'Experimental / in-progress surface. This component is available for evaluation, but its API and support expectations may still change while the contract settles.';
+}
+
+function getComponentUsageWithSupportNote(usage: string, level: ComponentSupportLevel) {
+  return level === 'stable'
+    ? `${usage} This component is part of the current stable support surface.`
+    : `${usage} This component is currently experimental / in-progress and may change while the support contract is still settling.`;
+}
+
+export const componentDocs = componentDocKeys.reduce(
   (registry, slug) => {
+    const support = getComponentSupportLevel(slug);
+    const supportSummary = getComponentSupportSummary(support);
+
     registry[slug] = {
       ...componentDocContent[slug],
-      ...componentDocMetadata[slug]
+      usage: getComponentUsageWithSupportNote(componentDocContent[slug].usage, support),
+      sections: [
+        {
+          title: 'Support status',
+          body: supportSummary
+        },
+        ...componentDocContent[slug].sections
+      ],
+      ...componentDocMetadata[slug],
+      support,
+      supportLabel: support === 'stable' ? 'Stable' : 'Experimental',
+      supportSummary
     };
 
     return registry;

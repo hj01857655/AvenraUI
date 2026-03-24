@@ -49,9 +49,61 @@ export function Example() {
 
 This is the intended consumer-facing usage contract documented by the repo today.
 
+The package root currently exports both:
+
+- a **stable surface** that Avenra UI treats as the current formal support contract
+- an **experimental / in-progress surface** that remains available for evaluation, but may still change
+
+That distinction is documentation and support governance, not a claim that experimental items are hidden or removed from the package today.
+
+## Stable surface
+
+The current stable support surface is:
+
+- `Alert`
+- `Avatar`
+- `Badge`
+- `Breadcrumb`
+- `Button`
+- `Card`
+- `Checkbox`
+- `Dialog`
+- `EmptyState`
+- `IconButton`
+- `Inline`
+- `Input`
+- `Popover`
+- `Progress`
+- `Radio`
+- `Select`
+- `Stack`
+- `Switch`
+- `Tabs`
+- `Textarea`
+- `Tooltip`
+
+These are the components the repository currently treats as stable for external adoption.
+
+## Experimental / in-progress surface
+
+The following components are exported today, but still governed as experimental / in-progress:
+
+- `Autocomplete`
+- `Combobox`
+- `Command`
+- `Drawer`
+- `DropdownMenu`
+- `Form`
+- `FormField`
+- `Pagination`
+- `Skeleton`
+- `Toast`
+
+These components are useful and actively documented, but their API and support expectations may still change while the stable contract is being tightened.
+
 ## Current component coverage
 
-The first documented foundation wave currently includes:
+Together, the current documented foundation wave includes:
 
 - `Alert`
 - `Avatar`
@@ -86,6 +138,8 @@ The first documented foundation wave currently includes:
 - `Autocomplete`
 
 This is a foundation release wave, not the final surface area of the library.
+
+For the current governance split, see `docs/stable-components.md`.
 
 ## Styling and theming
 

@@ -1,4 +1,9 @@
-import { componentDocList, type ComponentDoc } from './component-docs';
+import {
+  componentDocList,
+  experimentalComponentSlugs,
+  stableComponentSlugs,
+  type ComponentDoc
+} from './component-docs';
 
 export interface ComponentCatalogGroupConfig {
   title: string;
@@ -9,6 +14,8 @@ export interface ComponentCatalogGroup extends ComponentCatalogGroupConfig {
   docs: ComponentDoc[];
   items: string[];
   slugs: ComponentDoc['slug'][];
+  stableCount: number;
+  experimentalCount: number;
 }
 
 export interface HomepageShowcaseEntry {
@@ -44,12 +51,21 @@ const componentCatalogGroupConfigs: readonly ComponentCatalogGroupConfig[] = [
 function buildComponentCatalogGroups() {
   const groups = componentCatalogGroupConfigs.map((group) => {
     const docs = componentDocList.filter((doc) => doc.category === group.title);
+    const stableCount = docs.filter((doc) => doc.support === 'stable').length;
+    const experimentalCount = docs.length - stableCount;
+    const supportSummary =
+      experimentalCount > 0
+        ? `${stableCount} stable, ${experimentalCount} experimental / in-progress.`
+        : `${stableCount} stable.`;
 
     return {
       ...group,
+      description: `${group.description} ${supportSummary}`,
       docs,
       items: docs.map((doc) => doc.title),
-      slugs: docs.map((doc) => doc.slug)
+      slugs: docs.map((doc) => doc.slug),
+      stableCount,
+      experimentalCount
     };
   });
 
@@ -80,6 +96,10 @@ export const componentGroups = componentCatalogGroups.map(({ title, description,
 }));
 
 export const componentCount = componentDocList.length;
+export const stableComponentCount = stableComponentSlugs.length;
+export const experimentalComponentCount = experimentalComponentSlugs.length;
+export const stableComponentDocList = componentDocList.filter((doc) => doc.support === 'stable');
+export const experimentalComponentDocList = componentDocList.filter((doc) => doc.support === 'experimental');
 
 const homepageShowcaseSlugs = ['skeleton', 'form', 'form-field', 'combobox', 'command', 'autocomplete'] as const satisfies readonly ComponentDoc['slug'][];
 
