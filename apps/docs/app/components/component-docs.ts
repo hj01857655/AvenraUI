@@ -56,6 +56,7 @@ export const stableComponentSlugs = [
   'select',
   'stack',
   'switch',
+  'table',
   'tabs',
   'textarea',
   'tooltip'
@@ -668,6 +669,52 @@ const componentDocContent = {
       {
         title: 'Gap scale',
         body: 'Choose from the built-in `sm`, `md`, and `lg` gaps so dense toolbars and metadata rows share one spacing language.'
+      }
+    ]
+  },
+  table: {
+    slug: 'table',
+    title: 'Table',
+    packageImport: "import { Table } from '@avenra/ui';",
+    category: 'Layout and display',
+    summary: 'Structured data table for compact row-and-column comparison with built-in empty state support.',
+    usage:
+      'Use Table when users need to scan comparable records across consistent columns, especially for settings inventories, release views, ownership lists, or operational dashboards.',
+    exampleCode: [
+      "import { Table } from '@avenra/ui';",
+      '',
+      'const releaseColumns = [',
+      "  { id: 'release', header: 'Release', accessorKey: 'release', rowHeader: true },",
+      "  { id: 'status', header: 'Status', accessorKey: 'status' },",
+      "  { id: 'owner', header: 'Owner', accessorKey: 'owner' }",
+      '];',
+      '',
+      'export function ReleaseTable() {',
+      '  return (',
+      '    <Table',
+      '      caption="Release readiness"',
+      '      columns={releaseColumns}',
+      '      rows={[',
+      "        { id: 'march', release: 'March update', status: 'Ready', owner: 'Design' },",
+      "        { id: 'april', release: 'April update', status: 'Blocked', owner: 'Platform' }",
+      '      ]}',
+      "      rowKey='id'",
+      '    />',
+      '  );',
+      '}'
+    ].join('\n'),
+    sections: [
+      {
+        title: 'Column-driven rendering',
+        body: 'Table keeps structure explicit through column definitions so teams can align headers, accessor keys, and custom cell rendering without rebuilding semantic table markup for every feature.'
+      },
+      {
+        title: 'Readable states',
+        body: 'The component preserves a real table structure for data rows while handling the zero-data state inside the same shell, which avoids layout jumps and keeps the surface understandable when records disappear.'
+      },
+      {
+        title: 'Design-system fit',
+        body: 'Table uses the same border, spacing, color, and typography language as the rest of the Avenra system, so operational views can adopt data presentation without inventing one-off admin styling.'
       }
     ]
   },
@@ -1744,6 +1791,20 @@ export const componentDocMetadata = {
     accessibility: [
       'Tabs use `tablist`, `tab`, and `tabpanel` roles so the relationship between trigger and panel stays explicit.',
       'Keep tab labels short and peer-level; if one tab label reads like a page title, the pattern is probably wrong.'
+    ]
+  },
+  table: {
+    props: [
+      { name: 'columns', type: 'TableColumn<Row>[]', required: true, description: 'Column definitions that control headers, accessors, optional row-header cells, and custom renderers.' },
+      { name: 'rows', type: 'Row[]', required: true, description: 'Structured row data rendered in the table body.' },
+      { name: 'caption', type: 'string', description: 'Accessible table name shown above the data grid.' },
+      { name: 'emptyState', type: 'ReactNode', description: 'Fallback cell rendered when the rows array is empty.' },
+      { name: 'rowKey', type: 'keyof Row | ((row: Row, rowIndex: number) => string | number)', description: 'Stable key source for row rendering.' }
+    ],
+    states: ['With rows', 'Empty state', 'Custom cell rendering'],
+    accessibility: [
+      'Table preserves native table semantics through `table`, `caption`, column headers, row headers, and body cells so assistive technology can announce structure correctly.',
+      'Use `caption` whenever the surrounding context does not already make the table purpose obvious, especially when multiple tables appear on the same page.'
     ]
   },
   tooltip: {

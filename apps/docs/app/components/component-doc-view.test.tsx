@@ -181,4 +181,17 @@ describe('ComponentDocView', () => {
     expect(screen.getByRole('gridcell', { name: /tuesday, march 24, 2026/i })).toBeInTheDocument();
     expect(screen.getAllByText(/import \{ DateRangePicker \} from '@avenra\/ui';/i)).toHaveLength(2);
   });
+
+  it('renders table docs with a live data grid preview and empty state example', () => {
+    render(
+      <ComponentDocView doc={componentDocs.table} previous={componentDocs.tabs} next={componentDocs.textarea} />
+    );
+
+    expect(screen.getByRole('heading', { level: 1, name: /table/i })).toBeInTheDocument();
+    const table = screen.getByRole('table', { name: /release readiness/i });
+    expect(within(table).getByRole('columnheader', { name: /release/i })).toBeInTheDocument();
+    expect(within(table).getByRole('cell', { name: /ready/i })).toBeInTheDocument();
+    expect(screen.getByRole('cell', { name: /no empty preview rows/i })).toBeInTheDocument();
+    expect(screen.getAllByText(/import \{ Table \} from '@avenra\/ui';/i)).toHaveLength(2);
+  });
 });

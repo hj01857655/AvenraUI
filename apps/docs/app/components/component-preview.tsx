@@ -32,6 +32,7 @@ import { Select } from '@avenra/ui/src/components/select/select';
 import { Skeleton } from '@avenra/ui/src/components/skeleton/skeleton';
 import { Stack } from '@avenra/ui/src/components/stack/stack';
 import { Switch } from '@avenra/ui/src/components/switch/switch';
+import { Table } from '@avenra/ui/src/components/table/table';
 import { TagInput } from '@avenra/ui/src/components/tag-input/tag-input';
 import { Tabs } from '@avenra/ui/src/components/tabs/tabs';
 import { Textarea } from '@avenra/ui/src/components/textarea/textarea';
@@ -420,6 +421,35 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
             <span>v1.8.0</span>
             <span>Updated 2 hours ago</span>
           </Inline>
+        </PreviewCanvas>
+      );
+    case 'table':
+      return (
+        <PreviewCanvas>
+          <Stack gap="md">
+            <Table
+              caption="Release readiness"
+              columns={[
+                { id: 'release', header: 'Release', accessorKey: 'release', rowHeader: true },
+                { id: 'status', header: 'Status', accessorKey: 'status' },
+                { id: 'owner', header: 'Owner', accessorKey: 'owner' }
+              ]}
+              rows={[
+                { id: 'march', release: 'March update', status: 'Ready', owner: 'Design' },
+                { id: 'april', release: 'April update', status: 'Blocked', owner: 'Platform' }
+              ]}
+              rowKey="id"
+            />
+            <Table
+              caption="Archived releases"
+              columns={[
+                { id: 'release', header: 'Release', accessorKey: 'release' },
+                { id: 'status', header: 'Status', accessorKey: 'status' }
+              ]}
+              rows={[]}
+              emptyState="No empty preview rows"
+            />
+          </Stack>
         </PreviewCanvas>
       );
     case 'popover':
