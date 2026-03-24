@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { Switch } from './switch';
+import { FormField } from '../form-field/form-field';
 
 describe('Switch', () => {
   it('renders label, hint, and invalid message accessibly', () => {
@@ -15,20 +16,12 @@ describe('Switch', () => {
     );
 
     const control = screen.getByRole('switch', { name: 'Marketing consent' });
+    const hint = screen.getByText('Used for product announcements');
+    const error = screen.getByText('Choose whether marketing consent is enabled');
 
     expect(control).toHaveAttribute('type', 'checkbox');
     expect(control).toHaveAttribute('aria-invalid', 'true');
-    expect(control).toHaveAttribute(
-      'aria-describedby',
-      'marketing-consent-hint marketing-consent-error',
-    );
-    expect(screen.getByText('Used for product announcements')).toHaveAttribute(
-      'id',
-      'marketing-consent-hint',
-    );
-    expect(
-      screen.getByText('Choose whether marketing consent is enabled'),
-    ).toHaveAttribute('id', 'marketing-consent-error');
+    expect(control).toHaveAttribute('aria-describedby', `${hint.id} ${error.id}`);
   });
 
   it('wires the visible label to the switch control', () => {
@@ -51,13 +44,10 @@ describe('Switch', () => {
     );
 
     const control = screen.getByRole('switch', { name: 'Beta access' });
+    const hint = screen.getByText('Can be changed later');
 
     expect(control).toHaveAttribute('aria-invalid', 'false');
-    expect(control).toHaveAttribute('aria-describedby', 'beta-access-hint');
-    expect(screen.getByText('Can be changed later')).toHaveAttribute(
-      'id',
-      'beta-access-hint',
-    );
+    expect(control).toHaveAttribute('aria-describedby', hint.id);
     expect(
       screen.queryByText(/marketing consent is enabled/i),
     ).not.toBeInTheDocument();
@@ -101,4 +91,20 @@ describe('Switch', () => {
     fireEvent.click(control);
     expect(control).not.toBeChecked();
   });
+
+  it('renders hint and error through FormField control layout', () => {
+    render(
+      <FormField hint="Context hint" error="Context error" required layout="control">
+        <Switch label="Enable notifications" />
+      </FormField>,
+    );
+
+    const toggle = screen.getByRole('switch', { name: 'Enable notifications' });
+
+    expect(toggle).toHaveAttribute('required');
+    expect(toggle).toHaveAttribute('aria-invalid', 'true');
+    expect(screen.getByText('Context hint')).toBeInTheDocument();
+    expect(screen.getByText('Context error')).toBeInTheDocument();
+  });
 });
+

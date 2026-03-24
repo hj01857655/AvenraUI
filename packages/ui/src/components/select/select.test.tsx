@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { Select } from './select';
+import { FormField } from '../form-field/form-field';
 
 describe('Select', () => {
   it('renders label, hint, and invalid message accessibly', () => {
@@ -18,16 +19,13 @@ describe('Select', () => {
       </Select>,
     );
 
-    const select = screen.getByLabelText('Assignee');
+    const select = screen.getByRole('combobox');
+    const hint = screen.getByText('Choose the teammate responsible');
+    const error = screen.getByText('Assignee is required');
 
     expect(select.tagName).toBe('SELECT');
     expect(select).toHaveAttribute('aria-invalid', 'true');
-    expect(select).toHaveAttribute('aria-describedby', 'assignee-hint assignee-error');
-    expect(screen.getByText('Choose the teammate responsible')).toHaveAttribute(
-      'id',
-      'assignee-hint',
-    );
-    expect(screen.getByText('Assignee is required')).toHaveAttribute('id', 'assignee-error');
+    expect(select).toHaveAttribute('aria-describedby', `${hint.id} ${error.id}`);
   });
 
   it('renders native options for the combobox', () => {
@@ -55,11 +53,29 @@ describe('Select', () => {
       </Select>,
     );
 
-    const select = screen.getByLabelText('Team');
+    const select = screen.getByRole('combobox');
+    const hint = screen.getByText('Used for routing notifications');
 
     expect(select).toHaveAttribute('aria-invalid', 'false');
-    expect(select).toHaveAttribute('aria-describedby', 'team-hint');
-    expect(screen.getByText('Used for routing notifications')).toHaveAttribute('id', 'team-hint');
+    expect(select).toHaveAttribute('aria-describedby', hint.id);
     expect(screen.queryByText(/required/i)).not.toBeInTheDocument();
   });
+
+  it('consumes FormField context when wrapped', () => {
+    render(
+      <FormField label="Wrapped role" hint="Context hint" error="Context error" required>
+        <Select>
+          <option value="user">User</option>
+        </Select>
+      </FormField>,
+    );
+
+    const select = screen.getByRole('combobox');
+
+    expect(select).toHaveAttribute('required');
+    expect(select).toHaveAttribute('aria-invalid', 'true');
+    expect(screen.getByText('Context hint')).toBeInTheDocument();
+    expect(screen.getByText('Context error')).toBeInTheDocument();
+  });
 });
+

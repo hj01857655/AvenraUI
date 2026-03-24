@@ -1047,3 +1047,41 @@
   }
 }
 
+
+
+.avenra-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.avenra-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.avenra-field--control {
+  gap: 0.625rem;
+}
+
+.avenra-field__label {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.avenra-field__required {
+  margin-left: 0.25rem;
+  color: #dc2626;
+}
+
+.avenra-field__hint {
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.avenra-field__error {
+  font-size: 0.875rem;
+  color: #dc2626;
+}

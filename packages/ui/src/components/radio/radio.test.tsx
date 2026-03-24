@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { Radio } from './radio';
+import { FormField } from '../form-field/form-field';
 
 describe('Radio', () => {
   it('renders label, hint, and invalid message accessibly', () => {
@@ -17,12 +18,12 @@ describe('Radio', () => {
     );
 
     const radio = screen.getByRole('radio', { name: 'Email' });
+    const hint = screen.getByText('Used for account updates');
+    const error = screen.getByText('Choose a contact method');
 
     expect(radio).toHaveAttribute('type', 'radio');
     expect(radio).toHaveAttribute('aria-invalid', 'true');
-    expect(radio).toHaveAttribute('aria-describedby', 'contact-email-hint contact-email-error');
-    expect(screen.getByText('Used for account updates')).toHaveAttribute('id', 'contact-email-hint');
-    expect(screen.getByText('Choose a contact method')).toHaveAttribute('id', 'contact-email-error');
+    expect(radio).toHaveAttribute('aria-describedby', `${hint.id} ${error.id}`);
   });
 
   it('wires the visible label to the native radio control', () => {
@@ -50,13 +51,10 @@ describe('Radio', () => {
     );
 
     const radio = screen.getByRole('radio', { name: 'Phone' });
+    const hint = screen.getByText('Best for urgent notifications');
 
     expect(radio).toHaveAttribute('aria-invalid', 'false');
-    expect(radio).toHaveAttribute('aria-describedby', 'contact-phone-hint');
-    expect(screen.getByText('Best for urgent notifications')).toHaveAttribute(
-      'id',
-      'contact-phone-hint',
-    );
+    expect(radio).toHaveAttribute('aria-describedby', hint.id);
     expect(screen.queryByText(/choose a contact method/i)).not.toBeInTheDocument();
   });
 
@@ -124,4 +122,20 @@ describe('Radio', () => {
     expect(expressRadio).not.toBeChecked();
     expect(standardRadio).not.toBeChecked();
   });
+
+  it('renders hint and error through FormField control layout', () => {
+    render(
+      <FormField hint="Context hint" error="Context error" required layout="control">
+        <Radio label="Email updates" name="updates" />
+      </FormField>,
+    );
+
+    const radio = screen.getByRole('radio', { name: 'Email updates' });
+
+    expect(radio).toHaveAttribute('required');
+    expect(radio).toHaveAttribute('aria-invalid', 'true');
+    expect(screen.getByText('Context hint')).toBeInTheDocument();
+    expect(screen.getByText('Context error')).toBeInTheDocument();
+  });
 });
+

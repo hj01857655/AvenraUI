@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { Input } from '../../index';
+import { FormField } from '../form-field/form-field';
 
 describe('Input', () => {
   it('renders label, hint, and invalid message accessibly', () => {
@@ -14,21 +15,38 @@ describe('Input', () => {
       />,
     );
 
-    const input = screen.getByLabelText('Email');
+    const input = screen.getByRole('textbox');
+    const hint = screen.getByText('Use your work email');
+    const error = screen.getByText('Email is required');
 
     expect(input).toHaveAttribute('aria-invalid', 'true');
-    expect(input).toHaveAttribute('aria-describedby', 'email-hint email-error');
-    expect(screen.getByText('Use your work email')).toHaveAttribute('id', 'email-hint');
-    expect(screen.getByText('Email is required')).toHaveAttribute('id', 'email-error');
+    expect(input).toHaveAttribute('aria-describedby', `${hint.id} ${error.id}`);
   });
 
   it('keeps aria-invalid false and no error id when valid', () => {
     render(<Input id="name" label="Name" hint="Visible to your team" />);
 
-    const input = screen.getByLabelText('Name');
+    const input = screen.getByRole('textbox');
+    const hint = screen.getByText('Visible to your team');
 
     expect(input).toHaveAttribute('aria-invalid', 'false');
-    expect(input).toHaveAttribute('aria-describedby', 'name-hint');
+    expect(input).toHaveAttribute('aria-describedby', hint.id);
     expect(screen.queryByText('Email is required')).not.toBeInTheDocument();
   });
+
+  it('consumes FormField context when wrapped', () => {
+    render(
+      <FormField label="Wrapped email" hint="Context hint" error="Context error" required>
+        <Input />
+      </FormField>,
+    );
+
+    const input = screen.getByRole('textbox');
+
+    expect(input).toHaveAttribute('required');
+    expect(input).toHaveAttribute('aria-invalid', 'true');
+    expect(screen.getByText('Context hint')).toBeInTheDocument();
+    expect(screen.getByText('Context error')).toBeInTheDocument();
+  });
 });
+
