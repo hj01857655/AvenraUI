@@ -65,6 +65,7 @@ export const experimentalComponentSlugs = [
   'autocomplete',
   'combobox',
   'command',
+  'date-picker',
   'drawer',
   'dropdown-menu',
   'form',
@@ -378,6 +379,43 @@ const componentDocContent = {
       {
         title: 'Keyboard flow',
         body: 'Arrow keys move through filtered results, Enter selects the active item, and Escape dismisses the surface, which keeps command execution fast without reaching for the pointer.'
+      }
+    ]
+  },
+  'date-picker': {
+    slug: 'date-picker',
+    title: 'Date Picker',
+    packageImport: "import { DatePicker } from '@avenra/ui';",
+    category: 'Forms and input',
+    summary: 'Calendar-backed date field that keeps selection, review, and correction in one compact control.',
+    usage:
+      'Use DatePicker when the user should choose a specific calendar date from a bounded schedule or release workflow, especially when free-text date parsing would create ambiguity.',
+    exampleCode: [
+      "import { DatePicker } from '@avenra/ui';",
+      '',
+      'export function ReleaseDateField() {',
+      '  return (',
+      '    <DatePicker',
+      '      id="release-date"',
+      '      label="Release date"',
+      '      hint="Choose when the update becomes visible"',
+      '      defaultValue="2026-03-18"',
+      '    />',
+      '  );',
+      '}'
+    ].join('\n'),
+    sections: [
+      {
+        title: 'Input plus calendar',
+        body: 'DatePicker keeps the chosen value visible in a familiar field shell while letting the user confirm the exact day through a calendar overlay instead of typing fragile free-form date strings.'
+      },
+      {
+        title: 'Keyboard interaction',
+        body: 'The field opens from the keyboard, keeps one active day in the calendar grid, and supports directional movement plus Escape dismissal so date review does not require a pointer.'
+      },
+      {
+        title: 'Shared field contract',
+        body: 'DatePicker uses the same label, hint, error, required, invalid, and disabled contract as the other Avenra form controls, so teams can mix it into existing forms without custom validation wiring.'
       }
     ]
   },
@@ -1552,6 +1590,22 @@ export const componentDocMetadata = {
     accessibility: [
       'Command uses combobox and listbox semantics so results remain searchable and keyboard reachable without a pointer.',
       'Disabled actions stay visible but non-interactive, which keeps command palette results predictable during search.'
+    ]
+  },
+  'date-picker': {
+    props: [
+      { name: 'label', type: 'string', required: true, description: 'Visible field label when DatePicker owns its own field shell.' },
+      { name: 'value', type: 'string', description: 'Controlled selected date in `YYYY-MM-DD` format.' },
+      { name: 'defaultValue', type: 'string', description: 'Initial selected date in uncontrolled mode.' },
+      { name: 'min', type: 'string', description: 'Earliest selectable date in `YYYY-MM-DD` format.' },
+      { name: 'max', type: 'string', description: 'Latest selectable date in `YYYY-MM-DD` format.' },
+      { name: 'onValueChange', type: '(value: string | undefined) => void', description: 'Called when the selected date changes.' }
+    ],
+    states: ['Closed', 'Open', 'Selected date', 'Invalid', 'Disabled'],
+    accessibility: [
+      ...commonFieldAccessibility,
+      'The field exposes `aria-haspopup="dialog"` and keeps the current open state on the trigger input so assistive technology can track the linked calendar overlay.',
+      'Keyboard users can open the calendar from the field, move across days, and dismiss with Escape without leaving the date-selection flow.'
     ]
   },
   autocomplete: {

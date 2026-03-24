@@ -12,6 +12,7 @@ import { Card } from '@avenra/ui/src/components/card/card';
 import { Checkbox } from '@avenra/ui/src/components/checkbox/checkbox';
 import { Combobox } from '@avenra/ui/src/components/combobox/combobox';
 import { Command } from '@avenra/ui/src/components/command/command';
+import { DatePicker } from '@avenra/ui/src/components/date-picker/date-picker';
 import { Dialog } from '@avenra/ui/src/components/dialog/dialog';
 import { Drawer } from '@avenra/ui/src/components/drawer/drawer';
 import { DropdownMenu } from '@avenra/ui/src/components/dropdown-menu/dropdown-menu';
@@ -284,6 +285,18 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
               { value: 'create-project', label: 'Create project' },
               { value: 'invite-member', label: 'Invite member' }
             ]}
+          />
+        </PreviewCanvas>
+      );
+    case 'date-picker':
+      return (
+        <PreviewCanvas>
+          <DatePicker
+            id="preview-date-picker"
+            label="Release date"
+            hint="Choose when the update becomes visible"
+            defaultValue="2026-03-18"
+            defaultOpen
           />
         </PreviewCanvas>
       );

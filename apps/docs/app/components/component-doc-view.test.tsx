@@ -152,4 +152,16 @@ describe('ComponentDocView', () => {
     expect(screen.getByRole('listbox')).toBeInTheDocument();
     expect(screen.getAllByText(/import \{ MultiSelect \} from '@avenra\/ui';/i)).toHaveLength(2);
   });
+
+  it('renders date picker docs with a live open calendar preview', () => {
+    render(
+      <ComponentDocView doc={componentDocs['date-picker']} previous={componentDocs.command} next={componentDocs.dialog} />
+    );
+
+    expect(screen.getByRole('heading', { level: 1, name: /date picker/i })).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: /release date/i })).toHaveValue('Mar 18, 2026');
+    expect(screen.getByRole('dialog', { name: /choose date/i })).toBeInTheDocument();
+    expect(screen.getByRole('gridcell', { name: /wednesday, march 18, 2026/i })).toBeInTheDocument();
+    expect(screen.getAllByText(/import \{ DatePicker \} from '@avenra\/ui';/i)).toHaveLength(2);
+  });
 });

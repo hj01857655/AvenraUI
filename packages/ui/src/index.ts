@@ -35,6 +35,7 @@ export * from './components/tooltip/tooltip';
 export * from './components/autocomplete/autocomplete';
 export * from './components/combobox/combobox';
 export * from './components/command/command';
+export * from './components/date-picker/date-picker';
 export * from './components/drawer/drawer';
 export * from './components/dropdown-menu/dropdown-menu';
 export * from './components/form/form';
