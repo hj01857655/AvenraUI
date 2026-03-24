@@ -1545,12 +1545,34 @@ export const componentDocMetadata = {
 } as const satisfies Record<keyof typeof componentDocContent, ComponentDocMetadata>;
 
 const componentDocKeys = Object.keys(componentDocContent) as Array<keyof typeof componentDocContent>;
+const mismatchedComponentDocSlugs = componentDocKeys.filter((slug) => componentDocContent[slug].slug !== slug);
 const duplicatedSupportSlugs = componentDocKeys.filter(
   (slug) => stableComponentSlugSet.has(slug) && experimentalComponentSlugSet.has(slug)
 );
 const uncategorizedSupportSlugs = componentDocKeys.filter(
   (slug) => !stableComponentSlugSet.has(slug) && !experimentalComponentSlugSet.has(slug)
 );
+const incompleteComponentDocEntries = componentDocKeys.filter((slug) => {
+  const doc = componentDocContent[slug];
+  const metadata = componentDocMetadata[slug];
+
+  return [
+    doc.title,
+    doc.packageImport,
+    doc.category,
+    doc.summary,
+    doc.usage,
+    doc.exampleCode,
+  ].some((value) => value.trim().length === 0)
+    || doc.sections[0] === undefined
+    || metadata.props[0] === undefined
+    || metadata.states[0] === undefined
+    || metadata.accessibility[0] === undefined;
+});
+
+if (mismatchedComponentDocSlugs.length > 0) {
+  throw new Error(`Component doc slug keys do not match their registry slugs: ${mismatchedComponentDocSlugs.join(', ')}`);
+}
 
 if (duplicatedSupportSlugs.length > 0) {
   throw new Error(`Component support slugs duplicated across stable and experimental: ${duplicatedSupportSlugs.join(', ')}`);
@@ -1558,6 +1580,10 @@ if (duplicatedSupportSlugs.length > 0) {
 
 if (uncategorizedSupportSlugs.length > 0) {
   throw new Error(`Component support slugs missing governance classification: ${uncategorizedSupportSlugs.join(', ')}`);
+}
+
+if (incompleteComponentDocEntries.length > 0) {
+  throw new Error(`Component docs missing required content or metadata: ${incompleteComponentDocEntries.join(', ')}`);
 }
 
 function getComponentSupportLevel(slug: keyof typeof componentDocContent): ComponentSupportLevel {

@@ -106,29 +106,17 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
     case 'autocomplete':
       return (
         <PreviewCanvas>
-          <Stack gap="md">
-            <Autocomplete
-              label="Country"
-              placeholder="Type 2+ characters"
-              emptyMessage="No country found"
-              minQueryLength={2}
-              options={[
-                { value: 'ar', label: 'Argentina' },
-                { value: 'au', label: 'Australia' },
-                { value: 'at', label: 'Austria' }
-              ]}
-            />
-            <Autocomplete
-              label="Readonly country"
-              placeholder="Disabled autocomplete"
-              minQueryLength={2}
-              disabled
-              options={[
-                { value: 'ca', label: 'Canada' },
-                { value: 'cl', label: 'Chile' }
-              ]}
-            />
-          </Stack>
+          <Autocomplete
+            label="Country"
+            placeholder="Type 2+ characters"
+            emptyMessage="No country found"
+            minQueryLength={2}
+            options={[
+              { value: 'ar', label: 'Argentina' },
+              { value: 'au', label: 'Australia' },
+              { value: 'at', label: 'Austria' }
+            ]}
+          />
         </PreviewCanvas>
       );
     case 'avatar':
@@ -315,8 +303,8 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
           <Drawer
             defaultOpen
             trigger={<Button variant="secondary">Open drawer</Button>}
-            title="Notification settings"
-            description="Control email digests and release alerts without leaving the current page."
+            title="Workspace settings"
+            description="Update access and notification preferences."
           >
             <Stack gap="sm">
               <Input id="preview-drawer-name" label="Workspace name" defaultValue="Avenra" />
@@ -456,17 +444,11 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
     case 'select':
       return (
         <PreviewCanvas>
-          <Stack gap="md">
-            <Select id="preview-select" label="Role" hint="Choose the baseline permission set" defaultValue="editor">
-              <option value="viewer">Viewer</option>
-              <option value="editor">Editor</option>
-              <option value="owner">Owner</option>
-            </Select>
-            <Select id="preview-select-disabled" label="Readonly role" defaultValue="viewer" disabled>
-              <option value="viewer">Viewer</option>
-              <option value="editor">Editor</option>
-            </Select>
-          </Stack>
+          <Select id="preview-select" label="Role" hint="Choose the baseline permission set" defaultValue="editor">
+            <option value="viewer">Viewer</option>
+            <option value="editor">Editor</option>
+            <option value="owner">Owner</option>
+          </Select>
         </PreviewCanvas>
       );
     case 'stack':

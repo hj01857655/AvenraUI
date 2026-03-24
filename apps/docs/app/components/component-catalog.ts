@@ -104,6 +104,13 @@ export const experimentalComponentDocList = componentDocList.filter((doc) => doc
 const homepageShowcaseSlugs = ['skeleton', 'form', 'form-field', 'combobox', 'command', 'autocomplete'] as const satisfies readonly ComponentDoc['slug'][];
 
 const componentDocsBySlug = new Map(componentDocList.map((doc) => [doc.slug, doc] as const));
+const duplicateHomepageShowcaseSlugs = homepageShowcaseSlugs.filter(
+  (slug, index, array) => array.indexOf(slug) !== index
+);
+
+if (duplicateHomepageShowcaseSlugs.length > 0) {
+  throw new Error(`Duplicate homepage showcase slugs configured: ${duplicateHomepageShowcaseSlugs.join(', ')}`);
+}
 
 export const homepageShowcaseEntries: HomepageShowcaseEntry[] = homepageShowcaseSlugs.map((slug) => {
   const doc = componentDocsBySlug.get(slug);

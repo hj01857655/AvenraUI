@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { cleanup, render, screen, within } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { ComponentDocView } from './component-doc-view';
@@ -60,8 +60,10 @@ describe('ComponentDocView', () => {
 
     expect(screen.getByRole('heading', { level: 1, name: /drawer/i })).toBeInTheDocument();
     expect(screen.getAllByText(/import \{ Button, Drawer \} from '@avenra\/ui';/i)).toHaveLength(1);
+    const dialog = screen.getByRole('dialog', { name: /workspace settings/i });
 
-    expect(screen.getByText(/workspace settings/i)).toBeInTheDocument();
+    expect(within(dialog).getByRole('button', { name: /close drawer/i })).toBeInTheDocument();
+    expect(within(dialog).getByText(/update access and notification preferences/i)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /previous: dropdown menu/i })).toHaveAttribute(
       'href',
       '/components/dropdown-menu'
@@ -70,5 +72,57 @@ describe('ComponentDocView', () => {
       'href',
       '/components/popover'
     );
+  });
+
+  it('renders live preview states for overlay and feedback docs instead of only code samples', () => {
+    render(
+      <ComponentDocView doc={componentDocs['dropdown-menu']} previous={componentDocs.dialog} next={componentDocs.drawer} />
+    );
+
+    expect(screen.getByRole('menuitem', { name: /duplicate workspace/i })).toBeDisabled();
+    expect(screen.getByRole('menuitem', { name: /archive workspace/i })).toBeInTheDocument();
+
+    cleanup();
+
+    render(
+      <ComponentDocView doc={componentDocs.toast} previous={componentDocs.skeleton} next={componentDocs.radio} />
+    );
+
+    expect(screen.getByRole('button', { name: /push info toast/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /push error toast/i })).toBeInTheDocument();
+    expect(screen.getByRole('alert', { name: /publish failed/i })).toBeInTheDocument();
+  });
+
+  it('renders live preview states for selection docs without drifting from the current docs previews', () => {
+    render(
+      <ComponentDocView doc={componentDocs.autocomplete} previous={componentDocs.command} next={componentDocs['empty-state']} />
+    );
+
+    expect(screen.getByRole('combobox', { name: /^country$/i })).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/type 2\+ characters/i)).toBeInTheDocument();
+
+    cleanup();
+
+    render(
+      <ComponentDocView doc={componentDocs.select} previous={componentDocs.radio} next={componentDocs.stack} />
+    );
+
+    expect(screen.getByRole('combobox', { name: /^role$/i })).toBeInTheDocument();
+
+    cleanup();
+
+    render(
+      <ComponentDocView doc={componentDocs.checkbox} previous={componentDocs.card} next={componentDocs.combobox} />
+    );
+
+    expect(screen.getByRole('checkbox', { name: /lock audit exports/i })).toBeDisabled();
+
+    cleanup();
+
+    render(
+      <ComponentDocView doc={componentDocs.switch} previous={componentDocs.stack} next={componentDocs.tabs} />
+    );
+
+    expect(screen.getByRole('switch', { name: /readonly sync/i })).toBeDisabled();
   });
 });
