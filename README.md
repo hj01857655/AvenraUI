@@ -32,6 +32,18 @@ Avenra UI is not trying to win by copying another ecosystem's mental model into 
 
 Today that means Avenra UI is strongest as a serious foundation-in-progress rather than a falsely “finished” enterprise matrix.
 
+## What success looks like
+
+Success for Avenra UI is not “having many component names in the package.”
+
+Success looks like this:
+
+- a team can adopt the stable surface and ship real product screens
+- the library’s docs explain where the support boundary really is
+- component groups feel coherent instead of individually impressive but collectively inconsistent
+- higher-value inputs, overlays, and data-display surfaces arrive as credible product lines, not rushed demos
+- the library becomes known for React-native product quality rather than framework imitation
+
 ## Current product position
 
 Avenra UI is in the foundation-building phase of a serious public library.
@@ -53,6 +65,20 @@ What is not being claimed yet:
 
 The goal is not to overstate maturity. The goal is to make the current support contract explicit while continuing to expand the product deliberately.
 
+## Competitive stance
+
+Avenra UI is not trying to beat mature React libraries by claiming the largest matrix today.
+
+It is trying to become competitive by being better in the places where long-lived product teams feel pain:
+
+- clearer support governance
+- stronger component-group consistency
+- more explicit adoption guidance
+- React-first usage boundaries
+- better alignment between exports, docs, previews, and tests
+
+That is the current competitive stance: credibility before theater.
+
 ## Docs entry points
 
 - Docs home: product positioning, current capability, and entry navigation
@@ -60,14 +86,11 @@ The goal is not to overstate maturity. The goal is to make the current support c
 - Installation: package-consumer path and local workspace path
 - Theming: styling layers, override direction, and current boundary notes
 - Components: current documented component surface
+- Product handbook: `docs/product-handbook.md`
 - Stable surface governance: `docs/stable-components.md`
-- Adoption guidance: `docs/adoption-guidance.md`
-- Design principles: `docs/design-principles.md`
 - Form semantics and field contract: `docs/form-experience.md`
 - Selection component guidance: `docs/selection-components.md`
 - Date input direction: `docs/date-inputs.md`
-- Component landscape: `docs/component-landscape.md`
-- Product direction: `docs/product-direction.md`
 
 ## Current package-consumer shape
 
@@ -96,16 +119,13 @@ That distinction is documentation and support governance, not a claim that exper
 If you are evaluating Avenra UI today, the recommended reading order is:
 
 1. `README.md` for the current product position
-2. `docs/stable-components.md` for the support contract
-3. `docs/adoption-guidance.md` for the current production-use boundary
-4. `docs/design-principles.md` for the product and API philosophy
-5. `docs/form-experience.md` for the current field and validation model
-6. `docs/selection-components.md` for choosing between the current selection primitives
-7. `docs/date-inputs.md` for the current date-entry direction
-8. `docs/component-landscape.md` for the current component map
-9. `docs/product-direction.md` for the near-term expansion direction
+2. `docs/product-handbook.md` for the complete product, adoption, and roadmap handbook
+3. `docs/stable-components.md` for the support contract
+4. `docs/form-experience.md` for the current field and validation model
+5. `docs/selection-components.md` for choosing between the current selection primitives
+6. `docs/date-inputs.md` for the current date-entry direction
 
-That reading order reflects how the library is being built: support boundaries first, then usage clarity, then wider component breadth.
+That reading order reflects how the library is being built: product definition first, support boundaries second, and specialized guidance after that.
 
 ## Current form experience contract
 
@@ -147,6 +167,8 @@ The current stable support surface is:
 - `Tooltip`
 
 These are the components the repository currently treats as stable for external adoption.
+
+Promotion and support expectations are collected in `docs/product-handbook.md` and summarized in `docs/stable-components.md`.
 
 ## Experimental / in-progress surface
 
@@ -215,6 +237,28 @@ The current direction is to expand in a way that compounds product value instead
 
 This is how Avenra UI intends to become a strong React ecosystem library: not by pretending the whole matrix is already done, but by making each new line credible when it lands.
 
+## Roadmap shape
+
+The current roadmap shape is:
+
+### Now
+
+- strengthen high-frequency input surfaces
+- keep docs and support governance aligned with the real surface
+- make field, selection, date, overlay, and feedback groups feel internally coherent
+
+### Next
+
+- add stronger data-display primitives such as `Table`
+- expand higher-value workflow components like `Upload`
+- deepen date and selection surfaces where they materially improve product flows
+
+### Later
+
+- expand into heavier enterprise patterns only after the surrounding system can support them credibly
+
+This roadmap shape matters because Avenra UI is trying to become a product system, not a scattered widget list.
+
 ## Current differentiation direction
 
 Avenra UI is trying to become more than “another React component package” in three specific ways:
@@ -239,6 +283,8 @@ Avenra UI is not the right fit today if you require:
 - a complete enterprise matrix with every heavy data component already stable
 - a finalized public theming platform across every override surface
 - zero API movement in the currently experimental surface
+
+If you are evaluating the library for real adoption, use `docs/product-handbook.md` together with `docs/stable-components.md` instead of relying only on package impressions.
 
 ## Styling and theming
 
