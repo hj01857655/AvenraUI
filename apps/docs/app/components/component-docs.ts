@@ -246,6 +246,123 @@ const componentDocContent = {
       }
     ]
   },
+  combobox: {
+    slug: 'combobox',
+    title: 'Combobox',
+    packageImport: "import { Combobox } from '@avenra/ui';",
+    category: 'Forms and input',
+    summary: 'Searchable select field that keeps text entry, filtering, and selection in one input-driven control.',
+    usage:
+      'Use Combobox when the user needs to search a known option set but still stay anchored to a form field pattern instead of opening a larger command surface.',
+    exampleCode: [
+      "import { Combobox } from '@avenra/ui';",
+      '',
+      'const frameworkOptions = [',
+      "  { value: 'react', label: 'React' },",
+      "  { value: 'vue', label: 'Vue' },",
+      "  { value: 'svelte', label: 'Svelte' }",
+      '];',
+      '',
+      'export function FrameworkField() {',
+      '  return (',
+      '    <Combobox',
+      '      label="Framework"',
+      '      placeholder="Search frameworks"',
+      '      options={frameworkOptions}',
+      '      defaultValue="react"',
+      '    />',
+      '  );',
+      '}'
+    ].join('\n'),
+    sections: [
+      {
+        title: 'Selection and query control',
+        body: 'Combobox separates selected value from input text so products can control search text, selected option, and open state independently when orchestration matters.'
+      },
+      {
+        title: 'When to use',
+        body: 'Choose Combobox when the option list is searchable but still belongs inside a normal form field. If the interaction is command-driven or action-first, use Command instead.'
+      }
+    ]
+  },
+  command: {
+    slug: 'command',
+    title: 'Command',
+    packageImport: "import { Command } from '@avenra/ui';",
+    category: 'Forms and input',
+    summary: 'Command-style searchable action list for fast keyboard-first discovery and execution.',
+    usage:
+      'Use Command when the user is searching for actions, destinations, or tools rather than filling out a field value inside a form.',
+    exampleCode: [
+      "import { Command } from '@avenra/ui';",
+      '',
+      'const commandOptions = [',
+      "  { value: 'open-settings', label: 'Open settings' },",
+      "  { value: 'create-project', label: 'Create project' },",
+      "  { value: 'invite-member', label: 'Invite member' }",
+      '];',
+      '',
+      'export function WorkspaceCommandPalette() {',
+      '  return (',
+      '    <Command',
+      '      placeholder="Search commands"',
+      '      emptyMessage="Nothing found"',
+      '      options={commandOptions}',
+      '    />',
+      '  );',
+      '}'
+    ].join('\n'),
+    sections: [
+      {
+        title: 'Action-oriented search',
+        body: 'Command is for finding and executing actions quickly. It keeps focus on filtering and selection instead of presenting the interaction as a conventional form field.'
+      },
+      {
+        title: 'Keyboard flow',
+        body: 'Arrow keys move through filtered results, Enter selects the active item, and Escape dismisses the surface, which keeps command execution fast without reaching for the pointer.'
+      }
+    ]
+  },
+  autocomplete: {
+    slug: 'autocomplete',
+    title: 'Autocomplete',
+    packageImport: "import { Autocomplete } from '@avenra/ui';",
+    category: 'Forms and input',
+    summary: 'Suggestion field built on Combobox for typeahead flows that should wait for meaningful query input.',
+    usage:
+      'Use Autocomplete when free typing should progressively reveal suggestions, especially when showing every option up front would add noise or overwhelm the field.',
+    exampleCode: [
+      "import { Autocomplete } from '@avenra/ui';",
+      '',
+      'const countryOptions = [',
+      "  { value: 'ar', label: 'Argentina' },",
+      "  { value: 'au', label: 'Australia' },",
+      "  { value: 'at', label: 'Austria' }",
+      '];',
+      '',
+      'export function CountryField() {',
+      '  return (',
+      '    <Autocomplete',
+      '      label="Country"',
+      '      placeholder="Search countries"',
+      '      emptyMessage="No country found"',
+      '      minQueryLength={2}',
+      '      options={countryOptions}',
+      '    />',
+      '  );',
+      '}'
+    ].join('\n'),
+    sections: [
+      {
+        title: 'Typeahead threshold',
+        body: 'Use `minQueryLength` to avoid opening large suggestion sets before the user has provided enough signal for useful matching.'
+      },
+      {
+        title: 'Relationship to Combobox',
+        body: 'Autocomplete reuses the Combobox interaction model but narrows it to suggestion-first search, which keeps product code simple when query length should gate results.'
+      }
+    ]
+  },
   'empty-state': {
     slug: 'empty-state',
     title: 'EmptyState',
@@ -1140,6 +1257,52 @@ export const componentDocMetadata = {
     accessibility: [
       'FormField generates and wires label, hint, and error ids so wrapped controls expose consistent aria-labelledby, aria-describedby, and aria-invalid behavior.',
       'Use the control layout for Checkbox, Radio, and Switch so the child component keeps its own visible label without duplicating text.'
+    ]
+  },
+  combobox: {
+    props: [
+      { name: 'options', type: 'ComboboxOption[]', required: true, description: 'Searchable option set rendered in the listbox.' },
+      { name: 'label', type: 'string', description: 'Visible field label when the control is used directly in a form.' },
+      { name: 'value', type: 'string', description: 'Controlled selected option value.' },
+      { name: 'inputValue', type: 'string', description: 'Controlled query text shown in the input.' },
+      { name: 'open', type: 'boolean', description: 'Controlled popup visibility.' },
+      { name: 'emptyMessage', type: 'string', description: 'Fallback copy rendered when filtering produces no matching options.' },
+      { name: 'onValueChange', type: '(value: string) => void', description: 'Called when the user commits a different option.' }
+    ],
+    states: ['Closed', 'Open', 'Filtered', 'No results', 'Controlled'],
+    accessibility: [
+      'Combobox keeps the input, popup, and active option linked through combobox, listbox, and option semantics.',
+      'Keyboard navigation supports Arrow keys, Enter selection, and Escape dismissal without losing the current query.'
+    ]
+  },
+  command: {
+    props: [
+      { name: 'options', type: 'CommandOption[]', required: true, description: 'Action rows filtered against the current query.' },
+      { name: 'placeholder', type: 'string', description: 'Prompt text shown in the search input.' },
+      { name: 'emptyMessage', type: 'string', description: 'Fallback copy rendered when no command matches.' },
+      { name: 'open', type: 'boolean', description: 'Controlled panel visibility.' },
+      { name: 'inputProps', type: 'InputHTMLAttributes<HTMLInputElement>', description: 'Additional input attributes forwarded to the search field.' },
+      { name: 'onSelect', type: '(value: string) => void', description: 'Called when the user chooses a command option.' }
+    ],
+    states: ['Closed', 'Open', 'Filtered', 'No results', 'Controlled'],
+    accessibility: [
+      'Command uses combobox and listbox semantics so results remain searchable and keyboard reachable without a pointer.',
+      'Disabled actions stay visible but non-interactive, which keeps command palette results predictable during search.'
+    ]
+  },
+  autocomplete: {
+    props: [
+      { name: 'options', type: 'AutocompleteOption[]', required: true, description: 'Suggestion set exposed after the query threshold is met.' },
+      { name: 'minQueryLength', type: 'number', description: 'Minimum number of typed characters required before suggestions appear.' },
+      { name: 'label', type: 'string', description: 'Visible field label when used directly in a form.' },
+      { name: 'inputValue', type: 'string', description: 'Controlled query text.' },
+      { name: 'emptyMessage', type: 'string', description: 'Fallback copy rendered when no suggestions match.' },
+      { name: 'onValueChange', type: '(value: string) => void', description: 'Called when the user selects a suggestion.' }
+    ],
+    states: ['Closed', 'Open', 'Waiting for threshold', 'Filtered', 'No results'],
+    accessibility: [
+      'Autocomplete preserves editable text entry while exposing matching suggestions through a popup listbox.',
+      'Selection can be committed with Enter or pointer click, while Escape closes the popup without clearing the field.'
     ]
   },
   popover: {

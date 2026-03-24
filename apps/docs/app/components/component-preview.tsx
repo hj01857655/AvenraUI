@@ -1,12 +1,15 @@
 'use client';
 
 import { Alert } from '@avenra/ui/src/components/alert/alert';
+import { Autocomplete } from '@avenra/ui/src/components/autocomplete/autocomplete';
 import { Avatar } from '@avenra/ui/src/components/avatar/avatar';
 import { Badge } from '@avenra/ui/src/components/badge/badge';
 import { Breadcrumb } from '@avenra/ui/src/components/breadcrumb/breadcrumb';
 import { Button } from '@avenra/ui/src/components/button/button';
 import { Card } from '@avenra/ui/src/components/card/card';
 import { Checkbox } from '@avenra/ui/src/components/checkbox/checkbox';
+import { Combobox } from '@avenra/ui/src/components/combobox/combobox';
+import { Command } from '@avenra/ui/src/components/command/command';
 import { Dialog } from '@avenra/ui/src/components/dialog/dialog';
 import { Drawer } from '@avenra/ui/src/components/drawer/drawer';
 import { DropdownMenu } from '@avenra/ui/src/components/dropdown-menu/dropdown-menu';
@@ -15,14 +18,13 @@ import { Form } from '@avenra/ui/src/components/form/form';
 import { FormField } from '@avenra/ui/src/components/form-field/form-field';
 import { IconButton } from '@avenra/ui/src/components/icon-button/icon-button';
 import { Inline } from '@avenra/ui/src/components/inline/inline';
-
 import { Input } from '@avenra/ui/src/components/input/input';
+import { Pagination } from '@avenra/ui/src/components/pagination/pagination';
 import { Popover } from '@avenra/ui/src/components/popover/popover';
 import { Progress } from '@avenra/ui/src/components/progress/progress';
-import { Pagination } from '@avenra/ui/src/components/pagination/pagination';
 import { Radio } from '@avenra/ui/src/components/radio/radio';
-import { Skeleton } from '@avenra/ui/src/components/skeleton/skeleton';
 import { Select } from '@avenra/ui/src/components/select/select';
+import { Skeleton } from '@avenra/ui/src/components/skeleton/skeleton';
 import { Stack } from '@avenra/ui/src/components/stack/stack';
 import { Switch } from '@avenra/ui/src/components/switch/switch';
 import { Tabs } from '@avenra/ui/src/components/tabs/tabs';
@@ -43,6 +45,21 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
           <Alert title="Build queued" variant="success">
             The release pipeline is processing the latest docs update.
           </Alert>
+        </PreviewCanvas>
+      );
+    case 'autocomplete':
+      return (
+        <PreviewCanvas>
+          <Autocomplete
+            label="Country"
+            placeholder="Search countries"
+            emptyMessage="No country found"
+            options={[
+              { value: 'ar', label: 'Argentina' },
+              { value: 'au', label: 'Australia' },
+              { value: 'at', label: 'Austria' }
+            ]}
+          />
         </PreviewCanvas>
       );
     case 'avatar':
@@ -149,6 +166,36 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
             />
             <Checkbox id="preview-checkbox-2" label="Include release candidates" />
           </Stack>
+        </PreviewCanvas>
+      );
+    case 'combobox':
+      return (
+        <PreviewCanvas>
+          <Combobox
+            label="Framework"
+            placeholder="Search frameworks"
+            emptyMessage="No framework found"
+            options={[
+              { value: 'react', label: 'React' },
+              { value: 'vue', label: 'Vue' },
+              { value: 'svelte', label: 'Svelte' }
+            ]}
+            defaultValue="react"
+          />
+        </PreviewCanvas>
+      );
+    case 'command':
+      return (
+        <PreviewCanvas>
+          <Command
+            placeholder="Search commands"
+            emptyMessage="Nothing found"
+            options={[
+              { value: 'open-settings', label: 'Open settings' },
+              { value: 'create-project', label: 'Create project' },
+              { value: 'invite-member', label: 'Invite member' }
+            ]}
+          />
         </PreviewCanvas>
       );
     case 'dialog':
@@ -341,9 +388,9 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
     case 'tooltip':
       return (
         <PreviewCanvas>
-          <Tooltip content="Opens component usage guidance.">
-            <IconButton aria-label="Open help" icon={<span aria-hidden="true">?</span>} />
-          </Tooltip>
+            <Tooltip content="Opens component usage guidance.">
+              <IconButton aria-label="Open help" icon={<span aria-hidden="true">?</span>} />
+            </Tooltip>
         </PreviewCanvas>
       );
     default:
