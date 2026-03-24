@@ -66,6 +66,7 @@ export const experimentalComponentSlugs = [
   'combobox',
   'command',
   'date-picker',
+  'date-range-picker',
   'drawer',
   'dropdown-menu',
   'form',
@@ -416,6 +417,43 @@ const componentDocContent = {
       {
         title: 'Shared field contract',
         body: 'DatePicker uses the same label, hint, error, required, invalid, and disabled contract as the other Avenra form controls, so teams can mix it into existing forms without custom validation wiring.'
+      }
+    ]
+  },
+  'date-range-picker': {
+    slug: 'date-range-picker',
+    title: 'Date Range Picker',
+    packageImport: "import { DateRangePicker } from '@avenra/ui';",
+    category: 'Forms and input',
+    summary: 'Calendar-backed date range field for selecting a bounded start and end window in one surface.',
+    usage:
+      'Use DateRangePicker when the user needs to commit both the start and end of a scheduling window, reporting period, booking span, or launch phase without splitting the task into two disconnected fields.',
+    exampleCode: [
+      "import { DateRangePicker } from '@avenra/ui';",
+      '',
+      'export function LaunchWindowField() {',
+      '  return (',
+      '    <DateRangePicker',
+      '      id="launch-window"',
+      '      label="Launch window"',
+      '      hint="Choose the public launch range"',
+      "      defaultValue={{ start: '2026-03-18', end: '2026-03-24' }}",
+      '    />',
+      '  );',
+      '}'
+    ].join('\n'),
+    sections: [
+      {
+        title: 'Two-step range selection',
+        body: 'DateRangePicker keeps start and end selection inside one calendar flow so the user can see the whole window, adjust order automatically, and avoid drifting between two separate date fields.'
+      },
+      {
+        title: 'Visible range review',
+        body: 'The trigger field always shows the committed span in one line, while the open calendar highlights the selected endpoints and the days between them so review is immediate before submission.'
+      },
+      {
+        title: 'Shared field contract',
+        body: 'DateRangePicker uses the same label, hint, error, required, invalid, and disabled contract as the rest of the Avenra form surface, so teams can adopt it without custom accessibility or validation wrappers.'
       }
     ]
   },
@@ -1606,6 +1644,22 @@ export const componentDocMetadata = {
       ...commonFieldAccessibility,
       'The field exposes `aria-haspopup="dialog"` and keeps the current open state on the trigger input so assistive technology can track the linked calendar overlay.',
       'Keyboard users can open the calendar from the field, move across days, and dismiss with Escape without leaving the date-selection flow.'
+    ]
+  },
+  'date-range-picker': {
+    props: [
+      { name: 'label', type: 'string', required: true, description: 'Visible field label when DateRangePicker owns its own field shell.' },
+      { name: 'value', type: '{ start?: string; end?: string }', description: 'Controlled range value in `YYYY-MM-DD` format.' },
+      { name: 'defaultValue', type: '{ start?: string; end?: string }', description: 'Initial range value in uncontrolled mode.' },
+      { name: 'min', type: 'string', description: 'Earliest selectable day in `YYYY-MM-DD` format.' },
+      { name: 'max', type: 'string', description: 'Latest selectable day in `YYYY-MM-DD` format.' },
+      { name: 'onValueChange', type: '(value: { start?: string; end?: string }) => void', description: 'Called whenever the committed range changes.' }
+    ],
+    states: ['Closed', 'Open', 'Selecting start', 'Selecting end', 'Selected range', 'Invalid', 'Disabled'],
+    accessibility: [
+      ...commonFieldAccessibility,
+      'The field exposes `aria-haspopup="dialog"` and keeps the current open state on the trigger input so assistive technology can track the linked range calendar overlay.',
+      'Keyboard users can open the range picker from the field, move across days, commit the start and end dates from the grid, and dismiss with Escape without losing context.'
     ]
   },
   autocomplete: {

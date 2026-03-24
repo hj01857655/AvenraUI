@@ -13,6 +13,7 @@ import { Checkbox } from '@avenra/ui/src/components/checkbox/checkbox';
 import { Combobox } from '@avenra/ui/src/components/combobox/combobox';
 import { Command } from '@avenra/ui/src/components/command/command';
 import { DatePicker } from '@avenra/ui/src/components/date-picker/date-picker';
+import { DateRangePicker } from '@avenra/ui/src/components/date-range-picker/date-range-picker';
 import { Dialog } from '@avenra/ui/src/components/dialog/dialog';
 import { Drawer } from '@avenra/ui/src/components/drawer/drawer';
 import { DropdownMenu } from '@avenra/ui/src/components/dropdown-menu/dropdown-menu';
@@ -296,6 +297,18 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
             label="Release date"
             hint="Choose when the update becomes visible"
             defaultValue="2026-03-18"
+            defaultOpen
+          />
+        </PreviewCanvas>
+      );
+    case 'date-range-picker':
+      return (
+        <PreviewCanvas>
+          <DateRangePicker
+            id="preview-date-range-picker"
+            label="Launch window"
+            hint="Choose the public launch range"
+            defaultValue={{ start: '2026-03-18', end: '2026-03-24' }}
             defaultOpen
           />
         </PreviewCanvas>

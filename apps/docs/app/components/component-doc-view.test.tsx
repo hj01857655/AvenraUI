@@ -164,4 +164,21 @@ describe('ComponentDocView', () => {
     expect(screen.getByRole('gridcell', { name: /wednesday, march 18, 2026/i })).toBeInTheDocument();
     expect(screen.getAllByText(/import \{ DatePicker \} from '@avenra\/ui';/i)).toHaveLength(2);
   });
+
+  it('renders date range picker docs with a live selected range preview', () => {
+    render(
+      <ComponentDocView
+        doc={componentDocs['date-range-picker']}
+        previous={componentDocs['date-picker']}
+        next={componentDocs.dialog}
+      />
+    );
+
+    expect(screen.getByRole('heading', { level: 1, name: /date range picker/i })).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: /launch window/i })).toHaveValue('Mar 18, 2026 — Mar 24, 2026');
+    expect(screen.getByRole('dialog', { name: /choose date range/i })).toBeInTheDocument();
+    expect(screen.getByRole('gridcell', { name: /wednesday, march 18, 2026/i })).toBeInTheDocument();
+    expect(screen.getByRole('gridcell', { name: /tuesday, march 24, 2026/i })).toBeInTheDocument();
+    expect(screen.getAllByText(/import \{ DateRangePicker \} from '@avenra\/ui';/i)).toHaveLength(2);
+  });
 });
