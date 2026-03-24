@@ -32,7 +32,8 @@ export function FormField({
   const labelId = label ? `${fieldId}-label` : undefined;
   const hintId = hint ? `${fieldId}-hint` : undefined;
   const errorId = error ? `${fieldId}-error` : undefined;
-  const describedBy = [hintId, errorId].filter(Boolean).join(' ') || undefined;
+  const describedByIds = [hintId, errorId].filter((value): value is string => Boolean(value));
+  const describedBy = describedByIds.join(' ') || undefined;
   const isInvalid = invalid ?? Boolean(error);
   const isDisabled = disabled || form?.disabled || form?.submitting || false;
 
@@ -43,6 +44,7 @@ export function FormField({
         labelId,
         hintId,
         errorId,
+        describedByIds,
         describedBy,
         required,
         disabled: isDisabled,
@@ -57,6 +59,10 @@ export function FormField({
           isDisabled && 'avenra-field--disabled',
           isInvalid && 'avenra-field--invalid',
         )}
+        data-layout={layout}
+        data-disabled={isDisabled ? 'true' : 'false'}
+        data-invalid={isInvalid ? 'true' : 'false'}
+        data-required={required ? 'true' : 'false'}
       >
         {layout === 'stacked' && label ? (
           <label className="avenra-field__label" htmlFor={fieldId} id={labelId}>

@@ -10,6 +10,7 @@ export interface FormFieldContextValue {
   labelId?: string;
   hintId?: string;
   errorId?: string;
+  describedByIds: string[];
   describedBy?: string;
   required: boolean;
   disabled: boolean;

@@ -32,7 +32,7 @@ const componentCatalogGroupConfigs: readonly ComponentCatalogGroupConfig[] = [
   },
   {
     title: 'Forms and input',
-    description: 'Input primitives for capture, selection, and inline editing flows.'
+    description: 'Field primitives with a shared label, hint, error, invalid, and disabled contract.'
   },
   {
     title: 'Feedback and status',

@@ -2,6 +2,7 @@ import { cn } from '@avenra/utils';
 import type { TextareaHTMLAttributes } from 'react';
 
 import { FormField } from '../form-field/form-field';
+import { getFieldContract } from '../form/field-contract';
 import { useFormFieldContext } from '../form/context';
 
 export type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
@@ -13,28 +14,51 @@ export type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   fieldWrapper?: boolean;
 };
 
-function TextareaControl({ className, id, rows = 4, ...props }: TextareaHTMLAttributes<HTMLTextAreaElement>) {
+function TextareaControl({
+  className,
+  disabled,
+  id,
+  invalid,
+  required,
+  rows = 4,
+  'aria-describedby': ariaDescribedBy,
+  'aria-invalid': ariaInvalid,
+  'aria-labelledby': ariaLabelledBy,
+  ...props
+}: TextareaHTMLAttributes<HTMLTextAreaElement> & { invalid?: boolean }) {
   const field = useFormFieldContext();
-  const textareaId = id ?? field?.fieldId ?? 'avenra-textarea';
+  const contract = getFieldContract(
+    field,
+    {
+      id,
+      disabled,
+      invalid,
+      required,
+      'aria-describedby': ariaDescribedBy,
+      'aria-invalid': ariaInvalid,
+      'aria-labelledby': ariaLabelledBy,
+    },
+    'avenra-textarea',
+  );
 
   return (
     <textarea
-      id={textareaId}
-      rows={rows}
-      className={cn('avenra-input', 'avenra-textarea', field?.invalid && 'avenra-input--invalid', className)}
-      aria-invalid={field?.invalid ? 'true' : props['aria-invalid'] ?? 'false'}
-      aria-describedby={field?.describedBy ?? props['aria-describedby']}
-      aria-labelledby={field?.labelId ?? props['aria-labelledby']}
-      disabled={field?.disabled ?? props.disabled}
-      required={field?.required ?? props.required}
       {...props}
+      id={contract.id}
+      rows={rows}
+      className={cn('avenra-input', 'avenra-textarea', contract.invalid && 'avenra-input--invalid', className)}
+      aria-invalid={contract.ariaInvalid}
+      aria-describedby={contract.ariaDescribedBy}
+      aria-labelledby={contract.ariaLabelledBy}
+      disabled={contract.disabled}
+      required={contract.required}
     />
   );
 }
 
 export function Textarea({ error, fieldWrapper = true, hint, invalid, label, required, ...props }: TextareaProps) {
   if (!fieldWrapper || (!label && !hint && !error && required === undefined && invalid === undefined)) {
-    return <TextareaControl {...props} />;
+    return <TextareaControl {...props} invalid={invalid} required={required} />;
   }
 
   return (

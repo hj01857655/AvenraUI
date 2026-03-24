@@ -56,6 +56,17 @@ The package root currently exports both:
 
 That distinction is documentation and support governance, not a claim that experimental items are hidden or removed from the package today.
 
+## Current form experience contract
+
+The current form work is centered on one shared field contract across text, selection, and choice controls:
+
+- `Form` keeps the native `<form>` element, exposes busy state on the form surface, and propagates `disabled` / `submitting`
+- `FormField` is the shared shell for `label`, `hint`, `error`, `required`, `invalid`, and disabled semantics
+- `Input`, `Select`, `Textarea`, `Combobox`, and `Autocomplete` can own that shell directly or inherit it from `FormField`
+- `Checkbox`, `Radio`, and `Switch` keep their own visible label and should use `FormField layout="control"` when shared hint or error text is needed
+
+That is the current product direction for form composition: one consistent accessibility and messaging contract before expanding into larger data-entry surfaces.
+
 ## Stable surface
 
 The current stable support surface is:

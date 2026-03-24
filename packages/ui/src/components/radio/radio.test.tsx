@@ -137,5 +137,13 @@ describe('Radio', () => {
     expect(screen.getByText('Context hint')).toBeInTheDocument();
     expect(screen.getByText('Context error')).toBeInTheDocument();
   });
-});
 
+  it('respects required and invalid when rendered without a field wrapper', () => {
+    render(<Radio fieldWrapper={false} invalid label="Direct radio" name="direct" required />);
+
+    const radio = screen.getByRole('radio', { name: 'Direct radio' });
+
+    expect(radio).toHaveAttribute('required');
+    expect(radio).toHaveAttribute('aria-invalid', 'true');
+  });
+});

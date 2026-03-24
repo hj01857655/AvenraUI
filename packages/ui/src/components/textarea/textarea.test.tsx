@@ -38,4 +38,13 @@ describe('Textarea', () => {
     expect(screen.getByText('Context hint')).toBeInTheDocument();
     expect(screen.getByText('Context error')).toBeInTheDocument();
   });
+
+  it('respects required and invalid when rendered without a field wrapper', () => {
+    render(<Textarea aria-label="Direct notes" fieldWrapper={false} invalid required />);
+
+    const textarea = screen.getByRole('textbox', { name: 'Direct notes' });
+
+    expect(textarea).toHaveAttribute('required');
+    expect(textarea).toHaveAttribute('aria-invalid', 'true');
+  });
 });

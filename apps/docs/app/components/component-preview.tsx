@@ -54,6 +54,7 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
             label="Country"
             placeholder="Search countries"
             emptyMessage="No country found"
+            minQueryLength={2}
             options={[
               { value: 'ar', label: 'Argentina' },
               { value: 'au', label: 'Australia' },
@@ -128,12 +129,26 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
               <FormField label="Email" hint="We will only use this for account updates" required>
                 <Input type="email" placeholder="team@avenra.dev" />
               </FormField>
-              <FormField label="Role" error="A role is required">
-                <Select defaultValue="">
-                  <option value="" disabled>Select a role</option>
+              <FormField label="Role" hint="Short stable lists can stay native">
+                <Select defaultValue="designer">
                   <option value="designer">Designer</option>
                   <option value="engineer">Engineer</option>
+                  <option value="pm">Product manager</option>
                 </Select>
+              </FormField>
+              <FormField label="Framework" hint="Search when the option set is larger than a short native select">
+                <Combobox
+                  placeholder="Search frameworks"
+                  options={[
+                    { value: 'react', label: 'React' },
+                    { value: 'vue', label: 'Vue' },
+                    { value: 'svelte', label: 'Svelte' }
+                  ]}
+                  defaultValue="react"
+                />
+              </FormField>
+              <FormField layout="control" hint="Required before continuing" error="You must accept the terms">
+                <Checkbox label="Accept working agreement" />
               </FormField>
             </Stack>
           </Form>

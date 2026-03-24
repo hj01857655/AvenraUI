@@ -1055,6 +1055,10 @@
   gap: 1rem;
 }
 
+.avenra-form[data-submitting='true'] {
+  cursor: progress;
+}
+
 .avenra-field {
   display: flex;
   flex-direction: column;
@@ -1063,6 +1067,10 @@
 
 .avenra-field--control {
   gap: 0.625rem;
+}
+
+.avenra-field[data-disabled='true'] {
+  opacity: 0.82;
 }
 
 .avenra-field__label {
@@ -1090,6 +1098,10 @@
 .avenra-combobox {
   position: relative;
   width: 100%;
+}
+
+.avenra-combobox__input[aria-disabled='true'] {
+  cursor: not-allowed;
 }
 
 .avenra-combobox__panel {

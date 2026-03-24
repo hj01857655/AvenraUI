@@ -10,6 +10,7 @@ import {
 } from 'react';
 
 import { FormField } from '../form-field/form-field';
+import { getCompositeFieldContract } from '../form/field-contract';
 import { useFormFieldContext } from '../form/context';
 
 export type ComboboxOption = {
@@ -72,6 +73,7 @@ function ComboboxControl({
   disabled,
   emptyMessage = 'No results found',
   id,
+  invalid,
   inputValue,
   onBlur,
   onFocus,
@@ -83,15 +85,32 @@ function ComboboxControl({
   placeholder,
   required,
   value,
+  'aria-describedby': ariaDescribedBy,
+  'aria-invalid': ariaInvalid,
+  'aria-labelledby': ariaLabelledBy,
   ...props
-}: Omit<ComboboxProps, 'fieldWrapper' | 'label' | 'hint' | 'error' | 'invalid'>) {
+}: Omit<ComboboxProps, 'fieldWrapper' | 'label' | 'hint' | 'error'>) {
   const generatedId = useId().replace(/:/g, '');
   const field = useFormFieldContext();
-  const comboboxId = id ?? field?.fieldId ?? `avenra-combobox-${generatedId}`;
+  const fallbackId = `avenra-combobox-${generatedId}`;
+  const contract = getCompositeFieldContract(
+    field,
+    {
+      id,
+      disabled,
+      invalid,
+      required,
+      'aria-describedby': ariaDescribedBy,
+      'aria-invalid': ariaInvalid,
+      'aria-labelledby': ariaLabelledBy,
+    },
+    fallbackId,
+  );
+  const comboboxId = contract.id;
   const listboxId = `${comboboxId}-listbox`;
-  const fieldDisabled = field?.disabled ?? disabled ?? false;
-  const fieldInvalid = field?.invalid ?? false;
-  const fieldRequired = field?.required ?? required ?? false;
+  const fieldDisabled = contract.disabled;
+  const fieldInvalid = contract.invalid;
+  const fieldRequired = contract.required;
 
   const [selectedValue, setSelectedValue] = useControllableState<string>({
     value,
@@ -146,6 +165,12 @@ function ComboboxControl({
       setQuery(selected.label);
     }
   }, [inputValue, options, selectedValue, setQuery]);
+
+  useEffect(() => {
+    if (fieldDisabled) {
+      setIsOpen(false);
+    }
+  }, [fieldDisabled, setIsOpen]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -253,9 +278,10 @@ function ComboboxControl({
         aria-expanded={isOpen ? 'true' : 'false'}
         aria-controls={listboxId}
         aria-autocomplete="list"
-        aria-invalid={fieldInvalid ? 'true' : props['aria-invalid'] ?? 'false'}
-        aria-describedby={field?.describedBy ?? props['aria-describedby']}
-        aria-labelledby={field?.labelId ?? props['aria-labelledby']}
+        aria-invalid={contract.ariaInvalid}
+        aria-describedby={contract.ariaDescribedBy}
+        aria-labelledby={contract.ariaLabelledBy}
+        aria-disabled={contract.ariaDisabled}
         aria-activedescendant={activeOption ? `${comboboxId}-option-${activeOption.value}` : undefined}
         onFocus={(event) => {
           setIsOpen(true);
@@ -314,7 +340,7 @@ export function Combobox({
   ...props
 }: ComboboxProps) {
   if (!fieldWrapper || (!label && !hint && !error && required === undefined && invalid === undefined)) {
-    return <ComboboxControl {...props} />;
+    return <ComboboxControl {...props} invalid={invalid} required={required} />;
   }
 
   return (

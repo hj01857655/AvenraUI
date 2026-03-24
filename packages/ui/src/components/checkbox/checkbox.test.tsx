@@ -78,5 +78,13 @@ describe('Checkbox', () => {
     expect(screen.getByText('Context hint')).toBeInTheDocument();
     expect(screen.getByText('Context error')).toBeInTheDocument();
   });
-});
 
+  it('respects required and invalid when rendered without a field wrapper', () => {
+    render(<Checkbox fieldWrapper={false} invalid label="Direct checkbox" required />);
+
+    const checkbox = screen.getByRole('checkbox', { name: 'Direct checkbox' });
+
+    expect(checkbox).toHaveAttribute('required');
+    expect(checkbox).toHaveAttribute('aria-invalid', 'true');
+  });
+});

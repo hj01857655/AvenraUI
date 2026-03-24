@@ -2,6 +2,7 @@ import { cn } from '@avenra/utils';
 import type { ReactNode, SelectHTMLAttributes } from 'react';
 
 import { FormField } from '../form-field/form-field';
+import { getFieldContract } from '../form/field-contract';
 import { useFormFieldContext } from '../form/context';
 
 export type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
@@ -14,20 +15,43 @@ export type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
   fieldWrapper?: boolean;
 };
 
-function SelectControl({ children, className, id, ...props }: SelectHTMLAttributes<HTMLSelectElement> & { children: ReactNode }) {
+function SelectControl({
+  children,
+  className,
+  disabled,
+  id,
+  invalid,
+  required,
+  'aria-describedby': ariaDescribedBy,
+  'aria-invalid': ariaInvalid,
+  'aria-labelledby': ariaLabelledBy,
+  ...props
+}: SelectHTMLAttributes<HTMLSelectElement> & { children: ReactNode; invalid?: boolean }) {
   const field = useFormFieldContext();
-  const selectId = id ?? field?.fieldId ?? 'avenra-select';
+  const contract = getFieldContract(
+    field,
+    {
+      id,
+      disabled,
+      invalid,
+      required,
+      'aria-describedby': ariaDescribedBy,
+      'aria-invalid': ariaInvalid,
+      'aria-labelledby': ariaLabelledBy,
+    },
+    'avenra-select',
+  );
 
   return (
     <select
-      id={selectId}
-      className={cn('avenra-input', 'avenra-select', field?.invalid && 'avenra-input--invalid', className)}
-      aria-invalid={field?.invalid ? 'true' : props['aria-invalid'] ?? 'false'}
-      aria-describedby={field?.describedBy ?? props['aria-describedby']}
-      aria-labelledby={field?.labelId ?? props['aria-labelledby']}
-      disabled={field?.disabled ?? props.disabled}
-      required={field?.required ?? props.required}
       {...props}
+      id={contract.id}
+      className={cn('avenra-input', 'avenra-select', contract.invalid && 'avenra-input--invalid', className)}
+      aria-invalid={contract.ariaInvalid}
+      aria-describedby={contract.ariaDescribedBy}
+      aria-labelledby={contract.ariaLabelledBy}
+      disabled={contract.disabled}
+      required={contract.required}
     >
       {children}
     </select>
@@ -36,7 +60,11 @@ function SelectControl({ children, className, id, ...props }: SelectHTMLAttribut
 
 export function Select({ children, error, fieldWrapper = true, hint, invalid, label, required, ...props }: SelectProps) {
   if (!fieldWrapper || (!label && !hint && !error && required === undefined && invalid === undefined)) {
-    return <SelectControl {...props}>{children}</SelectControl>;
+    return (
+      <SelectControl {...props} invalid={invalid} required={required}>
+        {children}
+      </SelectControl>
+    );
   }
 
   return (

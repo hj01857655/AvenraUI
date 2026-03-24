@@ -77,5 +77,17 @@ describe('Select', () => {
     expect(screen.getByText('Context hint')).toBeInTheDocument();
     expect(screen.getByText('Context error')).toBeInTheDocument();
   });
-});
 
+  it('respects required and invalid when rendered without a field wrapper', () => {
+    render(
+      <Select aria-label="Direct select" fieldWrapper={false} invalid required>
+        <option value="viewer">Viewer</option>
+      </Select>,
+    );
+
+    const select = screen.getByRole('combobox', { name: 'Direct select' });
+
+    expect(select).toHaveAttribute('required');
+    expect(select).toHaveAttribute('aria-invalid', 'true');
+  });
+});

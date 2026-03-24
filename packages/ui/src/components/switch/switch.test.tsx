@@ -106,5 +106,13 @@ describe('Switch', () => {
     expect(screen.getByText('Context hint')).toBeInTheDocument();
     expect(screen.getByText('Context error')).toBeInTheDocument();
   });
-});
 
+  it('respects required and invalid when rendered without a field wrapper', () => {
+    render(<Switch fieldWrapper={false} invalid label="Direct switch" required />);
+
+    const toggle = screen.getByRole('switch', { name: 'Direct switch' });
+
+    expect(toggle).toHaveAttribute('required');
+    expect(toggle).toHaveAttribute('aria-invalid', 'true');
+  });
+});

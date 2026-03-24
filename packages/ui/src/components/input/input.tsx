@@ -2,6 +2,7 @@ import { cn } from '@avenra/utils';
 import type { InputHTMLAttributes } from 'react';
 
 import { FormField } from '../form-field/form-field';
+import { getFieldContract } from '../form/field-contract';
 import { useFormFieldContext } from '../form/context';
 
 export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
@@ -13,28 +14,51 @@ export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   fieldWrapper?: boolean;
 };
 
-function InputControl({ className, id, type = 'text', ...props }: InputHTMLAttributes<HTMLInputElement>) {
+function InputControl({
+  className,
+  disabled,
+  id,
+  invalid,
+  required,
+  type = 'text',
+  'aria-describedby': ariaDescribedBy,
+  'aria-invalid': ariaInvalid,
+  'aria-labelledby': ariaLabelledBy,
+  ...props
+}: InputHTMLAttributes<HTMLInputElement> & { invalid?: boolean }) {
   const field = useFormFieldContext();
-  const inputId = id ?? field?.fieldId ?? 'avenra-input';
+  const contract = getFieldContract(
+    field,
+    {
+      id,
+      disabled,
+      invalid,
+      required,
+      'aria-describedby': ariaDescribedBy,
+      'aria-invalid': ariaInvalid,
+      'aria-labelledby': ariaLabelledBy,
+    },
+    'avenra-input',
+  );
 
   return (
     <input
-      id={inputId}
-      type={type}
-      className={cn('avenra-input', field?.invalid && 'avenra-input--invalid', className)}
-      aria-invalid={field?.invalid ? 'true' : props['aria-invalid'] ?? 'false'}
-      aria-describedby={field?.describedBy ?? props['aria-describedby']}
-      aria-labelledby={field?.labelId ?? props['aria-labelledby']}
-      disabled={field?.disabled ?? props.disabled}
-      required={field?.required ?? props.required}
       {...props}
+      id={contract.id}
+      type={type}
+      className={cn('avenra-input', contract.invalid && 'avenra-input--invalid', className)}
+      aria-invalid={contract.ariaInvalid}
+      aria-describedby={contract.ariaDescribedBy}
+      aria-labelledby={contract.ariaLabelledBy}
+      disabled={contract.disabled}
+      required={contract.required}
     />
   );
 }
 
 export function Input({ error, fieldWrapper = true, hint, invalid, label, required, ...props }: InputProps) {
   if (!fieldWrapper || (!label && !hint && !error && required === undefined && invalid === undefined)) {
-    return <InputControl {...props} />;
+    return <InputControl {...props} invalid={invalid} required={required} />;
   }
 
   return (

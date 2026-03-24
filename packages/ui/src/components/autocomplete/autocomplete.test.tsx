@@ -35,4 +35,22 @@ describe('Autocomplete', () => {
 
     expect(onValueChange).toHaveBeenCalledWith('banana');
   });
+
+  it('keeps direct invalid and required semantics when fieldWrapper is disabled', () => {
+    render(
+      <Autocomplete
+        aria-label="Direct autocomplete"
+        fieldWrapper={false}
+        invalid
+        required
+        minQueryLength={2}
+        options={options}
+      />,
+    );
+
+    const input = screen.getByRole('combobox', { name: 'Direct autocomplete' });
+
+    expect(input).toHaveAttribute('required');
+    expect(input).toHaveAttribute('aria-invalid', 'true');
+  });
 });

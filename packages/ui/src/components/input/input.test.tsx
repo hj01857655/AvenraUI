@@ -48,5 +48,13 @@ describe('Input', () => {
     expect(screen.getByText('Context hint')).toBeInTheDocument();
     expect(screen.getByText('Context error')).toBeInTheDocument();
   });
-});
 
+  it('respects required and invalid when rendered without a field wrapper', () => {
+    render(<Input aria-label="Direct input" fieldWrapper={false} invalid required />);
+
+    const input = screen.getByRole('textbox', { name: 'Direct input' });
+
+    expect(input).toHaveAttribute('required');
+    expect(input).toHaveAttribute('aria-invalid', 'true');
+  });
+});

@@ -290,7 +290,7 @@ const componentDocContent = {
       },
       {
         title: 'Validation',
-        body: 'The field shares the same hint and error messaging contract as the other form controls, which keeps form composition consistent.'
+        body: 'Use direct props for a standalone choice, or wrap Checkbox with `FormField layout="control"` when the field also needs shared hint, error, required, invalid, or disabled messaging.'
       }
     ]
   },
@@ -325,11 +325,11 @@ const componentDocContent = {
     sections: [
       {
         title: 'Selection and query control',
-        body: 'Combobox separates selected value from input text so products can control search text, selected option, and open state independently when orchestration matters.'
+        body: 'Combobox separates selected value from input text so products can control search text, selected option, and open state independently while still keeping the same label, hint, error, required, invalid, and disabled contract as the rest of the form system.'
       },
       {
         title: 'When to use',
-        body: 'Choose Combobox when the option list is searchable but still belongs inside a normal form field. If the interaction is command-driven or action-first, use Command instead.'
+        body: 'Choose Combobox when the option list is searchable but still belongs inside a normal form field. It can own its own field shell directly or inherit one from `FormField`; if the interaction is command-driven or action-first, use Command instead.'
       }
     ]
   },
@@ -407,7 +407,7 @@ const componentDocContent = {
       },
       {
         title: 'Relationship to Combobox',
-        body: 'Autocomplete reuses the Combobox interaction model but narrows it to suggestion-first search, which keeps product code simple when query length should gate results.'
+        body: 'Autocomplete reuses the Combobox interaction model but narrows it to suggestion-first search, which means query thresholding does not change the surrounding field contract for label, hint, error, required, invalid, or disabled state.'
       }
     ]
   },
@@ -500,11 +500,11 @@ const componentDocContent = {
     sections: [
       {
         title: 'Structure',
-        body: 'Input always renders a visible label and can append hint or error text so the field stays understandable without separate wrappers.'
+        body: 'Input can render its own label, hint, and error directly, or inherit the same field shell from `FormField` when larger composed forms need one consistent wrapper contract.'
       },
       {
         title: 'Validation',
-        body: 'Pass `error` when the field state is invalid. The control marks `aria-invalid` and wires descriptive text automatically.'
+        body: 'Pass `error` when the field state is invalid. Whether Input owns the shell itself or sits inside `FormField`, the control keeps `aria-invalid`, `aria-describedby`, `required`, and disabled semantics aligned.'
       }
     ]
   },
@@ -685,7 +685,7 @@ const componentDocContent = {
       },
       {
         title: 'Accessibility',
-        body: 'The field keeps the same label, hint, and error contract as Input so teams do not need separate wiring patterns per field type.'
+        body: 'Select keeps the same label, hint, error, required, invalid, and disabled contract as Input so teams do not need separate wiring patterns per field type.'
       }
     ]
   },
@@ -815,7 +815,11 @@ category: 'Forms and input',
     sections: [
       {
         title: 'State model',
-        body: 'Form provides disabled and submitting state through context so wrapped controls can stay consistent without each feature wiring that state manually.'
+        body: 'Form keeps the native form element, reflects busy state on the form surface, and provides disabled and submitting state through context so wrapped controls stay consistent without each feature wiring that state manually.'
+      },
+      {
+        title: 'Composition boundary',
+        body: 'Form does not replace browser form behavior or introduce a form-library dependency. It exists to keep field orchestration, busy state, and lock-state propagation consistent across Avenra UI controls.'
       }
     ]
   },
@@ -841,7 +845,11 @@ category: 'Forms and input',
     sections: [
       {
         title: 'Layout modes',
-        body: 'Use the default stacked layout for text-like controls and the control layout for Checkbox, Radio, and Switch so the field shell stays consistent without duplicating labels.'
+        body: 'Use the default stacked layout for text-like controls. Use the control layout for Checkbox, Radio, and Switch so the choice component keeps its own visible label while `FormField` still owns shared hint, error, required, invalid, and disabled wiring.'
+      },
+      {
+        title: 'Propagation',
+        body: 'FormField is the contract bridge between `Form` and individual controls. It generates the ids and state wiring that keep standalone fields and wrapped fields behaviorally aligned.'
       }
     ]
   },
@@ -1042,12 +1050,14 @@ category: 'Forms and input',
 
 const commonFieldAccessibility = [
   'Keep the visible label rendered at all times so screen readers and sighted users share the same field context.',
-  'Wire hint and error copy through `aria-describedby` so validation feedback is attached to the control instead of floating nearby.'
+  'Wire hint and error copy through `aria-describedby` so validation feedback is attached to the control instead of floating nearby.',
+  'Whether the field owns its own shell or inherits one from `FormField`, keep label, hint, error, required, invalid, and disabled semantics aligned.'
 ];
 
 const commonChoiceAccessibility = [
   'Preserve the explicit text label next to the control instead of relying on placeholder-only meaning.',
-  'Keep related choices grouped logically so assistive technology users can understand the available selection set.'
+  'Keep related choices grouped logically so assistive technology users can understand the available selection set.',
+  'When shared hint or error copy is needed, prefer `FormField layout="control"` so the visible choice label stays in the control while helper text remains linked.'
 ];
 
 export const componentDocMetadata = {
@@ -1159,7 +1169,7 @@ export const componentDocMetadata = {
   },
   input: {
     props: [
-      { name: 'label', type: 'string', required: true, description: 'Visible field label.' },
+      { name: 'label', type: 'string', required: true, description: 'Visible field label when Input owns its own field shell.' },
       { name: 'hint', type: 'string', description: 'Optional helper copy for expected input.' },
       { name: 'error', type: 'string', description: 'Validation message and invalid visual state.' },
       { name: 'type', type: 'string', description: 'Native input type such as `text`, `email`, or `password`.' }
@@ -1232,7 +1242,7 @@ export const componentDocMetadata = {
   },
   select: {
     props: [
-      { name: 'label', type: 'string', required: true, description: 'Visible field label.' },
+      { name: 'label', type: 'string', required: true, description: 'Visible field label when Select owns its own field shell.' },
       { name: 'children', type: 'ReactNode', required: true, description: 'Native `option` elements or grouped options.' },
       { name: 'hint', type: 'string', description: 'Optional supporting guidance.' },
       { name: 'error', type: 'string', description: 'Validation state and message.' }
@@ -1290,12 +1300,13 @@ export const componentDocMetadata = {
     states: ['Default', 'Disabled', 'Submitting'],
     accessibility: [
       'Form preserves the native `form` element so submit semantics, keyboard submission, and browser validation hooks remain available.',
-      'Disabled and submitting state are propagated through context rather than duplicated on each control.'
+      'Disabled and submitting state are propagated through context rather than duplicated on each control.',
+      'Submitting also marks the form as busy so assistive technology and visual shells can react to a single shared signal.'
     ]
   },
   'form-field': {
     props: [
-      { name: 'label', type: 'string', description: 'Visible field label for stacked layout fields.' },
+      { name: 'label', type: 'string', description: 'Visible field label for stacked layout fields. Omit it for control layout choice fields.' },
       { name: 'hint', type: 'string', description: 'Supporting guidance connected through aria-describedby.' },
       { name: 'error', type: 'string', description: 'Validation message that also marks the field invalid.' },
       { name: 'required', type: 'boolean', description: 'Adds required semantics and visible required treatment.' },
@@ -1304,13 +1315,14 @@ export const componentDocMetadata = {
     states: ['Default', 'Required', 'Invalid', 'Disabled'],
     accessibility: [
       'FormField generates and wires label, hint, and error ids so wrapped controls expose consistent aria-labelledby, aria-describedby, and aria-invalid behavior.',
-      'Use the control layout for Checkbox, Radio, and Switch so the child component keeps its own visible label without duplicating text.'
+      'Use the control layout for Checkbox, Radio, and Switch so the child component keeps its own visible label without duplicating text.',
+      'Form-level disabled and submitting state flow through the same contract, which keeps wrapped fields and direct fields aligned.'
     ]
   },
   combobox: {
     props: [
       { name: 'options', type: 'ComboboxOption[]', required: true, description: 'Searchable option set rendered in the listbox.' },
-      { name: 'label', type: 'string', description: 'Visible field label when the control is used directly in a form.' },
+      { name: 'label', type: 'string', description: 'Visible field label when Combobox owns its own field shell.' },
       { name: 'value', type: 'string', description: 'Controlled selected option value.' },
       { name: 'inputValue', type: 'string', description: 'Controlled query text shown in the input.' },
       { name: 'open', type: 'boolean', description: 'Controlled popup visibility.' },
@@ -1320,7 +1332,8 @@ export const componentDocMetadata = {
     states: ['Closed', 'Open', 'Filtered', 'No results', 'Controlled'],
     accessibility: [
       'Combobox keeps the input, popup, and active option linked through combobox, listbox, and option semantics.',
-      'Keyboard navigation supports Arrow keys, Enter selection, and Escape dismissal without losing the current query.'
+      'Keyboard navigation supports Arrow keys, Enter selection, and Escape dismissal without losing the current query.',
+      'The control keeps the same label, hint, error, required, invalid, and disabled contract as the text-field primitives.'
     ]
   },
   command: {
@@ -1342,7 +1355,7 @@ export const componentDocMetadata = {
     props: [
       { name: 'options', type: 'AutocompleteOption[]', required: true, description: 'Suggestion set exposed after the query threshold is met.' },
       { name: 'minQueryLength', type: 'number', description: 'Minimum number of typed characters required before suggestions appear.' },
-      { name: 'label', type: 'string', description: 'Visible field label when used directly in a form.' },
+      { name: 'label', type: 'string', description: 'Visible field label when Autocomplete owns its own field shell.' },
       { name: 'inputValue', type: 'string', description: 'Controlled query text.' },
       { name: 'emptyMessage', type: 'string', description: 'Fallback copy rendered when no suggestions match.' },
       { name: 'onValueChange', type: '(value: string) => void', description: 'Called when the user selects a suggestion.' }
@@ -1350,7 +1363,8 @@ export const componentDocMetadata = {
     states: ['Closed', 'Open', 'Waiting for threshold', 'Filtered', 'No results'],
     accessibility: [
       'Autocomplete preserves editable text entry while exposing matching suggestions through a popup listbox.',
-      'Selection can be committed with Enter or pointer click, while Escape closes the popup without clearing the field.'
+      'Selection can be committed with Enter or pointer click, while Escape closes the popup without clearing the field.',
+      'Waiting for the query threshold should not change the surrounding field semantics for label, hint, error, required, invalid, or disabled state.'
     ]
   },
   popover: {
@@ -1415,7 +1429,7 @@ export const componentDocMetadata = {
   },
   textarea: {
     props: [
-      { name: 'label', type: 'string', required: true, description: 'Visible field label.' },
+      { name: 'label', type: 'string', required: true, description: 'Visible field label when Textarea owns its own field shell.' },
       { name: 'hint', type: 'string', description: 'Optional helper copy for the expected response.' },
       { name: 'error', type: 'string', description: 'Validation state and message.' },
       { name: 'rows', type: 'number', description: 'Initial visible height of the multi-line field.' }

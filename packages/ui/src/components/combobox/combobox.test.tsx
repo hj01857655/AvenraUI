@@ -83,4 +83,26 @@ describe('Combobox', () => {
 
     expect(screen.getByText('No fruits found')).toBeInTheDocument();
   });
+
+  it('respects direct field semantics without the field wrapper', () => {
+    render(
+      <Combobox
+        aria-label="Direct combobox"
+        aria-describedby="direct-combobox-help"
+        fieldWrapper={false}
+        invalid
+        required
+        disabled
+        options={options}
+      />,
+    );
+
+    const input = screen.getByRole('combobox', { name: 'Direct combobox' });
+
+    expect(input).toHaveAttribute('required');
+    expect(input).toHaveAttribute('aria-invalid', 'true');
+    expect(input).toHaveAttribute('aria-describedby', 'direct-combobox-help');
+    expect(input).toHaveAttribute('aria-disabled', 'true');
+    expect(input).toBeDisabled();
+  });
 });
