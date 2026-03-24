@@ -62,9 +62,11 @@ The goal is not to overstate maturity. The goal is to make the current support c
 - Components: current documented component surface
 - Stable surface governance: `docs/stable-components.md`
 - Adoption guidance: `docs/adoption-guidance.md`
+- Design principles: `docs/design-principles.md`
 - Form semantics and field contract: `docs/form-experience.md`
 - Selection component guidance: `docs/selection-components.md`
 - Date input direction: `docs/date-inputs.md`
+- Component landscape: `docs/component-landscape.md`
 - Product direction: `docs/product-direction.md`
 
 ## Current package-consumer shape
@@ -96,10 +98,12 @@ If you are evaluating Avenra UI today, the recommended reading order is:
 1. `README.md` for the current product position
 2. `docs/stable-components.md` for the support contract
 3. `docs/adoption-guidance.md` for the current production-use boundary
-4. `docs/form-experience.md` for the current field and validation model
-5. `docs/selection-components.md` for choosing between the current selection primitives
-6. `docs/date-inputs.md` for the current date-entry direction
-7. `docs/product-direction.md` for the near-term expansion direction
+4. `docs/design-principles.md` for the product and API philosophy
+5. `docs/form-experience.md` for the current field and validation model
+6. `docs/selection-components.md` for choosing between the current selection primitives
+7. `docs/date-inputs.md` for the current date-entry direction
+8. `docs/component-landscape.md` for the current component map
+9. `docs/product-direction.md` for the near-term expansion direction
 
 That reading order reflects how the library is being built: support boundaries first, then usage clarity, then wider component breadth.
 
@@ -210,6 +214,16 @@ The current direction is to expand in a way that compounds product value instead
 - keep exports, docs, tests, and support governance aligned as the surface grows
 
 This is how Avenra UI intends to become a strong React ecosystem library: not by pretending the whole matrix is already done, but by making each new line credible when it lands.
+
+## Current differentiation direction
+
+Avenra UI is trying to become more than “another React component package” in three specific ways:
+
+- by making support governance explicit instead of letting package exports silently imply maturity
+- by making component-group consistency a first-class product concern instead of treating each widget as an isolated win
+- by building documentation that explains product decisions, adoption boundaries, and component choice, not just prop tables
+
+That does not make the library “finished.” It makes the direction legible.
 
 ## When Avenra UI is a good fit today
 
