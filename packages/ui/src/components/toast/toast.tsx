@@ -113,12 +113,12 @@ export function useToast() {
 
 function ToastViewport({ onDismiss, toasts }: { onDismiss: (id: string) => void; toasts: ToastRecord[] }) {
   return (
-    <div className="avenra-toast-viewport" aria-live="polite" aria-atomic="true">
+    <div className="avenra-toast-viewport" aria-live="polite" aria-atomic="true" aria-relevant="additions removals">
       {toasts.map((toast) => (
         <section
           key={toast.id}
           className={`avenra-toast avenra-toast--${toast.variant}`}
-          role="status"
+          role={toast.variant === 'error' ? 'alert' : 'status'}
           aria-label={toast.title}
         >
           <div className="avenra-toast__content">

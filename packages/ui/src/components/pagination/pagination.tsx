@@ -79,56 +79,63 @@ export function Pagination({
 
   return (
     <nav aria-label={ariaLabel} className={cn('avenra-pagination', className)} {...props}>
-      <div className="avenra-pagination__list">
-        <button
-          type="button"
-          className="avenra-button avenra-button--secondary avenra-button--sm avenra-pagination__button"
-          onClick={() => handlePageChange(safeCurrentPage - 1)}
-          disabled={safeCurrentPage <= 1}
-          aria-label="Previous page"
-        >
-          Previous
-        </button>
+      <ul className="avenra-pagination__list">
+        <li className="avenra-pagination__item">
+          <button
+            type="button"
+            className="avenra-button avenra-button--secondary avenra-button--sm avenra-pagination__button"
+            onClick={() => handlePageChange(safeCurrentPage - 1)}
+            disabled={safeCurrentPage <= 1}
+            aria-label="Previous page"
+          >
+            Previous
+          </button>
+        </li>
 
         {items.map((item) => {
           if (item.type === 'ellipsis') {
             return (
-              <span key={item.value} aria-hidden="true" className="avenra-pagination__ellipsis">
-                …
-              </span>
+              <li key={item.value} className="avenra-pagination__item">
+                <span aria-hidden="true" className="avenra-pagination__ellipsis">
+                  …
+                </span>
+              </li>
             );
           }
 
           const isCurrent = item.value === safeCurrentPage;
 
           return (
-            <button
-              key={item.value}
-              type="button"
-              aria-current={isCurrent ? 'page' : undefined}
-              aria-label={`Page ${item.value}`}
-              className={cn(
-                'avenra-button avenra-button--sm avenra-pagination__button',
-                isCurrent ? 'avenra-button--primary avenra-pagination__button--current' : 'avenra-button--secondary'
-              )}
-              onClick={() => handlePageChange(item.value)}
-              disabled={isCurrent}
-            >
-              {item.value}
-            </button>
+            <li key={item.value} className="avenra-pagination__item">
+              <button
+                type="button"
+                aria-current={isCurrent ? 'page' : undefined}
+                aria-label={`Page ${item.value}`}
+                className={cn(
+                  'avenra-button avenra-button--sm avenra-pagination__button',
+                  isCurrent ? 'avenra-button--primary avenra-pagination__button--current' : 'avenra-button--secondary'
+                )}
+                onClick={() => handlePageChange(item.value)}
+                disabled={isCurrent}
+              >
+                {item.value}
+              </button>
+            </li>
           );
         })}
 
-        <button
-          type="button"
-          className="avenra-button avenra-button--secondary avenra-button--sm avenra-pagination__button"
-          onClick={() => handlePageChange(safeCurrentPage + 1)}
-          disabled={safeCurrentPage >= safeTotalPages}
-          aria-label="Next page"
-        >
-          Next
-        </button>
-      </div>
+        <li className="avenra-pagination__item">
+          <button
+            type="button"
+            className="avenra-button avenra-button--secondary avenra-button--sm avenra-pagination__button"
+            onClick={() => handlePageChange(safeCurrentPage + 1)}
+            disabled={safeCurrentPage >= safeTotalPages}
+            aria-label="Next page"
+          >
+            Next
+          </button>
+        </li>
+      </ul>
     </nav>
   );
 }

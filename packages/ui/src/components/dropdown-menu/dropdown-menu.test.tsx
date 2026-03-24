@@ -96,4 +96,56 @@ describe('DropdownMenu', () => {
     expect(onOpenChange).toHaveBeenCalledWith(true);
     expect(screen.queryByRole('menu')).not.toBeInTheDocument();
   });
+
+  it('focuses the first enabled item and supports ArrowDown plus Enter selection', () => {
+    const rename = vi.fn();
+    const archive = vi.fn();
+
+    render(
+      <DropdownMenu
+        title="Workspace actions"
+        trigger={<button type="button">Open menu</button>}
+        items={[
+          { label: 'Rename workspace', onSelect: rename },
+          { label: 'Duplicate workspace', disabled: true },
+          { label: 'Archive workspace', onSelect: archive, tone: 'danger' },
+        ]}
+      />,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Open menu' }));
+
+    const renameItem = screen.getByRole('menuitem', { name: 'Rename workspace' });
+    const archiveItem = screen.getByRole('menuitem', { name: 'Archive workspace' });
+
+    expect(renameItem).toHaveFocus();
+
+    fireEvent.keyDown(screen.getByRole('menu'), { key: 'ArrowDown' });
+    expect(archiveItem).toHaveFocus();
+
+    fireEvent.keyDown(screen.getByRole('menu'), { key: 'Enter' });
+
+    expect(archive).toHaveBeenCalledTimes(1);
+    expect(rename).not.toHaveBeenCalled();
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+  });
+
+  it('restores focus to the trigger when escape dismisses the menu', () => {
+    render(
+      <DropdownMenu
+        title="Workspace actions"
+        trigger={<button type="button">Open menu</button>}
+        items={[{ label: 'Rename workspace', onSelect: vi.fn() }]}
+      />,
+    );
+
+    const trigger = screen.getByRole('button', { name: 'Open menu' });
+
+    trigger.focus();
+    fireEvent.click(trigger);
+    fireEvent.keyDown(document, { key: 'Escape' });
+
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+    expect(trigger).toHaveFocus();
+  });
 });

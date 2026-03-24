@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
 import { Pagination } from './pagination';
@@ -55,5 +55,17 @@ describe('Pagination', () => {
     rerender(<Pagination currentPage={8} totalPages={3} onPageChange={vi.fn()} />);
 
     expect(screen.getByRole('button', { name: 'Page 3' })).toHaveAttribute('aria-current', 'page');
+  });
+
+  it('renders a structured page list and keeps the current page non-interactive', () => {
+    render(<Pagination currentPage={3} totalPages={7} onPageChange={vi.fn()} />);
+
+    const nav = screen.getByRole('navigation', { name: 'Pagination' });
+    const currentPage = screen.getByRole('button', { name: 'Page 3' });
+
+    expect(within(nav).getByRole('list')).toBeInTheDocument();
+    expect(within(nav).getAllByRole('listitem').length).toBeGreaterThan(0);
+    expect(currentPage).toHaveAttribute('aria-current', 'page');
+    expect(currentPage).toBeDisabled();
   });
 });

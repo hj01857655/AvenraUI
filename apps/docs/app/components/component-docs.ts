@@ -587,6 +587,10 @@ const componentDocContent = {
         body: 'Pagination is intentionally controlled, so data loading and routing decisions stay in the consuming feature while the component focuses on rendering page affordances.'
       },
       {
+        title: 'Navigation contract',
+        body: 'The current page stays visibly selected and non-interactive, while previous and next controls disable correctly at the range boundaries so keyboard and pointer behavior stay predictable.'
+      },
+      {
         title: 'Range compression',
         body: 'The component keeps edge pages visible and inserts ellipsis only when ranges would otherwise become noisy, which makes long result sets easier to scan.'
       }
@@ -620,6 +624,54 @@ const componentDocContent = {
       {
         title: 'Scope',
         body: 'Skeleton works best for short loading windows and known layout shapes. If the system needs progress detail or status explanation, pair it with richer messaging.'
+      }
+    ]
+  },
+  toast: {
+    slug: 'toast',
+    title: 'Toast',
+    packageImport: "import { ToastProvider, useToast } from '@avenra/ui';",
+    category: 'Feedback and status',
+    summary: 'Ephemeral notification stack for success, info, and error feedback that should stay out of the user’s way.',
+    usage:
+      'Use Toast for transient feedback after background actions, inline saves, or async failures that should stay attached to the current workflow instead of blocking it with a modal.',
+    exampleCode: [
+      "import { Button, ToastProvider, useToast } from '@avenra/ui';",
+      '',
+      'function SaveAction() {',
+      '  const { push } = useToast();',
+      '',
+      '  return (',
+      '    <Button',
+      '      onClick={() =>',
+      '        push({',
+      "          title: 'Changes saved',",
+      "          description: 'Workspace settings synced successfully.',",
+      "          variant: 'success'",
+      '        })',
+      '      }',
+      '    >',
+      '      Save changes',
+      '    </Button>',
+      '  );',
+      '}',
+      '',
+      'export function WorkspaceToasts() {',
+      '  return (',
+      '    <ToastProvider>',
+      '      <SaveAction />',
+      '    </ToastProvider>',
+      '  );',
+      '}'
+    ].join('\n'),
+    sections: [
+      {
+        title: 'Feedback urgency',
+        body: 'Use success and info toasts for lightweight confirmation. Error toasts escalate to an assertive announcement while still keeping the user in the current context.'
+      },
+      {
+        title: 'Queue behavior',
+        body: 'ToastProvider owns the visible stack and targeted dismissal, so one failed action does not wipe out the rest of the feedback history the user still needs to see.'
       }
     ]
   },
@@ -754,8 +806,12 @@ const componentDocContent = {
         body: 'Choose DropdownMenu for concise contextual actions attached to a trigger. If the interaction needs rich content, form fields, or long explanations, move up to Popover or Drawer instead.'
       },
       {
+        title: 'Keyboard flow',
+        body: 'Opening the menu moves focus to the first enabled action. Arrow keys, Home, and End keep the action list keyboard reachable, while Enter selects the focused item and closing the menu returns focus to the trigger.'
+      },
+      {
         title: 'Action design',
-        body: 'Keep labels short, verb-led, and visually scannable. Reserve the danger tone for destructive actions so the menu remains easy to parse under pressure.'
+        body: 'Keep labels short, verb-led, and visually scannable. Disabled actions can stay visible for context, and the danger tone should stay reserved for destructive actions.'
       }
     ]
   },
@@ -788,8 +844,12 @@ const componentDocContent = {
         body: 'Drawer is better than Dialog when the task needs more breathing room, richer forms, or persistent context from the current page.'
       },
       {
+        title: 'Focus and dismissal model',
+        body: 'Opening the drawer moves focus into the panel, the close button provides a reliable first stop, Tab stays trapped inside the surface, and closing the drawer returns focus to the trigger.'
+      },
+      {
         title: 'Dismissal model',
-        body: 'The current implementation supports trigger open, close button, overlay click, and Escape dismissal, which covers the standard slide-over flow.'
+        body: 'The implementation supports close button, overlay click, and Escape dismissal, which covers the standard slide-over flow without forcing a route change.'
       }
     ]
   },
@@ -1210,8 +1270,8 @@ export const componentDocMetadata = {
     ],
     states: ['First page', 'Middle range with ellipsis', 'Last page'],
     accessibility: [
-      'Pagination renders inside a labeled navigation landmark so assistive technology can identify it as page navigation.',
-      'The active page exposes `aria-current="page"`, and boundary controls disable correctly at the start and end of the range.'
+      'Pagination renders inside a labeled navigation landmark and uses a structured list so assistive technology can identify the page control cluster quickly.',
+      'The active page exposes `aria-current="page"`, stays non-interactive, and boundary controls disable correctly at the start and end of the range.'
     ]
   },
   skeleton: {
@@ -1225,6 +1285,20 @@ export const componentDocMetadata = {
     accessibility: [
       'Skeleton is marked `aria-hidden="true"` so assistive technology does not announce decorative loading placeholders as real content.',
       'Pair it with nearby loading copy when the user needs explicit status, not just spatial continuity.'
+    ]
+  },
+  toast: {
+    props: [
+      { name: 'children', type: 'ReactNode', required: true, description: 'Content wrapped by `ToastProvider` so descendants can call `useToast()`.' },
+      { name: 'title', type: 'string', required: true, description: 'Primary toast label passed to `push()`.' },
+      { name: 'description', type: 'string', description: 'Optional supporting body copy passed to `push()`.' },
+      { name: 'variant', type: "'success' | 'error' | 'info'", description: 'Semantic tone passed to `push()`; `error` escalates to assertive announcement.' },
+      { name: 'duration', type: 'number', description: 'Optional auto-dismiss timeout in milliseconds passed to `push()`.' }
+    ],
+    states: ['Info', 'Success', 'Error', 'Dismissed'],
+    accessibility: [
+      'The toast viewport announces additive updates through a live region so transient feedback is still discoverable without taking focus.',
+      'Error toasts use `role="alert"` while non-error toasts stay `role="status"`, which keeps urgency aligned with the message type.'
     ]
   },
   radio: {
@@ -1274,8 +1348,8 @@ export const componentDocMetadata = {
     ],
     states: ['Closed', 'Open', 'Danger action'],
     accessibility: [
-      'The trigger exposes `aria-haspopup="menu"` and `aria-expanded`, while menu items render with `role="menuitem"`.',
-      'Use concise action labels and reserve the danger tone for destructive actions so the list stays scannable.'
+      'The trigger exposes `aria-haspopup="menu"`, `aria-expanded`, and `aria-controls`, while menu items render with `role="menuitem"`.',
+      'Opening the surface moves focus to the first enabled action, keyboard navigation skips disabled items, and closing the menu restores focus to the trigger.'
     ]
   },
   drawer: {
@@ -1287,8 +1361,8 @@ export const componentDocMetadata = {
     ],
     states: ['Closed', 'Open'],
     accessibility: [
-      'Drawer uses `role="dialog"` with `aria-modal="true"` and wires title and description ids for the panel.',
-      'Dismissal supports close button, overlay click, and Escape to match the standard slide-over interaction.'
+      'Drawer uses `role="dialog"` with `aria-modal="true"`, wires title and description ids for the panel, and links the trigger with `aria-controls`.',
+      'Opening moves focus to the close button, Tab stays within the panel, and dismissal returns focus to the original trigger.'
     ]
   },
   form: {

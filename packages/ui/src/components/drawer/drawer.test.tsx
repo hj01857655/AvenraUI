@@ -108,4 +108,24 @@ describe('Drawer', () => {
 
     expect(screen.getByRole('dialog')).toBeInTheDocument();
   });
+
+  it('moves focus into the drawer and restores focus to the trigger when closed', () => {
+    render(
+      <Drawer trigger={<button type="button">Open drawer</button>} title="Workspace settings">
+        <button type="button">Save changes</button>
+      </Drawer>,
+    );
+
+    const trigger = screen.getByRole('button', { name: 'Open drawer' });
+
+    trigger.focus();
+    fireEvent.click(trigger);
+
+    const closeButton = screen.getByRole('button', { name: 'Close drawer' });
+    expect(closeButton).toHaveFocus();
+
+    fireEvent.click(closeButton);
+
+    expect(trigger).toHaveFocus();
+  });
 });

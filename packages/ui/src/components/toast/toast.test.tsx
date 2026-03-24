@@ -91,4 +91,54 @@ describe('ToastProvider', () => {
     vi.runOnlyPendingTimers();
     vi.useRealTimers();
   });
+
+  it('renders error toasts as alerts and dismisses only the targeted toast', () => {
+    function MultiToastHarness() {
+      const { push } = useToast();
+
+      return (
+        <div>
+          <Button
+            onClick={() =>
+              push({
+                title: 'Info sync complete',
+                variant: 'info',
+              })
+            }
+          >
+            Push info
+          </Button>
+          <Button
+            onClick={() =>
+              push({
+                title: 'Publish failed',
+                description: 'Retry after reviewing validation errors.',
+                variant: 'error',
+              })
+            }
+          >
+            Push error
+          </Button>
+        </div>
+      );
+    }
+
+    render(
+      <ToastProvider>
+        <MultiToastHarness />
+      </ToastProvider>
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Push info' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Push error' }));
+
+    expect(screen.getByRole('status', { name: 'Info sync complete' })).toBeInTheDocument();
+    const alertToast = screen.getByRole('alert', { name: 'Publish failed' });
+    expect(alertToast).toHaveTextContent('Retry after reviewing validation errors.');
+
+    fireEvent.click(screen.getByRole('button', { name: 'Dismiss Publish failed' }));
+
+    expect(screen.queryByRole('alert', { name: 'Publish failed' })).not.toBeInTheDocument();
+    expect(screen.getByRole('status', { name: 'Info sync complete' })).toBeInTheDocument();
+  });
 });

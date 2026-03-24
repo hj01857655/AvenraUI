@@ -421,6 +421,125 @@
   color: var(--color-text);
 }
 
+.avenra-toast__close:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-focus-ring);
+  border-radius: var(--radius-pill);
+}
+
+.avenra-toast--error {
+  background: color-mix(in srgb, var(--color-danger-soft) 38%, var(--color-surface-elevated));
+}
+
+.avenra-pagination {
+  width: 100%;
+}
+
+.avenra-pagination__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.avenra-pagination__item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.avenra-pagination__button {
+  min-width: 44px;
+}
+
+.avenra-pagination__button--current {
+  box-shadow: var(--shadow-sm);
+}
+
+.avenra-pagination__ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  min-height: 44px;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.avenra-dropdown-menu {
+  position: relative;
+  display: inline-flex;
+}
+
+.avenra-dropdown-menu__panel {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  z-index: 50;
+  min-width: 14rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-elevated);
+  box-shadow: var(--shadow-lg);
+  padding: 0.375rem;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.avenra-dropdown-menu__title {
+  padding: 0.5rem 0.625rem 0.25rem;
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.avenra-dropdown-menu__items {
+  display: grid;
+  gap: 0.125rem;
+}
+
+.avenra-dropdown-menu__item {
+  width: 100%;
+  min-height: 44px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text);
+  text-align: left;
+  font: inherit;
+  padding: 0.625rem 0.75rem;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.avenra-dropdown-menu__item:hover:not(:disabled),
+.avenra-dropdown-menu__item:focus-visible {
+  outline: none;
+  background: color-mix(in srgb, var(--color-primary) 10%, white);
+}
+
+.avenra-dropdown-menu__item:disabled {
+  cursor: not-allowed;
+  color: var(--color-text-muted);
+  opacity: 0.7;
+}
+
+.avenra-dropdown-menu__item--danger {
+  color: var(--color-danger);
+}
+
+.avenra-dropdown-menu__item--danger:hover:not(:disabled),
+.avenra-dropdown-menu__item--danger:focus-visible {
+  background: color-mix(in srgb, var(--color-danger-soft) 68%, white);
+}
+
 
 .avenra-field {
   display: grid;
@@ -962,6 +1081,7 @@
   min-height: 100dvh;
   background: var(--color-surface-elevated);
   box-shadow: var(--shadow-lg);
+  border-left: 1px solid var(--color-border);
   display: grid;
   grid-template-rows: auto 1fr;
   animation: avenra-drawer-slide-in 220ms ease-out;

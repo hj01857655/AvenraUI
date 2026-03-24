@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import { Alert } from '@avenra/ui/src/components/alert/alert';
 import { Autocomplete } from '@avenra/ui/src/components/autocomplete/autocomplete';
 import { Avatar } from '@avenra/ui/src/components/avatar/avatar';
@@ -29,12 +31,66 @@ import { Stack } from '@avenra/ui/src/components/stack/stack';
 import { Switch } from '@avenra/ui/src/components/switch/switch';
 import { Tabs } from '@avenra/ui/src/components/tabs/tabs';
 import { Textarea } from '@avenra/ui/src/components/textarea/textarea';
+import { ToastProvider, useToast } from '@avenra/ui/src/components/toast/toast';
 import { Tooltip } from '@avenra/ui/src/components/tooltip/tooltip';
 
 import type { ComponentDoc } from './component-docs';
 
 function PreviewCanvas({ children }: { children: React.ReactNode }) {
   return <div className="component-preview__canvas">{children}</div>;
+}
+
+function ToastPreviewSurface() {
+  const { dismiss, push } = useToast();
+
+  useEffect(() => {
+    const ids = [
+      push({
+        title: 'Changes saved',
+        description: 'Workspace settings synced successfully.',
+        variant: 'success',
+        duration: 60000
+      }),
+      push({
+        title: 'Publish failed',
+        description: 'Review the validation errors before retrying.',
+        variant: 'error',
+        duration: 60000
+      })
+    ];
+
+    return () => {
+      ids.forEach((id) => dismiss(id));
+    };
+  }, [dismiss, push]);
+
+  return (
+    <Inline align="center" gap="sm">
+      <Button
+        variant="secondary"
+        onClick={() =>
+          push({
+            title: 'Invite sent',
+            description: 'The workspace invitation email is on its way.',
+            variant: 'info'
+          })
+        }
+      >
+        Push info toast
+      </Button>
+      <Button
+        onClick={() =>
+          push({
+            title: 'Deploy blocked',
+            description: 'A required environment variable is still missing.',
+            variant: 'error'
+          })
+        }
+      >
+        Push error toast
+      </Button>
+    </Inline>
+  );
 }
 
 export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
@@ -216,10 +272,23 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
     case 'dialog':
       return (
         <PreviewCanvas>
+          <Dialog
+            trigger={<Button variant="secondary">Open dialog</Button>}
+            title="Confirm publish"
+            description="This will make the draft visible to your workspace."
+          >
+            <Button variant="secondary">Close</Button>
+          </Dialog>
+        </PreviewCanvas>
+      );
+    case 'drawer':
+      return (
+        <PreviewCanvas>
           <Drawer
+            defaultOpen
             trigger={<Button variant="secondary">Open drawer</Button>}
-            title="Workspace settings"
-            description="Update access and notification preferences."
+            title="Notification settings"
+            description="Control email digests and release alerts without leaving the current page."
           >
             <Stack gap="sm">
               <Input id="preview-drawer-name" label="Workspace name" defaultValue="Avenra" />
@@ -232,11 +301,12 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
       return (
         <PreviewCanvas>
           <DropdownMenu
+            defaultOpen
             title="Workspace actions"
             trigger={<Button variant="secondary">Open menu</Button>}
             items={[
               { label: 'Rename workspace', onSelect: () => undefined },
-              { label: 'Duplicate workspace', onSelect: () => undefined },
+              { label: 'Duplicate workspace', disabled: true },
               { label: 'Archive workspace', onSelect: () => undefined, tone: 'danger' }
             ]}
           />
@@ -313,6 +383,14 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
       return (
         <PreviewCanvas>
           <Pagination currentPage={6} totalPages={12} onPageChange={() => undefined} />
+        </PreviewCanvas>
+      );
+    case 'toast':
+      return (
+        <PreviewCanvas>
+          <ToastProvider>
+            <ToastPreviewSurface />
+          </ToastProvider>
         </PreviewCanvas>
       );
     case 'skeleton':
