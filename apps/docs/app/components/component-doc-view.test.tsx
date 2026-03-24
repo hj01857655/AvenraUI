@@ -125,4 +125,16 @@ describe('ComponentDocView', () => {
 
     expect(screen.getByRole('switch', { name: /readonly sync/i })).toBeDisabled();
   });
+
+  it('renders tag input docs with live tags and remove actions in the preview', () => {
+    render(
+      <ComponentDocView doc={componentDocs['tag-input']} previous={componentDocs.switch} next={componentDocs.textarea} />
+    );
+
+    expect(screen.getByRole('heading', { level: 1, name: /tag input/i })).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: /project tags/i })).toBeInTheDocument();
+    expect(screen.getByText('React')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /remove design system/i })).toBeInTheDocument();
+    expect(screen.getAllByText(/import \{ TagInput \} from '@avenra\/ui';/i)).toHaveLength(2);
+  });
 });

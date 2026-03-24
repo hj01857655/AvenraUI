@@ -71,6 +71,7 @@ export const experimentalComponentSlugs = [
   'form-field',
   'pagination',
   'skeleton',
+  'tag-input',
   'toast'
 ] as const;
 
@@ -1029,6 +1030,44 @@ category: 'Forms and input',
       }
     ]
   },
+  'tag-input': {
+    slug: 'tag-input',
+    title: 'Tag Input',
+    packageImport: "import { TagInput } from '@avenra/ui';",
+    category: 'Forms and input',
+    summary: 'Inline token field for collecting multiple short labels with the shared Avenra form contract.',
+    usage:
+      'Use TagInput when the user needs to enter a compact set of labels, technologies, recipients, or other short repeatable tokens without switching to a different chooser.',
+    exampleCode: [
+      "import { TagInput } from '@avenra/ui';",
+      '',
+      'export function ProjectTagsField() {',
+      '  return (',
+      '    <TagInput',
+      '      id="project-tags"',
+      '      label="Project tags"',
+      '      hint="Press Enter or comma to add a new tag"',
+      '      placeholder="Add a tag"',
+      "      defaultValue={['React', 'Design system']}",
+      '    />',
+      '  );',
+      '}'
+    ].join('\n'),
+    sections: [
+      {
+        title: 'Commit model',
+        body: 'TagInput keeps text entry lightweight by committing the current token with Enter or comma, which makes repeated label entry faster than bouncing through a modal or full autocomplete for every value.'
+      },
+      {
+        title: 'Editing model',
+        body: 'Each committed tag stays visible as an inline token with its own remove action, and Backspace removes the last committed tag when the input is empty so the keyboard flow stays efficient.'
+      },
+      {
+        title: 'Shared field contract',
+        body: 'TagInput uses the same label, hint, error, required, invalid, and disabled contract as the other Avenra form primitives, so it can drop into existing forms without one-off accessibility wiring.'
+      }
+    ]
+  },
   tabs: {
     slug: 'tabs',
     title: 'Tabs',
@@ -1508,6 +1547,22 @@ export const componentDocMetadata = {
       ...commonChoiceAccessibility,
       'The control exposes `role="switch"` so assistive technology announces it as a binary setting toggle.',
       'Disabled and invalid state use the same field wrapper contract as Checkbox and Radio.'
+    ]
+  },
+  'tag-input': {
+    props: [
+      { name: 'label', type: 'string', required: true, description: 'Visible field label when TagInput owns its own field shell.' },
+      { name: 'defaultValue', type: 'string[]', description: 'Initial set of committed tags in uncontrolled mode.' },
+      { name: 'value', type: 'string[]', description: 'Controlled committed tag list.' },
+      { name: 'placeholder', type: 'string', description: 'Prompt shown while the free-text slot is empty.' },
+      { name: 'onValueChange', type: '(value: string[]) => void', description: 'Called when the committed tag list changes.' },
+      { name: 'allowDuplicates', type: 'boolean', description: 'Allows repeated values when the product flow truly needs duplicate tokens.' }
+    ],
+    states: ['Empty', 'With committed tags', 'Invalid', 'Disabled'],
+    accessibility: [
+      ...commonFieldAccessibility,
+      'Each committed tag exposes a dedicated remove button so keyboard and assistive technology users can delete specific tokens directly.',
+      'Enter and comma commit the current token, while Backspace removes the last committed tag when the text slot is empty.'
     ]
   },
   tabs: {

@@ -41,4 +41,5 @@ export * from './components/form/form';
 export * from './components/form-field/form-field';
 export * from './components/pagination/pagination';
 export * from './components/skeleton/skeleton';
+export * from './components/tag-input/tag-input';
 export * from './components/toast/toast';

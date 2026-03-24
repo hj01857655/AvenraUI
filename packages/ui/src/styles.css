@@ -1285,6 +1285,109 @@
   font-size: 0.875rem;
 }
 
+.avenra-tag-input {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-elevated);
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+
+.avenra-tag-input:hover {
+  border-color: var(--color-primary);
+}
+
+.avenra-tag-input:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-focus-ring);
+}
+
+.avenra-tag-input--invalid {
+  border-color: var(--color-danger);
+}
+
+.avenra-tag-input--disabled {
+  background: color-mix(in srgb, var(--color-surface-muted) 70%, white);
+}
+
+.avenra-tag-input__list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.375rem;
+}
+
+.avenra-tag-input__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  min-height: 2rem;
+  padding: 0.25rem 0.375rem 0.25rem 0.625rem;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--color-primary) 10%, white);
+  color: var(--color-text);
+  font-size: 0.875rem;
+  line-height: 1;
+}
+
+.avenra-tag-input__tag-label {
+  white-space: nowrap;
+}
+
+.avenra-tag-input__remove {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 0;
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--color-text-muted);
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.avenra-tag-input__remove:hover:not(:disabled),
+.avenra-tag-input__remove:focus-visible {
+  outline: none;
+  background: color-mix(in srgb, var(--color-primary) 14%, white);
+  color: var(--color-text);
+}
+
+.avenra-tag-input__remove:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.avenra-tag-input__input-slot {
+  flex: 1 1 10rem;
+  min-width: 10rem;
+}
+
+.avenra-tag-input__input {
+  width: 100%;
+  min-height: 2.25rem;
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  padding: 0.5rem 0.625rem;
+}
+
+.avenra-tag-input__input:focus {
+  outline: none;
+}
+
+.avenra-tag-input__input::placeholder {
+  color: #94a3b8;
+}
+
 
 .avenra-command {
   position: relative;

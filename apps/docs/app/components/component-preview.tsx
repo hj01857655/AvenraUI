@@ -29,6 +29,7 @@ import { Select } from '@avenra/ui/src/components/select/select';
 import { Skeleton } from '@avenra/ui/src/components/skeleton/skeleton';
 import { Stack } from '@avenra/ui/src/components/stack/stack';
 import { Switch } from '@avenra/ui/src/components/switch/switch';
+import { TagInput } from '@avenra/ui/src/components/tag-input/tag-input';
 import { Tabs } from '@avenra/ui/src/components/tabs/tabs';
 import { Textarea } from '@avenra/ui/src/components/textarea/textarea';
 import { ToastProvider, useToast } from '@avenra/ui/src/components/toast/toast';
@@ -473,6 +474,18 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
             />
             <Switch id="preview-switch-disabled" label="Readonly sync" disabled />
           </Stack>
+        </PreviewCanvas>
+      );
+    case 'tag-input':
+      return (
+        <PreviewCanvas>
+          <TagInput
+            id="preview-tag-input"
+            label="Project tags"
+            hint="Press Enter or comma to add a new tag"
+            placeholder="Add a tag"
+            defaultValue={['React', 'Design system']}
+          />
         </PreviewCanvas>
       );
     case 'tabs':
