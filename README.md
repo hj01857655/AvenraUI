@@ -1,30 +1,57 @@
 # Avenra UI
 
-Avenra UI is a React component library and design-system workspace focused on shipping real product interfaces with a stable foundation first.
+Avenra UI is a React-first component library and design-system workspace aimed at the top tier of product-grade UI libraries. The target is not a loose collection of demo widgets. The target is a public package that teams can adopt as a durable interface foundation for real products.
 
-The current public-facing docs line is built around four questions:
+The working product bet is simple:
 
-- what the library is
-- what component surface exists today
-- how to start evaluating or installing it
-- how theming is layered without overstating maturity
+- ship a stable React package boundary before pretending to have full breadth
+- make docs, support boundaries, and component quality move together
+- build a system that can grow from foundation primitives into heavier product surfaces without rewriting the repo structure again
+
+## Product intent
+
+Avenra UI is being built to compete on the things that matter in long-lived product work:
+
+- React-native API design
+- predictable field, overlay, and feedback behavior
+- stable versus experimental support governance
+- a design-token and theme foundation that scales
+- docs that explain real adoption boundaries instead of overclaiming maturity
+
+This repository is therefore optimized around platform completeness, not patch-style progress.
+
+## Why Avenra UI exists
+
+Avenra UI is not trying to win by copying another ecosystem's mental model into React. It is trying to win on a different combination of strengths:
+
+- React-first APIs instead of framework-transplanted interaction patterns
+- a support contract that is explicit about stable versus experimental work
+- design-system depth that can expand without rewriting the package shape
+- documentation that explains adoption boundaries honestly instead of pretending everything is equally mature
+- a product roadmap that prioritizes high-frequency interfaces before checkbox component-count inflation
+
+Today that means Avenra UI is strongest as a serious foundation-in-progress rather than a falsely “finished” enterprise matrix.
 
 ## Current product position
 
-Avenra UI is not trying to look artificially “complete” before the base is ready.
+Avenra UI is in the foundation-building phase of a serious public library.
 
 What is true today:
 
 - the repository has a real `@avenra/ui` package boundary
-- the first visible wave of foundation components is documented
+- a documented first wave of foundation components exists
 - docs and Storybook both exist as product-facing support surfaces
 - tokens and themes already exist in the repo as the styling foundation
+- stable and experimental surfaces are now explicitly documented
 
 What is not being claimed yet:
 
 - full Element-class breadth across every enterprise pattern
-- a fully expanded public theming platform
-- broad data-heavy component coverage
+- a finished public theming platform with every override surface documented
+- mature data-heavy components such as full table / grid systems
+- final API guarantees for every currently exported component
+
+The goal is not to overstate maturity. The goal is to make the current support contract explicit while continuing to expand the product deliberately.
 
 ## Docs entry points
 
@@ -33,6 +60,12 @@ What is not being claimed yet:
 - Installation: package-consumer path and local workspace path
 - Theming: styling layers, override direction, and current boundary notes
 - Components: current documented component surface
+- Stable surface governance: `docs/stable-components.md`
+- Adoption guidance: `docs/adoption-guidance.md`
+- Form semantics and field contract: `docs/form-experience.md`
+- Selection component guidance: `docs/selection-components.md`
+- Date input direction: `docs/date-inputs.md`
+- Product direction: `docs/product-direction.md`
 
 ## Current package-consumer shape
 
@@ -56,6 +89,20 @@ The package root currently exports both:
 
 That distinction is documentation and support governance, not a claim that experimental items are hidden or removed from the package today.
 
+## Current adoption guidance
+
+If you are evaluating Avenra UI today, the recommended reading order is:
+
+1. `README.md` for the current product position
+2. `docs/stable-components.md` for the support contract
+3. `docs/adoption-guidance.md` for the current production-use boundary
+4. `docs/form-experience.md` for the current field and validation model
+5. `docs/selection-components.md` for choosing between the current selection primitives
+6. `docs/date-inputs.md` for the current date-entry direction
+7. `docs/product-direction.md` for the near-term expansion direction
+
+That reading order reflects how the library is being built: support boundaries first, then usage clarity, then wider component breadth.
+
 ## Current form experience contract
 
 The current form work is centered on one shared field contract across text, selection, and choice controls:
@@ -66,6 +113,8 @@ The current form work is centered on one shared field contract across text, sele
 - `Checkbox`, `Radio`, and `Switch` keep their own visible label and should use `FormField layout="control"` when shared hint or error text is needed
 
 That is the current product direction for form composition: one consistent accessibility and messaging contract before expanding into larger data-entry surfaces.
+
+For a more explicit write-up of that contract, see `docs/form-experience.md`.
 
 ## Stable surface
 
@@ -152,6 +201,31 @@ This is a foundation release wave, not the final surface area of the library.
 
 For the current governance split, see `docs/stable-components.md`.
 
+## High-value component direction
+
+The current direction is to expand in a way that compounds product value instead of only increasing component count. That means:
+
+- harden form, selection, overlay, and feedback groups before jumping too early into the heaviest enterprise widgets
+- add high-frequency enhanced inputs such as `TagInput`, `MultiSelect`, and date entry surfaces as the next layer of practical product value
+- keep exports, docs, tests, and support governance aligned as the surface grows
+
+This is how Avenra UI intends to become a strong React ecosystem library: not by pretending the whole matrix is already done, but by making each new line credible when it lands.
+
+## When Avenra UI is a good fit today
+
+Avenra UI is a good fit today if you want:
+
+- a React-first package boundary with a real support split
+- a documented foundation wave that is actively expanding
+- a design-system workspace that already includes tokens, themes, docs, and package governance
+- a library you can evaluate honestly without being misled about maturity
+
+Avenra UI is not the right fit today if you require:
+
+- a complete enterprise matrix with every heavy data component already stable
+- a finalized public theming platform across every override surface
+- zero API movement in the currently experimental surface
+
 ## Styling and theming
 
 The styling model is layered like this:
@@ -165,6 +239,8 @@ Current boundary:
 - the repo already contains token and theme packages
 - the clearest documented adopter entry today is still the UI package and docs site
 - theming guidance is documented honestly as a layering model and override direction, not as a fully expanded public platform yet
+
+The current theming model is intentionally documented as a layered system before it is documented as a complete customization platform. That boundary is deliberate.
 
 ## Workspace structure
 
