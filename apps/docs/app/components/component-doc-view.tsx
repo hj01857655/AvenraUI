@@ -36,20 +36,33 @@ export function ComponentDocView({
   previous: ComponentDoc | null;
   next: ComponentDoc | null;
 }) {
+  const usageSupportSuffix =
+    doc.support === 'stable'
+      ? ' This component is part of the current stable support surface.'
+      : ' This component is currently experimental / in-progress and may change while the support contract is still settling.';
+  const usageBody = doc.usage.endsWith(usageSupportSuffix)
+    ? doc.usage.slice(0, -usageSupportSuffix.length)
+    : doc.usage;
+  const visibleSections = doc.sections.filter((section) => section.title !== 'Support status');
+
   return (
     <div className="page-stack">
       <section className="page-header">
         <Badge variant="info" size="sm">
           {doc.category}
         </Badge>
+        <Badge variant={doc.support === 'stable' ? 'success' : 'warning'} size="sm">
+          {doc.supportLabel}
+        </Badge>
         <h1>{doc.title}</h1>
         <p>{doc.summary}</p>
+        <p>{doc.supportSummary}</p>
       </section>
 
       <div className="content-grid">
         <article className="content-panel">
           <h2>When to use</h2>
-          <p>{doc.usage}</p>
+          <p>{usageBody}</p>
         </article>
 
         <article className="content-panel">
@@ -102,7 +115,7 @@ export function ComponentDocView({
       </section>
 
       <section className="component-doc-sections">
-        {doc.sections.map((section) => (
+        {visibleSections.map((section) => (
           <Card
             key={section.title}
             title={section.title}

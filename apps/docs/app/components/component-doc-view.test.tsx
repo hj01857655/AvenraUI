@@ -18,6 +18,10 @@ describe('ComponentDocView', () => {
     expect(screen.getByRole('heading', { level: 2, name: /preview/i })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 2, name: /props/i })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 2, name: /accessibility/i })).toBeInTheDocument();
+    expect(screen.getAllByText(/stable/i, { selector: '.avenra-badge' }).length).toBeGreaterThan(0);
+    expect(
+      screen.getAllByText(/current formal Avenra UI support contract/i).length
+    ).toBeGreaterThan(0);
     expect(screen.getByRole('button', { name: /publish/i })).toBeInTheDocument();
     expect(screen.getByText('variant')).toBeInTheDocument();
     expect(screen.getByText('Loading', { selector: 'li' })).toBeInTheDocument();
@@ -175,6 +179,7 @@ describe('ComponentDocView', () => {
     );
 
     expect(screen.getByRole('heading', { level: 1, name: /date range picker/i })).toBeInTheDocument();
+    expect(screen.getByText(/experimental \/ in-progress/i)).toBeInTheDocument();
     expect(screen.getByRole('combobox', { name: /launch window/i })).toHaveValue('Mar 18, 2026 — Mar 24, 2026');
     expect(screen.getByRole('dialog', { name: /choose date range/i })).toBeInTheDocument();
     expect(screen.getByRole('gridcell', { name: /wednesday, march 18, 2026/i })).toBeInTheDocument();
