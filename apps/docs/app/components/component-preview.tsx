@@ -513,7 +513,20 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
     case 'pagination':
       return (
         <PreviewCanvas>
-          <Pagination currentPage={6} totalPages={12} onPageChange={() => undefined} />
+          <Stack gap="md">
+            <Pagination
+              ariaLabel="Results pages"
+              currentPage={6}
+              totalPages={12}
+              onPageChange={() => undefined}
+            />
+            <Pagination
+              ariaLabel="Review queue pages"
+              currentPage={1}
+              totalPages={3}
+              onPageChange={() => undefined}
+            />
+          </Stack>
         </PreviewCanvas>
       );
     case 'toast':

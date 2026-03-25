@@ -35,6 +35,7 @@ describe('ToastProvider', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Push success' }));
 
+    expect(screen.getByRole('region', { name: 'Notifications' })).toBeInTheDocument();
     expect(screen.getByRole('status')).toHaveTextContent('Changes saved');
     expect(screen.getByText('Saved to your workspace.')).toBeInTheDocument();
   });
@@ -140,5 +141,32 @@ describe('ToastProvider', () => {
 
     expect(screen.queryByRole('alert', { name: 'Publish failed' })).not.toBeInTheDocument();
     expect(screen.getByRole('status', { name: 'Info sync complete' })).toBeInTheDocument();
+  });
+
+  it('dismisses only the latest toast when dismiss is called without an id', () => {
+    function MultiToastDismissHarness() {
+      const { dismiss, push } = useToast();
+
+      return (
+        <div>
+          <Button onClick={() => push({ title: 'First notice', variant: 'info' })}>Push first</Button>
+          <Button onClick={() => push({ title: 'Second notice', variant: 'success' })}>Push second</Button>
+          <Button onClick={() => dismiss()}>Dismiss latest</Button>
+        </div>
+      );
+    }
+
+    render(
+      <ToastProvider>
+        <MultiToastDismissHarness />
+      </ToastProvider>
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Push first' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Push second' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Dismiss latest' }));
+
+    expect(screen.getByRole('status', { name: 'First notice' })).toBeInTheDocument();
+    expect(screen.queryByRole('status', { name: 'Second notice' })).not.toBeInTheDocument();
   });
 });

@@ -92,9 +92,24 @@ describe('ComponentDocView', () => {
       <ComponentDocView doc={componentDocs.toast} previous={componentDocs.skeleton} next={componentDocs.radio} />
     );
 
+    expect(screen.getByRole('region', { name: /notifications/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /push info toast/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /push error toast/i })).toBeInTheDocument();
     expect(screen.getByRole('alert', { name: /publish failed/i })).toBeInTheDocument();
+  });
+
+  it('renders pagination docs with both a dense range example and a boundary state preview', () => {
+    render(
+      <ComponentDocView doc={componentDocs.pagination} previous={componentDocs.progress} next={componentDocs.skeleton} />
+    );
+
+    const resultsPages = screen.getByRole('navigation', { name: /results pages/i });
+    const reviewPages = screen.getByRole('navigation', { name: /review queue pages/i });
+
+    expect(within(resultsPages).getAllByText('…')).toHaveLength(2);
+    expect(within(resultsPages).getByRole('button', { name: 'Page 6' })).toHaveAttribute('aria-current', 'page');
+    expect(within(reviewPages).getByRole('button', { name: /previous page/i })).toBeDisabled();
+    expect(within(reviewPages).getByRole('button', { name: /next page/i })).not.toBeDisabled();
   });
 
   it('renders live preview states for selection docs without drifting from the current docs previews', () => {

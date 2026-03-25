@@ -195,6 +195,7 @@ export function DropdownMenu({
               <button
                 key={item.label}
                 type="button"
+                aria-disabled={item.disabled ? 'true' : undefined}
                 role="menuitem"
                 disabled={item.disabled}
                 ref={(element) => {

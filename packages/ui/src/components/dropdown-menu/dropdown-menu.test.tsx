@@ -77,6 +77,7 @@ describe('DropdownMenu', () => {
 
     expect(onSelect).not.toHaveBeenCalled();
     expect(screen.getByRole('menu')).toBeInTheDocument();
+    expect(screen.getByRole('menuitem', { name: 'Archive project' })).toHaveAttribute('aria-disabled', 'true');
   });
 
   it('supports controlled mode through open and onOpenChange', () => {
@@ -144,6 +145,25 @@ describe('DropdownMenu', () => {
     trigger.focus();
     fireEvent.click(trigger);
     fireEvent.keyDown(document, { key: 'Escape' });
+
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+    expect(trigger).toHaveFocus();
+  });
+
+  it('closes on Tab and restores focus to the trigger', () => {
+    render(
+      <DropdownMenu
+        title="Workspace actions"
+        trigger={<button type="button">Open menu</button>}
+        items={[{ label: 'Rename workspace', onSelect: vi.fn() }]}
+      />,
+    );
+
+    const trigger = screen.getByRole('button', { name: 'Open menu' });
+
+    trigger.focus();
+    fireEvent.click(trigger);
+    fireEvent.keyDown(screen.getByRole('menu'), { key: 'Tab' });
 
     expect(screen.queryByRole('menu')).not.toBeInTheDocument();
     expect(trigger).toHaveFocus();

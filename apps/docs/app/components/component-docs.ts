@@ -806,14 +806,21 @@ const componentDocContent = {
     title: 'Pagination',
     packageImport: "import { Pagination } from '@avenra/ui';",
     category: 'Actions and navigation',
-    summary: 'Controlled pagination navigation with previous/next controls, page buttons, and ellipsis gaps.',
+    summary: 'Controlled pagination navigation with labeled landmarks, current-page state, and ellipsis compression for longer result sets.',
     usage:
       'Use Pagination when collections are split across pages and the user needs both page position awareness and quick movement between nearby pages.',
     exampleCode: [
       "import { Pagination } from '@avenra/ui';",
       '',
       'export function ResultsPagination() {',
-      '  return <Pagination currentPage={6} totalPages={12} onPageChange={(page) => console.log(page)} />;',
+      '  return (',
+      '    <Pagination',
+      '      ariaLabel="Results pages"',
+      '      currentPage={6}',
+      '      totalPages={12}',
+      '      onPageChange={(page) => console.log(page)}',
+      '    />',
+      '  );',
       '}'
     ].join('\n'),
     sections: [
@@ -826,8 +833,12 @@ const componentDocContent = {
         body: 'The current page stays visibly selected and non-interactive, while previous and next controls disable correctly at the range boundaries so keyboard and pointer behavior stay predictable.'
       },
       {
+        title: 'Labeled landmarks',
+        body: 'Use `ariaLabel` to name each pagination landmark when a page contains more than one result cluster, so screen reader users can distinguish review queues, search results, and archive lists quickly.'
+      },
+      {
         title: 'Range compression',
-        body: 'The component keeps edge pages visible and inserts ellipsis only when ranges would otherwise become noisy, which makes long result sets easier to scan.'
+        body: 'The component keeps edge pages visible and inserts ellipsis only when ranges would otherwise become noisy, which makes long result sets easier to scan without losing context.'
       }
     ]
   },
@@ -867,7 +878,7 @@ const componentDocContent = {
     title: 'Toast',
     packageImport: "import { ToastProvider, useToast } from '@avenra/ui';",
     category: 'Feedback and status',
-    summary: 'Ephemeral notification stack for success, info, and error feedback that should stay out of the user’s way.',
+    summary: 'Ephemeral notification stack for success, info, and error feedback with live-region announcement and targeted dismissal.',
     usage:
       'Use Toast for transient feedback after background actions, inline saves, or async failures that should stay attached to the current workflow instead of blocking it with a modal.',
     exampleCode: [
@@ -907,6 +918,10 @@ const componentDocContent = {
       {
         title: 'Queue behavior',
         body: 'ToastProvider owns the visible stack and targeted dismissal, so one failed action does not wipe out the rest of the feedback history the user still needs to see.'
+      },
+      {
+        title: 'Notification region',
+        body: 'The viewport stays in a labeled live region so transient updates remain discoverable for assistive technology without stealing focus from the current task.'
       }
     ]
   },
@@ -1655,6 +1670,7 @@ export const componentDocMetadata = {
   },
   pagination: {
     props: [
+      { name: 'ariaLabel', type: 'string', description: 'Accessible name for the navigation landmark when multiple pagers exist on one page.' },
       { name: 'currentPage', type: 'number', required: true, description: 'Current active page in the controlled pagination state.' },
       { name: 'totalPages', type: 'number', required: true, description: 'Total number of available pages.' },
       { name: 'onPageChange', type: '(page: number) => void', required: true, description: 'Called when the user requests a different page.' },
@@ -1689,7 +1705,7 @@ export const componentDocMetadata = {
     ],
     states: ['Info', 'Success', 'Error', 'Dismissed'],
     accessibility: [
-      'The toast viewport announces additive updates through a live region so transient feedback is still discoverable without taking focus.',
+      'The toast viewport announces additive updates through a labeled live region so transient feedback is still discoverable without taking focus.',
       'Error toasts use `role="alert"` while non-error toasts stay `role="status"`, which keeps urgency aligned with the message type.'
     ]
   },
@@ -1745,7 +1761,7 @@ export const componentDocMetadata = {
     states: ['Closed', 'Open', 'Danger action'],
     accessibility: [
       'The trigger exposes `aria-haspopup="menu"`, `aria-expanded`, and `aria-controls`, while menu items render with `role="menuitem"`.',
-      'Opening the surface moves focus to the first enabled action, keyboard navigation skips disabled items, and closing the menu restores focus to the trigger.'
+      'Opening the surface moves focus to the first enabled action, disabled rows stay explicitly non-interactive, keyboard navigation skips disabled items, and closing the menu restores focus to the trigger.'
     ]
   },
   drawer: {
