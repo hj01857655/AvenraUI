@@ -728,14 +728,14 @@ const componentDocContent = {
     title: 'Table',
     packageImport: "import { Table } from '@avenra/ui';",
     category: 'Layout and display',
-    summary: 'Structured data table for compact row-and-column comparison with built-in empty state support.',
+    summary: 'Data table for operational datasets with sorting, density control, sticky headers, row emphasis, and empty states.',
     usage:
-      'Use Table when users need to scan comparable records across consistent columns, especially for settings inventories, release views, ownership lists, or operational dashboards.',
+      'Use Table when teams need a product-grade data surface for release tracking, admin inventories, ownership reports, or dashboard lists where scan speed and state emphasis matter.',
     exampleCode: [
       "import { Table } from '@avenra/ui';",
       '',
       'const releaseColumns = [',
-      "  { id: 'release', header: 'Release', accessorKey: 'release', rowHeader: true },",
+      "  { id: 'release', header: 'Release', accessorKey: 'release', rowHeader: true, sortable: true },",
       "  { id: 'status', header: 'Status', accessorKey: 'status' },",
       "  { id: 'owner', header: 'Owner', accessorKey: 'owner' }",
       '];',
@@ -745,9 +745,15 @@ const componentDocContent = {
       '    <Table',
       '      caption="Release readiness"',
       '      columns={releaseColumns}',
+      "      defaultSort={{ columnId: 'release', direction: 'asc' }}",
+      '      density="compact"',
+      '      striped',
+      '      stickyHeader',
+      "      getRowTone={(row) => (row.status === 'Blocked' ? 'danger' : row.status === 'Ready' ? 'success' : 'default')}",
       '      rows={[',
-      "        { id: 'march', release: 'March update', status: 'Ready', owner: 'Design' },",
-      "        { id: 'april', release: 'April update', status: 'Blocked', owner: 'Platform' }",
+      "        { id: 'may', release: 'May update', status: 'Draft', owner: 'Docs' },",
+      "        { id: 'april', release: 'April update', status: 'Blocked', owner: 'Platform' },",
+      "        { id: 'march', release: 'March update', status: 'Ready', owner: 'Design' }",
       '      ]}',
       "      rowKey='id'",
       '    />',
@@ -756,16 +762,16 @@ const componentDocContent = {
     ].join('\n'),
     sections: [
       {
-        title: 'Column-driven rendering',
-        body: 'Table keeps structure explicit through column definitions so teams can align headers, accessor keys, and custom cell rendering without rebuilding semantic table markup for every feature.'
+        title: 'Operational scanning',
+        body: 'Use compact density, striped rows, and sticky headers together when datasets need to stay readable during longer scan sessions instead of relying on ad hoc admin-page styling.'
       },
       {
-        title: 'Readable states',
-        body: 'The component preserves a real table structure for data rows while handling the zero-data state inside the same shell, which avoids layout jumps and keeps the surface understandable when records disappear.'
+        title: 'Sorting and emphasis',
+        body: 'Sortable headers keep comparison flows inside the same semantic table, while `getRowTone` highlights blocked, risky, or healthy rows without forcing teams to rebuild cells by hand.'
       },
       {
-        title: 'Design-system fit',
-        body: 'Table uses the same border, spacing, color, and typography language as the rest of the Avenra system, so operational views can adopt data presentation without inventing one-off admin styling.'
+        title: 'Stable empty states',
+        body: 'Table keeps the same shell when data disappears, so empty states stay aligned with the caption, column structure, and surrounding layout instead of collapsing into a separate custom card.'
       }
     ]
   },
@@ -1986,13 +1992,18 @@ export const componentDocMetadata = {
       { name: 'columns', type: 'TableColumn<Row>[]', required: true, description: 'Column definitions that control headers, accessors, optional row-header cells, and custom renderers.' },
       { name: 'rows', type: 'Row[]', required: true, description: 'Structured row data rendered in the table body.' },
       { name: 'caption', type: 'string', description: 'Accessible table name shown above the data grid.' },
+      { name: 'defaultSort', type: 'TableSortState | null', description: 'Initial uncontrolled sort state for sortable columns.' },
+      { name: 'density', type: "'comfortable' | 'compact'", description: 'Controls row padding for default or denser data layouts.' },
+      { name: 'stickyHeader', type: 'boolean', description: 'Pins the header row inside scrollable table regions.' },
+      { name: 'striped', type: 'boolean', description: 'Applies alternating row backgrounds to improve scanability.' },
+      { name: 'getRowTone', type: "(row: Row, rowIndex: number) => 'default' | 'info' | 'success' | 'warning' | 'danger'", description: 'Maps row data to emphasis tones for risk, success, or informational highlighting.' },
       { name: 'emptyState', type: 'ReactNode', description: 'Fallback cell rendered when the rows array is empty.' },
       { name: 'rowKey', type: 'keyof Row | ((row: Row, rowIndex: number) => string | number)', description: 'Stable key source for row rendering.' }
     ],
-    states: ['With rows', 'Empty state', 'Custom cell rendering'],
+    states: ['Comfortable density', 'Compact density', 'Sorted column', 'Tone-emphasized rows', 'Empty state'],
     accessibility: [
       'Table preserves native table semantics through `table`, `caption`, column headers, row headers, and body cells so assistive technology can announce structure correctly.',
-      'Use `caption` whenever the surrounding context does not already make the table purpose obvious, especially when multiple tables appear on the same page.'
+      'Sortable headers update `aria-sort` on the active column so assistive technology can understand the current comparison direction without relying on visual arrows alone.'
     ]
   },
   tooltip: {

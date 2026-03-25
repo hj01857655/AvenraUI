@@ -463,13 +463,19 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
             <Table
               caption="Release readiness"
               columns={[
-                { id: 'release', header: 'Release', accessorKey: 'release', rowHeader: true },
+                { id: 'release', header: 'Release', accessorKey: 'release', rowHeader: true, sortable: true },
                 { id: 'status', header: 'Status', accessorKey: 'status' },
                 { id: 'owner', header: 'Owner', accessorKey: 'owner' }
               ]}
+              defaultSort={{ columnId: 'release', direction: 'asc' }}
+              density="compact"
+              striped
+              stickyHeader
+              getRowTone={(row) => (row.status === 'Blocked' ? 'danger' : row.status === 'Ready' ? 'success' : 'default')}
               rows={[
-                { id: 'march', release: 'March update', status: 'Ready', owner: 'Design' },
-                { id: 'april', release: 'April update', status: 'Blocked', owner: 'Platform' }
+                { id: 'may', release: 'May update', status: 'Draft', owner: 'Docs' },
+                { id: 'april', release: 'April update', status: 'Blocked', owner: 'Platform' },
+                { id: 'march', release: 'March update', status: 'Ready', owner: 'Design' }
               ]}
               rowKey="id"
             />

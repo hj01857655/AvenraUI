@@ -194,6 +194,8 @@ describe('ComponentDocView', () => {
 
     expect(screen.getByRole('heading', { level: 1, name: /table/i })).toBeInTheDocument();
     const table = screen.getByRole('table', { name: /release readiness/i });
+    expect(screen.getByRole('button', { name: /sort by release/i })).toBeInTheDocument();
+    expect(within(table).getAllByRole('rowheader')[0]).toHaveTextContent(/april update/i);
     expect(within(table).getByRole('columnheader', { name: /release/i })).toBeInTheDocument();
     expect(within(table).getByRole('cell', { name: /ready/i })).toBeInTheDocument();
     expect(screen.getByRole('cell', { name: /no empty preview rows/i })).toBeInTheDocument();
