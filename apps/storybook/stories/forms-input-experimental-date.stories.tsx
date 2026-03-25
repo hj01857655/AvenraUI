@@ -34,7 +34,7 @@ function StorySection({ title, description, children }: { title: string; descrip
 }
 
 const meta = {
-  title: 'Components/Forms and Input/Experimental Date Inputs',
+  title: 'Components/Forms and Input/Experimental/Date Inputs',
   parameters: {
     layout: 'padded'
   }
@@ -43,7 +43,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const DatePickerStates: Story = {
+export const DatePickerFieldStates: Story = {
   render: () => (
     <div style={canvasStyle}>
       <StorySection title="Date Picker" description="Single-date selection keeps the chosen ISO value in one field while the calendar overlay handles browsing and confirmation.">
@@ -70,7 +70,7 @@ export const DatePickerStates: Story = {
   )
 };
 
-export const DateRangePickerStates: Story = {
+export const DateRangeFieldStates: Story = {
   render: () => (
     <div style={canvasStyle}>
       <StorySection title="Date Range Picker" description="Start and end dates stay in one workflow, with the displayed range normalized and reviewed before submission.">

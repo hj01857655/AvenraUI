@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button, Checkbox, Combobox, Form, FormField, Input, Select, Stack, Upload } from '@avenra/ui';
 
 const meta = {
-  title: 'Components/Forms and Input/Experimental Form Shell',
+  title: 'Components/Forms and Input/Experimental/Form Shell',
   parameters: {
     layout: 'padded'
   }
@@ -12,7 +12,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const FormContextStates: Story = {
+export const FormContextWorkflow: Story = {
   render: () => (
     <div style={{ display: 'grid', gap: '1.5rem', maxWidth: '42rem' }}>
       <Form aria-label="Workspace provisioning form">
@@ -58,7 +58,7 @@ export const FormContextStates: Story = {
   )
 };
 
-export const FormFieldStates: Story = {
+export const FormFieldShellStates: Story = {
   render: () => (
     <Stack gap="md" style={{ maxWidth: '38rem' }}>
       <FormField label="Project name" hint="Visible to your workspace" required>
@@ -74,7 +74,7 @@ export const FormFieldStates: Story = {
   )
 };
 
-export const UploadFieldStates: Story = {
+export const UploadWorkflowStates: Story = {
   render: () => (
     <div style={{ maxWidth: '40rem' }}>
       <Upload

@@ -10,7 +10,7 @@ function ControlledPaginationPreview() {
 }
 
 const meta = {
-  title: 'Components/Navigation and Display/Experimental',
+  title: 'Components/Navigation and Display/Experimental Overview',
   parameters: {
     layout: 'padded'
   }
@@ -19,11 +19,11 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const PaginationStates: Story = {
+export const PaginationNavigationStates: Story = {
   render: () => <ControlledPaginationPreview />
 };
 
-export const TreeContentStructure: Story = {
+export const TreeHierarchyStates: Story = {
   render: () => (
     <Tree
       ariaLabel="Content structure"

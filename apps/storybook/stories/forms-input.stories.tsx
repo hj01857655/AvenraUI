@@ -58,7 +58,7 @@ function StorySection({
 }
 
 const meta = {
-  title: 'Components/Forms and Input',
+  title: 'Components/Forms and Input/Stable Overview',
   parameters: {
     layout: 'padded'
   }
@@ -68,7 +68,7 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const InputStates: Story = {
+export const InputFieldStates: Story = {
   render: () => (
     <StoryCanvas>
       <StorySection
@@ -83,7 +83,7 @@ export const InputStates: Story = {
   )
 }
 
-export const TextareaStates: Story = {
+export const TextareaFieldStates: Story = {
   render: () => (
     <StoryCanvas>
       <StorySection
@@ -129,7 +129,7 @@ export const RadioStates: Story = {
   )
 }
 
-export const SelectStates: Story = {
+export const SelectFieldStates: Story = {
   render: () => (
     <StoryCanvas>
       <StorySection
@@ -158,7 +158,7 @@ export const SelectStates: Story = {
   )
 }
 
-export const SwitchStates: Story = {
+export const SwitchFieldStates: Story = {
   render: () => (
     <StoryCanvas>
       <StorySection

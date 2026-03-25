@@ -63,7 +63,7 @@ function ControlledComboboxPreview() {
 }
 
 const meta = {
-  title: 'Components/Forms and Input/Experimental Search & Selection',
+  title: 'Components/Forms and Input/Experimental/Search and Selection',
   parameters: {
     layout: 'padded'
   }
@@ -72,7 +72,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const AutocompleteField: Story = {
+export const AutocompleteStates: Story = {
   render: () => (
     <div style={canvasStyle}>
       <StorySection title="Autocomplete" description="Typeahead stays quiet until the query reaches the threshold, then filters the option set inside the shared field shell.">
@@ -94,7 +94,7 @@ export const AutocompleteField: Story = {
   )
 };
 
-export const CascaderField: Story = {
+export const CascaderStates: Story = {
   render: () => (
     <div style={canvasStyle}>
       <StorySection title="Cascader" description="Hierarchical choices open progressively so users can confirm each level before committing the final branch.">
@@ -126,7 +126,7 @@ export const CascaderField: Story = {
   )
 };
 
-export const ComboboxField: Story = {
+export const ComboboxStates: Story = {
   render: () => <ControlledComboboxPreview />
 };
 
@@ -149,7 +149,7 @@ export const CommandPalette: Story = {
   )
 };
 
-export const MultiSelectField: Story = {
+export const MultiSelectStates: Story = {
   render: () => (
     <div style={canvasStyle}>
       <StorySection title="Multi Select" description="Selected options stay visible as removable chips while the input keeps filtering a larger option set.">

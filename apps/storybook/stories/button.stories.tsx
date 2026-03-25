@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button } from '@avenra/ui';
 
 const meta = {
-  title: 'Components/Button',
+  title: 'Components/Actions and Navigation/Button',
   component: Button,
   parameters: {
     layout: 'centered'
@@ -40,7 +40,7 @@ export const Loading: Story = {
   }
 };
 
-export const Sizes: Story = {
+export const SizeScale: Story = {
   render: (args) => (
     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.75rem' }}>
       <Button {...args} size="sm">
@@ -56,7 +56,7 @@ export const Sizes: Story = {
   )
 };
 
-export const ActionGroup: Story = {
+export const ActionHierarchy: Story = {
   render: (args) => (
     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.75rem' }}>
       <Button {...args}>Publish</Button>

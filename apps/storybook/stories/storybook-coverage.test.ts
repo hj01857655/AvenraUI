@@ -13,10 +13,14 @@ type StorybookSurfaceEntry = {
 };
 
 const storybookSurfaceEntries: StorybookSurfaceEntry[] = [
-  { fileName: 'button.stories.tsx', title: 'Components/Button', slugs: ['button'] },
+  {
+    fileName: 'button.stories.tsx',
+    title: 'Components/Actions and Navigation/Button',
+    slugs: ['button']
+  },
   {
     fileName: 'actions-navigation.stories.tsx',
-    title: 'Components/Actions & Navigation',
+    title: 'Components/Actions and Navigation/Stable Overview',
     slugs: ['breadcrumb', 'icon-button', 'tabs']
   },
   {
@@ -26,7 +30,7 @@ const storybookSurfaceEntries: StorybookSurfaceEntry[] = [
   },
   {
     fileName: 'forms-input.stories.tsx',
-    title: 'Components/Forms and Input',
+    title: 'Components/Forms and Input/Stable Overview',
     slugs: ['checkbox', 'input', 'radio', 'select', 'switch', 'textarea']
   },
   {
@@ -36,17 +40,17 @@ const storybookSurfaceEntries: StorybookSurfaceEntry[] = [
   },
   {
     fileName: 'forms-input-experimental-search.stories.tsx',
-    title: 'Components/Forms and Input/Experimental Search & Selection',
+    title: 'Components/Forms and Input/Experimental/Search and Selection',
     slugs: ['autocomplete', 'cascader', 'combobox', 'command', 'multi-select', 'tag-input']
   },
   {
     fileName: 'forms-input-experimental-date.stories.tsx',
-    title: 'Components/Forms and Input/Experimental Date Inputs',
+    title: 'Components/Forms and Input/Experimental/Date Inputs',
     slugs: ['date-picker', 'date-range-picker']
   },
   {
     fileName: 'forms-input-experimental-form-shell.stories.tsx',
-    title: 'Components/Forms and Input/Experimental Form Shell',
+    title: 'Components/Forms and Input/Experimental/Form Shell',
     slugs: ['form', 'form-field', 'upload']
   },
   {
@@ -61,7 +65,7 @@ const storybookSurfaceEntries: StorybookSurfaceEntry[] = [
   },
   {
     fileName: 'navigation-display-experimental.stories.tsx',
-    title: 'Components/Navigation and Display/Experimental',
+    title: 'Components/Navigation and Display/Experimental Overview',
     slugs: ['pagination', 'tree']
   }
 ];

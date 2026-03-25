@@ -20,7 +20,7 @@ function PlusIcon() {
 }
 
 const meta = {
-  title: 'Components/Actions & Navigation',
+  title: 'Components/Actions and Navigation/Stable Overview',
   parameters: {
     layout: 'padded'
   }
@@ -51,7 +51,7 @@ export const IconButtonStates: Story = {
   )
 };
 
-export const TabsWorkspace: Story = {
+export const TabsSections: Story = {
   render: () => (
     <div style={{ maxWidth: '36rem' }}>
       <Tabs
