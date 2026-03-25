@@ -228,4 +228,16 @@ describe('ComponentDocView', () => {
     );
     expect(screen.getAllByText(/import \{ Tree \} from '@avenra\/ui';/i)).toHaveLength(2);
   });
+
+  it('renders cascader docs with a live selected path preview', () => {
+    render(
+      <ComponentDocView doc={componentDocs.cascader} previous={componentDocs.tree} next={componentDocs.upload} />
+    );
+
+    expect(screen.getByRole('heading', { level: 1, name: /cascader/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /location/i })).toBeInTheDocument();
+    expect(screen.getByText(/workspace \/ guides \/ api/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /^assets$/i })).toBeDisabled();
+    expect(screen.getAllByText(/import \{ Cascader \} from '@avenra\/ui';/i)).toHaveLength(2);
+  });
 });

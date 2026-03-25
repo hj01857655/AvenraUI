@@ -304,6 +304,130 @@
   color: var(--color-text-muted);
 }
 
+.avenra-cascader {
+  position: relative;
+  width: 100%;
+}
+
+.avenra-cascader__trigger {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-elevated);
+  color: var(--color-text);
+  font: inherit;
+  padding: 0.875rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  text-align: left;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+
+.avenra-cascader__trigger:hover:not(:disabled),
+.avenra-cascader__trigger:focus-visible {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-focus-ring);
+}
+
+.avenra-cascader--invalid .avenra-cascader__trigger {
+  border-color: var(--color-danger);
+}
+
+.avenra-cascader--disabled .avenra-cascader__trigger,
+.avenra-cascader__trigger:disabled {
+  cursor: not-allowed;
+  background: color-mix(in srgb, var(--color-surface-muted) 70%, white);
+}
+
+.avenra-cascader__value {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.avenra-cascader__value--placeholder {
+  color: var(--color-text-muted);
+}
+
+.avenra-cascader__chevron {
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+}
+
+.avenra-cascader__panel {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  z-index: 40;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(11rem, 1fr);
+  gap: 0;
+  min-width: min(100%, 34rem);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-elevated);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.avenra-cascader__column {
+  list-style: none;
+  margin: 0;
+  padding: 0.375rem;
+  display: grid;
+  gap: 0.25rem;
+  border-right: 1px solid var(--color-border);
+}
+
+.avenra-cascader__column:last-child {
+  border-right: 0;
+}
+
+.avenra-cascader__item {
+  margin: 0;
+}
+
+.avenra-cascader__option {
+  width: 100%;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  padding: 0.625rem 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.avenra-cascader__option:hover:not(:disabled),
+.avenra-cascader__option:focus-visible,
+.avenra-cascader__option--active {
+  outline: none;
+  background: color-mix(in srgb, var(--color-primary) 10%, white);
+}
+
+.avenra-cascader__option--selected {
+  font-weight: 600;
+}
+
+.avenra-cascader__option:disabled,
+.avenra-cascader__option--disabled {
+  cursor: not-allowed;
+  color: var(--color-text-muted);
+  opacity: 0.65;
+}
+
 .avenra-skeleton {
   display: block;
   width: 100%;

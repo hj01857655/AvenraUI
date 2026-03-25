@@ -8,6 +8,7 @@ import { Avatar } from '@avenra/ui/src/components/avatar/avatar';
 import { Badge } from '@avenra/ui/src/components/badge/badge';
 import { Breadcrumb } from '@avenra/ui/src/components/breadcrumb/breadcrumb';
 import { Button } from '@avenra/ui/src/components/button/button';
+import { Cascader } from '@avenra/ui/src/components/cascader/cascader';
 import { Card } from '@avenra/ui/src/components/card/card';
 import { Checkbox } from '@avenra/ui/src/components/checkbox/checkbox';
 import { Combobox } from '@avenra/ui/src/components/combobox/combobox';
@@ -182,6 +183,36 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
               Review draft
             </Button>
           </Card>
+        </PreviewCanvas>
+      );
+    case 'cascader':
+      return (
+        <PreviewCanvas>
+          <Cascader
+            label="Location"
+            hint="Choose the section to edit"
+            defaultOpen
+            options={[
+              {
+                value: 'workspace',
+                label: 'Workspace',
+                children: [
+                  {
+                    value: 'guides',
+                    label: 'Guides',
+                    children: [{ value: 'api', label: 'API' }, { value: 'design', label: 'Design' }]
+                  },
+                  {
+                    value: 'operations',
+                    label: 'Operations',
+                    children: [{ value: 'deploy', label: 'Deploy' }]
+                  },
+                  { value: 'assets', label: 'Assets', disabled: true }
+                ]
+              }
+            ]}
+            defaultValue={['workspace', 'guides', 'api']}
+          />
         </PreviewCanvas>
       );
     case 'form':

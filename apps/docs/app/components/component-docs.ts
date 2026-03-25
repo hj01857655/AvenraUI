@@ -64,6 +64,7 @@ export const stableComponentSlugs = [
 
 export const experimentalComponentSlugs = [
   'autocomplete',
+  'cascader',
   'combobox',
   'command',
   'date-picker',
@@ -265,6 +266,54 @@ const componentDocContent = {
       {
         title: 'Interactive mode',
         body: 'Use the `interactive` flag when the whole card should feel click-ready or hover-responsive. Do not overuse it for purely decorative grouping.'
+      }
+    ]
+  },
+  cascader: {
+    slug: 'cascader',
+    title: 'Cascader',
+    packageImport: "import { Cascader } from '@avenra/ui';",
+    category: 'Forms and input',
+    summary: 'Layered path chooser for hierarchical option sets that should be selected step by step.',
+    usage:
+      'Use Cascader when the user needs to choose a path through nested options such as category trees, location hierarchies, or IA structures and the full depth should stay visible while they drill down.',
+    exampleCode: [
+      "import { Cascader } from '@avenra/ui';",
+      '',
+      'const locationOptions = [',
+      '  {',
+      "    value: 'workspace',",
+      "    label: 'Workspace',",
+      '    children: [',
+      "      { value: 'guides', label: 'Guides', children: [{ value: 'api', label: 'API' }] },",
+      "      { value: 'assets', label: 'Assets', disabled: true }",
+      '    ]',
+      '  }',
+      '];',
+      '',
+      'export function LocationField() {',
+      '  return (',
+      '    <Cascader',
+      '      label="Location"',
+      '      hint="Choose the section to edit"',
+      '      options={locationOptions}',
+      "      defaultValue={['workspace', 'guides', 'api']}",
+      '    />',
+      '  );',
+      '}'
+    ].join('\n'),
+    sections: [
+      {
+        title: 'Progressive drill-down',
+        body: 'Cascader reveals one level at a time in adjacent columns, which lets the user understand where they are in the hierarchy without flattening every branch into a noisy single list.'
+      },
+      {
+        title: 'Committed path visibility',
+        body: 'Once the user chooses a leaf, the trigger keeps the full selected path visible so the current location stays obvious even after the panel closes.'
+      },
+      {
+        title: 'Disabled branches',
+        body: 'Disabled options remain visible but non-interactive, which is useful when some destinations exist in the hierarchy but should not be chosen in the current workflow.'
       }
     ]
   },
@@ -1732,6 +1781,23 @@ export const componentDocMetadata = {
       'FormField generates and wires label, hint, and error ids so wrapped controls expose consistent aria-labelledby, aria-describedby, and aria-invalid behavior.',
       'Use the control layout for Checkbox, Radio, and Switch so the child component keeps its own visible label without duplicating text.',
       'Form-level disabled and submitting state flow through the same contract, which keeps wrapped fields and direct fields aligned.'
+    ]
+  },
+  cascader: {
+    props: [
+      { name: 'options', type: 'CascaderOption[]', required: true, description: 'Hierarchical option tree rendered as progressive columns.' },
+      { name: 'value', type: 'string[]', description: 'Controlled selected option path.' },
+      { name: 'defaultValue', type: 'string[]', description: 'Initial selected option path in uncontrolled mode.' },
+      { name: 'placeholder', type: 'string', description: 'Fallback trigger text shown before a path is selected.' },
+      { name: 'open', type: 'boolean', description: 'Controlled open state for the layered picker panel.' },
+      { name: 'onValueChange', type: '(value: string[]) => void', description: 'Called whenever a leaf path is committed.' },
+      { name: 'onOpenChange', type: '(open: boolean) => void', description: 'Called whenever the chooser panel opens or closes.' }
+    ],
+    states: ['Closed', 'Open', 'Branch active', 'Leaf selected', 'Disabled option'],
+    accessibility: [
+      ...commonFieldAccessibility,
+      'Cascader keeps the current path in the trigger label so screen reader users can confirm the committed location after the layered chooser closes.',
+      'Disabled options remain visible in the hierarchy but are non-interactive, which prevents accidental selection while preserving structural context.'
     ]
   },
   combobox: {

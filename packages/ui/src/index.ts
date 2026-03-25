@@ -34,6 +34,7 @@ export * from './components/tooltip/tooltip';
  * but they are not yet part of the stable support contract. APIs and support expectations may change.
  */
 export * from './components/autocomplete/autocomplete';
+export * from './components/cascader/cascader';
 export * from './components/combobox/combobox';
 export * from './components/command/command';
 export * from './components/date-picker/date-picker';
