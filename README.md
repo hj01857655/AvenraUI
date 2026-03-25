@@ -55,6 +55,7 @@ What is true today:
 - docs and Storybook both exist as product-facing support surfaces
 - tokens and themes already exist in the repo as the styling foundation
 - stable and experimental surfaces are now explicitly documented
+- the library has already expanded beyond the first foundation wave into higher-value inputs and workflow surfaces such as `TagInput`, `MultiSelect`, `DatePicker`, `DateRangePicker`, `Table`, `DataGrid`, `Upload`, `Tree`, and `Cascader`
 
 What is not being claimed yet:
 
@@ -227,12 +228,44 @@ This is a foundation release wave, not the final surface area of the library.
 
 For the current governance split, see `docs/stable-components.md`.
 
+## Current higher-value expansion wave
+
+Beyond the first foundation surface, Avenra UI now also includes these higher-value product lines:
+
+- `TagInput`
+- `MultiSelect`
+- `DatePicker`
+- `DateRangePicker`
+- `Table`
+- `DataGrid`
+- `Upload`
+- `Tree`
+- `Cascader`
+
+These lines matter because they push the library beyond basic primitives and into real workflow-building territory.
+
+## Current product areas
+
+The current product surface now spans these areas:
+
+- foundation actions and navigation
+- form and field primitives
+- search and selection
+- date input
+- overlay and feedback
+- data display
+- workflow surfaces such as upload
+- structural selection surfaces such as tree and cascader
+
+This means Avenra UI is no longer only a foundation-component repository. It is already becoming a broader product interface system.
+
 ## High-value component direction
 
 The current direction is to expand in a way that compounds product value instead of only increasing component count. That means:
 
 - harden form, selection, overlay, and feedback groups before jumping too early into the heaviest enterprise widgets
-- add high-frequency enhanced inputs such as `TagInput`, `MultiSelect`, and date entry surfaces as the next layer of practical product value
+- add high-frequency enhanced inputs such as `TagInput`, `MultiSelect`, `DatePicker`, and `DateRangePicker`
+- continue moving into stronger workflow and structure surfaces such as `Upload`, `Tree`, `Cascader`, `Table`, and `DataGrid`
 - keep exports, docs, tests, and support governance aligned as the surface grows
 
 This is how Avenra UI intends to become a strong React ecosystem library: not by pretending the whole matrix is already done, but by making each new line credible when it lands.
@@ -246,11 +279,12 @@ The current roadmap shape is:
 - strengthen high-frequency input surfaces
 - keep docs and support governance aligned with the real surface
 - make field, selection, date, overlay, and feedback groups feel internally coherent
+- finish turning newer workflow and structure surfaces into credible product lines, including the new `DataGrid` surface
 
 ### Next
 
-- add stronger data-display primitives such as `Table`
-- expand higher-value workflow components like `Upload`
+- deepen data-display capability beyond the current `Table` baseline through the newly added `DataGrid` surface
+- expand richer workflow and structure components on top of `Upload`, `Tree`, and `Cascader`
 - deepen date and selection surfaces where they materially improve product flows
 
 ### Later
@@ -258,6 +292,70 @@ The current roadmap shape is:
 - expand into heavier enterprise patterns only after the surrounding system can support them credibly
 
 This roadmap shape matters because Avenra UI is trying to become a product system, not a scattered widget list.
+
+## Current product reality
+
+The most important thing to understand today is this:
+
+- the stable surface is real
+- the experimental surface is real
+- the product already extends beyond the earliest primitive wave
+- the matrix is still expanding, but it is expanding from a base that now includes higher-value workflows and data-display entry points
+
+That combination is the current Avenra UI reality: not finished, but no longer early in the naive sense.
+
+## Who Avenra UI is for
+
+Avenra UI is currently best suited to:
+
+- React product teams that want a serious foundation instead of assembling many unrelated component packages
+- teams that care about support governance and want to know what is stable versus still settling
+- teams that prefer product-system coherence over raw matrix inflation
+- teams willing to adopt a library that is already useful, but still actively climbing toward a broader surface
+
+## Who Avenra UI is not for yet
+
+Avenra UI is not yet the right default choice if you need:
+
+- a fully mature enterprise matrix with every heavy component already stabilized
+- a “set it and forget it” package where no experimental area is expected to move
+- complete parity with the broadest legacy enterprise UI suites today
+
+That is not a weakness to hide. It is the current product truth.
+
+## Quality bar for every new line
+
+Avenra UI should not treat a component as real product progress until the line includes:
+
+- a coherent public API
+- documented intended usage
+- preview coverage
+- tests for the important interaction contract
+- styling that fits the existing product language
+- an honest support-level expression
+
+This is how the library avoids looking wide while remaining shallow.
+
+## What makes this library different
+
+The current differentiation is not a claim of maximum breadth. It is a claim of stronger product discipline:
+
+- support levels are made explicit
+- component groups are hardened as groups instead of only as isolated widgets
+- product docs try to explain decision boundaries, not just export names
+- new lines are expected to land with tests, previews, styling, and usage guidance together
+
+In other words, Avenra UI is trying to become notable for coherence, not noise.
+
+## What comes next
+
+The next meaningful gains should come from:
+
+- deeper data-display capability
+- stronger workflow-oriented components
+- continued reinforcement of support governance and product documentation
+
+The product should keep getting more useful without becoming less honest.
 
 ## Current differentiation direction
 

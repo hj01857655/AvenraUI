@@ -284,6 +284,11 @@ Use this checklist before broad adoption.
 - `DatePicker`
 - `DateRangePicker`
 
+### Data display
+
+- `Table`
+- `DataGrid`
+
 ### Overlay surfaces
 
 - `Dialog`
@@ -458,7 +463,7 @@ Avenra UI is trying to support real product patterns, not isolated widget demos.
 
 ### Data-display growth
 
-- tables should arrive as real product surfaces
+- `Table` and `DataGrid` should grow as real product surfaces
 - loading, empty, and feedback states should align with the rest of the system
 
 ---
@@ -477,6 +482,8 @@ The repository has already established meaningful lines such as:
 - overlay and feedback polish
 - documentation reliability hardening
 - high-frequency input expansion through `TagInput`, `MultiSelect`, `DatePicker`, and `DateRangePicker`
+- stronger workflow and structure surfaces through `Upload`, `Tree`, and `Cascader`
+- stronger data-display capability through `Table` and `DataGrid`
 
 ### Current expansion philosophy
 
@@ -511,8 +518,8 @@ Avenra UI is prioritizing:
 
 #### Next
 
-- expand into stronger data-display primitives such as `Table`
-- add workflow-critical components such as `Upload`
+- deepen the new `DataGrid` surface beyond the current baseline
+- continue strengthening workflow and structure surfaces such as `Upload`, `Tree`, and `Cascader`
 - deepen date and selection surfaces where they improve real product use
 
 #### Later
@@ -535,3 +542,94 @@ If someone wants to understand:
 - where the product is headed
 
 this file should be the first place they can read.
+
+---
+
+## 15. Current Product Areas
+
+The current Avenra UI surface now spans these product areas:
+
+- foundation actions and navigation
+- form and field primitives
+- search and selection
+- date input
+- overlay and feedback
+- data display
+- workflow surfaces such as upload
+- structural selection surfaces such as tree and cascader
+
+This matters because the product is no longer only a primitive foundation set. It is already expanding into the kind of surface area that real application teams expect from a serious UI platform.
+
+---
+
+## 16. Current Reality
+
+The current Avenra UI reality is:
+
+- the stable surface is real and usable
+- the experimental surface is real and intentionally governed
+- the product already extends beyond the earliest primitive wave
+- higher-value workflow and data-display entry points are already present
+- the matrix is still expanding, but it is expanding from a meaningfully stronger base than a typical early-stage component package
+
+That is the current product truth this documentation should continue to express.
+
+---
+
+## 17. Who The Product Is For
+
+Avenra UI is currently best suited to:
+
+- React product teams that want a coherent UI foundation
+- teams that value support-governance clarity
+- teams that prefer a product system over a grab bag of unrelated widgets
+- teams willing to adopt a library that is already useful while still actively expanding
+
+It is not yet the right default fit for teams that require:
+
+- a completely mature enterprise matrix today
+- zero movement outside the stable contract
+- full breadth parity with the broadest long-established UI suites
+
+---
+
+## 18. Quality Bar For New Lines
+
+Avenra UI should not treat a new line as meaningful product progress until the following are in place:
+
+- a coherent public API
+- documentation that explains intended usage
+- previews that reflect the real product shape
+- tests that cover important interaction behavior
+- styling that fits the current system
+- a clear support-level expression
+
+This quality bar exists to prevent matrix inflation without product credibility.
+
+---
+
+## 19. What Makes The Product Different
+
+The current differentiation is not “the largest matrix today.”
+
+The current differentiation is:
+
+- explicit support governance
+- group-level product coherence
+- React-first usage boundaries
+- documentation that tries to explain real adoption decisions
+- a quality bar that expects new lines to land as product work, not as isolated demos
+
+This is the current bet: coherence and honesty can become a real competitive advantage.
+
+---
+
+## 20. What Comes Next
+
+The next meaningful gains should come from:
+
+- deeper data-display capability
+- stronger workflow-oriented components
+- continued reinforcement of support governance and product documentation
+
+The product should expand in ways that increase usefulness without reducing clarity.
