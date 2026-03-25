@@ -12,7 +12,20 @@ type StorybookSurfaceEntry = {
   slugs: string[];
 };
 
+const plannedStorybookSurfaceEntries: StorybookSurfaceEntry[] = [
+  {
+    fileName: 'advanced-table-experimental.stories.tsx',
+    title: 'Components/Data and Tables/Experimental/Advanced Table',
+    slugs: []
+  }
+];
+
 const storybookSurfaceEntries: StorybookSurfaceEntry[] = [
+  {
+    fileName: 'data-grid-experimental.stories.tsx',
+    title: 'Components/Data and Tables/Experimental/Data Grid',
+    slugs: ['data-grid']
+  },
   {
     fileName: 'button.stories.tsx',
     title: 'Components/Actions and Navigation/Button',
@@ -77,6 +90,7 @@ const actualStoryFiles = readdirSync(storyDirectory)
 
 const stableSlugSet = new Set<string>(stableComponentSlugs);
 const experimentalSlugSet = new Set<string>(experimentalComponentSlugs);
+const allStorybookSurfaceEntries = [...storybookSurfaceEntries, ...plannedStorybookSurfaceEntries];
 const governedSlugs = storybookSurfaceEntries.flatMap((entry) => entry.slugs);
 
 function readStorySource(fileName: string) {
@@ -85,13 +99,13 @@ function readStorySource(fileName: string) {
 
 describe('storybook surface coverage governance', () => {
   it('keeps the governed story file list aligned with the checked-in stories', () => {
-    const expectedFiles = storybookSurfaceEntries.map((entry) => entry.fileName).sort();
+    const expectedFiles = allStorybookSurfaceEntries.map((entry) => entry.fileName).sort();
 
     expect(actualStoryFiles).toEqual(expectedFiles);
   });
 
   it('keeps story titles aligned with the governance registry', () => {
-    for (const entry of storybookSurfaceEntries) {
+    for (const entry of allStorybookSurfaceEntries) {
       const source = readStorySource(entry.fileName);
 
       expect(source).toContain(`title: '${entry.title}'`);
@@ -112,6 +126,12 @@ describe('storybook surface coverage governance', () => {
       const experimentalCount = entry.slugs.filter((slug) => experimentalSlugSet.has(slug)).length;
 
       expect(stableCount === 0 || experimentalCount === 0).toBe(true);
+    }
+  });
+
+  it('keeps planned surfaces outside the docs-governed public component set until the component line lands', () => {
+    for (const entry of plannedStorybookSurfaceEntries) {
+      expect(entry.slugs).toEqual([]);
     }
   });
 });
