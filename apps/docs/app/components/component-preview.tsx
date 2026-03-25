@@ -37,6 +37,7 @@ import { TagInput } from '@avenra/ui/src/components/tag-input/tag-input';
 import { Tabs } from '@avenra/ui/src/components/tabs/tabs';
 import { Textarea } from '@avenra/ui/src/components/textarea/textarea';
 import { ToastProvider, useToast } from '@avenra/ui/src/components/toast/toast';
+import { Tree } from '@avenra/ui/src/components/tree/tree';
 import { Tooltip } from '@avenra/ui/src/components/tooltip/tooltip';
 import { Upload } from '@avenra/ui/src/components/upload/upload';
 
@@ -593,6 +594,31 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
             <Tooltip content="Opens component usage guidance.">
               <IconButton aria-label="Open help" icon={<span aria-hidden="true">?</span>} />
             </Tooltip>
+        </PreviewCanvas>
+      );
+    case 'tree':
+      return (
+        <PreviewCanvas>
+          <Tree
+            ariaLabel="Content structure"
+            defaultExpandedIds={['workspace', 'docs']}
+            defaultSelectedId="guides"
+            nodes={[
+              {
+                id: 'workspace',
+                label: 'Workspace',
+                children: [
+                  { id: 'design-system', label: 'Design system' },
+                  { id: 'assets', label: 'Assets', disabled: true },
+                  {
+                    id: 'docs',
+                    label: 'Docs',
+                    children: [{ id: 'guides', label: 'Guides' }]
+                  }
+                ]
+              }
+            ]}
+          />
         </PreviewCanvas>
       );
     case 'upload':

@@ -76,6 +76,7 @@ export const experimentalComponentSlugs = [
   'pagination',
   'skeleton',
   'tag-input',
+  'tree',
   'toast',
   'upload'
 ] as const;
@@ -851,6 +852,55 @@ const componentDocContent = {
       {
         title: 'Queue behavior',
         body: 'ToastProvider owns the visible stack and targeted dismissal, so one failed action does not wipe out the rest of the feedback history the user still needs to see.'
+      }
+    ]
+  },
+  tree: {
+    slug: 'tree',
+    title: 'Tree',
+    packageImport: "import { Tree } from '@avenra/ui';",
+    category: 'Layout and display',
+    summary: 'Hierarchical content outline with expandable branches, selected nodes, and disabled states.',
+    usage:
+      'Use Tree when the product needs to present nested sections, folders, or structured content and keep the current branch context visible while the user expands, collapses, and selects nodes.',
+    exampleCode: [
+      "import { Tree } from '@avenra/ui';",
+      '',
+      'const contentTree = [',
+      '  {',
+      "    id: 'workspace',",
+      "    label: 'Workspace',",
+      '    children: [',
+      "      { id: 'design-system', label: 'Design system' },",
+      "      { id: 'assets', label: 'Assets', disabled: true },",
+      "      { id: 'docs', label: 'Docs', children: [{ id: 'guides', label: 'Guides' }] }",
+      '    ]',
+      '  }',
+      '];',
+      '',
+      'export function ContentTree() {',
+      '  return (',
+      '    <Tree',
+      '      ariaLabel="Content structure"',
+      '      nodes={contentTree}',
+      "      defaultExpandedIds={['workspace', 'docs']}",
+      '      defaultSelectedId="guides"',
+      '    />',
+      '  );',
+      '}'
+    ].join('\n'),
+    sections: [
+      {
+        title: 'Branch visibility',
+        body: 'Tree keeps nested structure readable by letting the user expand only the branches they need while preserving the surrounding hierarchy, which is easier to scan than flattening everything into one list.'
+      },
+      {
+        title: 'Selection model',
+        body: 'The selected node stays visually marked even while other branches open and close, so the current content target or active location remains obvious inside a large hierarchy.'
+      },
+      {
+        title: 'Disabled nodes',
+        body: 'Disabled nodes stay visible in the tree but do not allow selection or branch interaction, which helps products explain unavailable sections without hiding them entirely.'
       }
     ]
   },
@@ -1836,6 +1886,22 @@ export const componentDocMetadata = {
       ...commonFieldAccessibility,
       'Upload keeps the native file input in the accessibility tree while exposing a clearer trigger button, so screen readers still interact with the underlying file selection control.',
       'Each selected file row exposes a dedicated remove button so keyboard and assistive technology users can correct the selection set without reopening the picker.'
+    ]
+  },
+  tree: {
+    props: [
+      { name: 'nodes', type: 'TreeNode[]', required: true, description: 'Structured node hierarchy rendered as nested tree items.' },
+      { name: 'defaultExpandedIds', type: 'string[]', description: 'Initial branch ids expanded in uncontrolled mode.' },
+      { name: 'expandedIds', type: 'string[]', description: 'Controlled branch expansion state.' },
+      { name: 'defaultSelectedId', type: 'string | null', description: 'Initial selected node id in uncontrolled mode.' },
+      { name: 'selectedId', type: 'string | null', description: 'Controlled selected node id.' },
+      { name: 'onExpandedIdsChange', type: '(ids: string[]) => void', description: 'Called whenever branch expansion changes.' },
+      { name: 'onSelectedIdChange', type: '(id: string | null) => void', description: 'Called whenever the selected node changes.' }
+    ],
+    states: ['Collapsed branch', 'Expanded branch', 'Selected node', 'Disabled node'],
+    accessibility: [
+      'Tree uses `tree`, `group`, and `treeitem` roles with `aria-expanded`, `aria-selected`, and `aria-disabled` so assistive technology can understand nested branch state.',
+      'Branch toggles and node labels stay keyboard reachable, and ArrowLeft / ArrowRight collapse or expand the current branch without requiring pointer-only interaction.'
     ]
   },
   tabs: {

@@ -211,4 +211,21 @@ describe('ComponentDocView', () => {
     expect(screen.getByRole('button', { name: /remove preview\.png/i })).toBeInTheDocument();
     expect(screen.getAllByText(/import \{ Upload \} from '@avenra\/ui';/i)).toHaveLength(2);
   });
+
+  it('renders tree docs with a live hierarchical preview', () => {
+    render(
+      <ComponentDocView doc={componentDocs.tree} previous={componentDocs.upload} next={componentDocs['empty-state']} />
+    );
+
+    expect(screen.getByRole('heading', { level: 1, name: /tree/i })).toBeInTheDocument();
+    expect(screen.getByRole('tree', { name: /content structure/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /^workspace$/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /^design system$/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /assets/i })).toBeDisabled();
+    expect(screen.getByRole('button', { name: /guides/i }).closest('[role="treeitem"]')).toHaveAttribute(
+      'aria-selected',
+      'true'
+    );
+    expect(screen.getAllByText(/import \{ Tree \} from '@avenra\/ui';/i)).toHaveLength(2);
+  });
 });
