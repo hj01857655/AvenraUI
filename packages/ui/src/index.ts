@@ -37,6 +37,7 @@ export * from './components/autocomplete/autocomplete';
 export * from './components/cascader/cascader';
 export * from './components/combobox/combobox';
 export * from './components/command/command';
+export * from './components/data-grid/data-grid';
 export * from './components/date-picker/date-picker';
 export * from './components/date-range-picker/date-range-picker';
 export * from './components/drawer/drawer';

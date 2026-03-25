@@ -67,6 +67,7 @@ export const experimentalComponentSlugs = [
   'cascader',
   'combobox',
   'command',
+  'data-grid',
   'date-picker',
   'date-range-picker',
   'drawer',
@@ -772,6 +773,52 @@ const componentDocContent = {
       {
         title: 'Stable empty states',
         body: 'Table keeps the same shell when data disappears, so empty states stay aligned with the caption, column structure, and surrounding layout instead of collapsing into a separate custom card.'
+      }
+    ]
+  },
+  'data-grid': {
+    slug: 'data-grid',
+    title: 'Data Grid',
+    packageImport: "import { DataGrid } from '@avenra/ui';",
+    category: 'Layout and display',
+    summary: 'Richer tabular surface for structured datasets that need primary-secondary cell layout, emphasis, and clearer scanning than a plain table.',
+    usage:
+      'Use DataGrid when teams need a denser delivery matrix, operations list, or ownership board where each cell may carry a primary value plus supporting context without collapsing into custom layout code.',
+    exampleCode: [
+      "import { DataGrid } from '@avenra/ui';",
+      '',
+      'const deliveryColumns = [',
+      "  { id: 'release', header: 'Release', rowHeader: true, renderCell: (row) => ({ primary: row.release, secondary: row.scope }) },",
+      "  { id: 'status', header: 'Status', renderCell: (row) => ({ primary: row.status, secondary: row.updatedAt, tone: row.status === 'Blocked' ? 'danger' : 'success' }) },",
+      "  { id: 'completion', header: 'Completion', align: 'end', renderCell: (row) => ({ primary: `${row.completion}%`, secondary: `${row.openIssues} open issues` }) }",
+      '];',
+      '',
+      'export function ReleaseDeliveryGrid() {',
+      '  return (',
+      '    <DataGrid',
+      '      caption="Release delivery matrix"',
+      '      columns={deliveryColumns}',
+      '      rows={[',
+      "        { id: 'billing', release: 'Billing alerts', scope: 'Workspace notifications', status: 'Blocked', updatedAt: 'Waiting on QA sign-off', completion: 64, openIssues: 3 },",
+      "        { id: 'audit', release: 'Session audit log', scope: 'Security history', status: 'Ready', updatedAt: 'Reviewed today', completion: 100, openIssues: 0 }",
+      '      ]}',
+      "      rowKey='id'",
+      '    />',
+      '  );',
+      '}'
+    ].join('\n'),
+    sections: [
+      {
+        title: 'Clearer cell hierarchy',
+        body: 'DataGrid lets each cell present a primary value plus supporting secondary detail, which keeps complex dataset rows readable without forcing teams to nest bespoke layout wrappers inside every table cell.'
+      },
+      {
+        title: 'Operational scanning',
+        body: 'Use row headers for the primary entity and reserve tone emphasis for the highest-signal statuses so operators can sweep delivery or readiness boards without losing structure.'
+      },
+      {
+        title: 'Empty-state continuity',
+        body: 'The empty state stays inside the same captioned shell, so the surrounding page keeps a stable data-surface layout even when a segment has no rows to show.'
       }
     ]
   },
@@ -2020,6 +2067,20 @@ export const componentDocMetadata = {
     accessibility: [
       'Table preserves native table semantics through `table`, `caption`, column headers, row headers, and body cells so assistive technology can announce structure correctly.',
       'Sortable headers update `aria-sort` on the active column so assistive technology can understand the current comparison direction without relying on visual arrows alone.'
+    ]
+  },
+  'data-grid': {
+    props: [
+      { name: 'columns', type: 'DataGridColumn<Row>[]', required: true, description: 'Column definitions that control headers, accessors, row headers, and richer cell rendering.' },
+      { name: 'rows', type: 'Row[]', required: true, description: 'Structured row data rendered in the grid body.' },
+      { name: 'caption', type: 'string', description: 'Accessible grid name shown above the dataset.' },
+      { name: 'emptyState', type: 'ReactNode', description: 'Fallback cell rendered when the rows array is empty.' },
+      { name: 'rowKey', type: 'keyof Row | ((row: Row, rowIndex: number) => string | number)', description: 'Stable key source for row rendering.' }
+    ],
+    states: ['Structured rows', 'Primary-secondary cell layout', 'Tone-emphasized cells', 'Empty state'],
+    accessibility: [
+      'DataGrid preserves native table semantics through `table`, `caption`, column headers, row headers, and body cells so richer layouts do not sacrifice structural announcement.',
+      'Use row headers for the main entity in each row and keep supporting text inside the same cell so assistive technology reads related context together.'
     ]
   },
   tooltip: {

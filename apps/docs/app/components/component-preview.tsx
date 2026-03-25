@@ -13,6 +13,7 @@ import { Card } from '@avenra/ui/src/components/card/card';
 import { Checkbox } from '@avenra/ui/src/components/checkbox/checkbox';
 import { Combobox } from '@avenra/ui/src/components/combobox/combobox';
 import { Command } from '@avenra/ui/src/components/command/command';
+import { DataGrid } from '@avenra/ui/src/components/data-grid/data-grid';
 import { DatePicker } from '@avenra/ui/src/components/date-picker/date-picker';
 import { DateRangePicker } from '@avenra/ui/src/components/date-range-picker/date-range-picker';
 import { Dialog } from '@avenra/ui/src/components/dialog/dialog';
@@ -487,6 +488,73 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
               ]}
               rows={[]}
               emptyState="No empty preview rows"
+            />
+          </Stack>
+        </PreviewCanvas>
+      );
+    case 'data-grid':
+      return (
+        <PreviewCanvas>
+          <Stack gap="md">
+            <DataGrid
+              caption="Release delivery matrix"
+              columns={[
+                {
+                  id: 'release',
+                  header: 'Release',
+                  rowHeader: true,
+                  renderCell: (row) => ({ primary: row.release, secondary: row.scope }),
+                },
+                {
+                  id: 'status',
+                  header: 'Status',
+                  renderCell: (row) => ({
+                    primary: row.status,
+                    secondary: row.updatedAt,
+                    tone: row.status === 'Blocked' ? 'danger' : row.status === 'Reviewing' ? 'warning' : 'success',
+                  }),
+                },
+                {
+                  id: 'completion',
+                  header: 'Completion',
+                  align: 'end',
+                  renderCell: (row) => ({
+                    primary: `${row.completion}%`,
+                    secondary: `${row.openIssues} open issues`,
+                    tone: row.openIssues > 0 ? 'warning' : 'info',
+                  }),
+                },
+              ]}
+              rows={[
+                {
+                  id: 'billing',
+                  release: 'Billing alerts',
+                  scope: 'Workspace notifications',
+                  status: 'Blocked',
+                  updatedAt: 'Waiting on QA sign-off',
+                  completion: 64,
+                  openIssues: 3,
+                },
+                {
+                  id: 'audit',
+                  release: 'Session audit log',
+                  scope: 'Security history',
+                  status: 'Ready',
+                  updatedAt: 'Reviewed today',
+                  completion: 100,
+                  openIssues: 0,
+                },
+              ]}
+              rowKey="id"
+            />
+            <DataGrid
+              caption="Archived delivery rows"
+              columns={[
+                { id: 'release', header: 'Release', accessorKey: 'release' },
+                { id: 'status', header: 'Status', accessorKey: 'status' },
+              ]}
+              rows={[]}
+              emptyState="No archived delivery rows"
             />
           </Stack>
         </PreviewCanvas>

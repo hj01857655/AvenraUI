@@ -217,6 +217,20 @@ describe('ComponentDocView', () => {
     expect(screen.getAllByText(/import \{ Table \} from '@avenra\/ui';/i)).toHaveLength(2);
   });
 
+  it('renders data grid docs with richer cell layout and empty state preview', () => {
+    render(
+      <ComponentDocView doc={componentDocs['data-grid']} previous={componentDocs.table} next={componentDocs.textarea} />
+    );
+
+    expect(screen.getByRole('heading', { level: 1, name: /data grid/i })).toBeInTheDocument();
+    const grid = screen.getByRole('table', { name: /release delivery matrix/i });
+    expect(within(grid).getByRole('rowheader', { name: /billing alerts/i })).toHaveTextContent(/workspace notifications/i);
+    expect(within(grid).getByRole('cell', { name: /blocked waiting on qa sign-off/i })).toBeInTheDocument();
+    expect(within(grid).getByRole('cell', { name: /64% 3 open issues/i })).toBeInTheDocument();
+    expect(screen.getByRole('cell', { name: /no archived delivery rows/i })).toBeInTheDocument();
+    expect(screen.getAllByText(/import \{ DataGrid \} from '@avenra\/ui';/i)).toHaveLength(2);
+  });
+
   it('renders upload docs with a live selected file list preview', () => {
     render(
       <ComponentDocView doc={componentDocs.upload} previous={componentDocs.tooltip} next={componentDocs['empty-state']} />
