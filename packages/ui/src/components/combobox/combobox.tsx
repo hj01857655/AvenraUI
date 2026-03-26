@@ -368,6 +368,7 @@ function ComboboxControl({
 }
 
 export function Combobox({
+  disabled,
   error,
   fieldWrapper = true,
   hint,
@@ -377,12 +378,12 @@ export function Combobox({
   ...props
 }: ComboboxProps) {
   if (!fieldWrapper || (!label && !hint && !error && required === undefined && invalid === undefined)) {
-    return <ComboboxControl {...props} invalid={invalid} required={required} />;
+    return <ComboboxControl {...props} disabled={disabled} invalid={invalid} required={required} />;
   }
 
   return (
-    <FormField label={label} hint={hint} error={error} required={required} invalid={invalid}>
-      <ComboboxControl {...props} />
+    <FormField label={label} hint={hint} error={error} required={required} invalid={invalid} disabled={disabled}>
+      <ComboboxControl {...props} disabled={disabled} />
     </FormField>
   );
 }

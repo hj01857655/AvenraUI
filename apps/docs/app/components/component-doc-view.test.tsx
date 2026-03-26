@@ -114,7 +114,7 @@ describe('ComponentDocView', () => {
 
   it('renders live preview states for selection docs without drifting from the current docs previews', () => {
     render(
-      <ComponentDocView doc={componentDocs.autocomplete} previous={componentDocs.command} next={componentDocs['empty-state']} />
+      <ComponentDocView doc={componentDocs.autocomplete} previous={componentDocs.combobox} next={componentDocs.command} />
     );
 
     expect(screen.getByRole('combobox', { name: /^country$/i })).toBeInTheDocument();
@@ -125,7 +125,19 @@ describe('ComponentDocView', () => {
     cleanup();
 
     render(
-      <ComponentDocView doc={componentDocs.command} previous={componentDocs.autocomplete} next={componentDocs['date-picker']} />
+      <ComponentDocView doc={componentDocs.combobox} previous={componentDocs.autocomplete} next={componentDocs.command} />
+    );
+
+    expect(screen.getByRole('combobox', { name: /^framework$/i })).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/search frameworks/i)).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: /readonly framework/i })).toBeDisabled();
+    expect(screen.getByText(/^stable$/i, { selector: '.avenra-badge' })).toBeInTheDocument();
+    expect(screen.queryByText(/experimental \/ in-progress/i)).not.toBeInTheDocument();
+
+    cleanup();
+
+    render(
+      <ComponentDocView doc={componentDocs.command} previous={componentDocs.combobox} next={componentDocs['date-picker']} />
     );
 
     expect(screen.getByPlaceholderText(/search commands/i)).toBeInTheDocument();

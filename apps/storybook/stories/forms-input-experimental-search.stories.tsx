@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties, ReactNode } from 'react';
-import { useState } from 'react';
 
-import { Cascader, Combobox, MultiSelect, Stack, TagInput } from '@avenra/ui';
+import { Cascader, MultiSelect, Stack, TagInput } from '@avenra/ui';
 
 const canvasStyle = {
   display: 'grid',
@@ -38,27 +37,6 @@ function StorySection({ title, description, children }: { title: string; descrip
       </div>
       {children}
     </section>
-  );
-}
-
-function ControlledComboboxPreview() {
-  const [value, setValue] = useState('react');
-  const [inputValue, setInputValue] = useState('React');
-
-  return (
-    <Combobox
-      label="Framework"
-      hint="Controlled usage keeps selected value and visible query text in sync"
-      options={frameworkOptions.slice()}
-      value={value}
-      inputValue={inputValue}
-      onValueChange={(nextValue) => {
-        setValue(nextValue);
-        setInputValue(frameworkOptions.find((option) => option.value === nextValue)?.label ?? nextValue);
-      }}
-      onInputValueChange={setInputValue}
-      placeholder="Search frameworks"
-    />
   );
 }
 
@@ -102,10 +80,6 @@ export const CascaderStates: Story = {
       </StorySection>
     </div>
   )
-};
-
-export const ComboboxStates: Story = {
-  render: () => <ControlledComboboxPreview />
 };
 
 export const MultiSelectStates: Story = {

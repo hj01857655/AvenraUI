@@ -158,6 +158,7 @@ The current stable support surface is:
 - `Inline`
 - `Input`
 - `Autocomplete`
+- `Combobox`
 - `Command`
 - `Popover`
 - `Progress`
@@ -179,7 +180,6 @@ Promotion and support expectations are collected in `docs/product-handbook.md` a
 The following components are exported today, but still governed as experimental / in-progress:
 
 - `Cascader`
-- `Combobox`
 - `DataGrid`
 
 

@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { CSSProperties, ReactNode } from 'react'
+import { useState } from 'react'
 
-import { Autocomplete, Checkbox, Command, Input, Radio, Select, Switch, Textarea } from '@avenra/ui'
+import { Autocomplete, Checkbox, Combobox, Command, Input, Radio, Select, Switch, Textarea } from '@avenra/ui'
 
 const canvasStyle = {
   display: 'grid',
@@ -32,6 +33,13 @@ const descriptionStyle = {
   lineHeight: 1.6,
   color: 'var(--avenra-color-text-subtle, #475569)'
 } satisfies CSSProperties
+
+const frameworkOptions = [
+  { value: 'react', label: 'React' },
+  { value: 'vue', label: 'Vue' },
+  { value: 'svelte', label: 'Svelte' },
+  { value: 'angular', label: 'Angular', disabled: true }
+] as const
 
 function StoryCanvas({ children }: { children: ReactNode }) {
   return <div style={canvasStyle}>{children}</div>
@@ -111,6 +119,40 @@ export const AutocompleteFieldStates: Story = {
             { value: 'nz', label: 'New Zealand' }
           ]}
         />
+      </StorySection>
+    </StoryCanvas>
+  )
+}
+
+function ControlledComboboxPreview() {
+  const [value, setValue] = useState('react')
+  const [inputValue, setInputValue] = useState('React')
+
+  return (
+    <Combobox
+      label="Framework"
+      hint="Controlled usage keeps selected value and visible query text in sync"
+      options={frameworkOptions.slice()}
+      value={value}
+      inputValue={inputValue}
+      onValueChange={(nextValue) => {
+        setValue(nextValue)
+        setInputValue(frameworkOptions.find((option) => option.value === nextValue)?.label ?? nextValue)
+      }}
+      onInputValueChange={setInputValue}
+      placeholder="Search frameworks"
+    />
+  )
+}
+
+export const ComboboxStates: Story = {
+  render: () => (
+    <StoryCanvas>
+      <StorySection
+        title="Combobox"
+        description="Stable searchable selection keeps the shared field shell while controlled input text and selected value stay aligned for longer option sets."
+      >
+        <ControlledComboboxPreview />
       </StorySection>
     </StoryCanvas>
   )
