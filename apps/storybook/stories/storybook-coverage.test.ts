@@ -14,6 +14,11 @@ type StorybookSurfaceEntry = {
 
 const plannedStorybookSurfaceEntries: StorybookSurfaceEntry[] = [
   {
+    fileName: 'advanced-search-bar-experimental.stories.tsx',
+    title: 'Components/Forms and Input/Experimental/Advanced Search Bar',
+    slugs: []
+  },
+  {
     fileName: 'advanced-table-experimental.stories.tsx',
     title: 'Components/Data and Tables/Experimental/Advanced Table',
     slugs: []
@@ -60,6 +65,11 @@ const storybookSurfaceEntries: StorybookSurfaceEntry[] = [
     fileName: 'forms-input-experimental-date.stories.tsx',
     title: 'Components/Forms and Input/Experimental/Date Inputs',
     slugs: ['date-picker', 'date-range-picker']
+  },
+  {
+    fileName: 'filter-bar-experimental.stories.tsx',
+    title: 'Components/Forms and Input/Experimental/Filter Bar',
+    slugs: ['filter-bar']
   },
   {
     fileName: 'forms-input-experimental-form-shell.stories.tsx',
@@ -133,5 +143,12 @@ describe('storybook surface coverage governance', () => {
     for (const entry of plannedStorybookSurfaceEntries) {
       expect(entry.slugs).toEqual([]);
     }
+  });
+
+  it('registers real storybook coverage for filter bar instead of leaving it as a planned surface', () => {
+    const filterBarEntry = storybookSurfaceEntries.find((entry) => entry.fileName === 'filter-bar-experimental.stories.tsx');
+
+    expect(filterBarEntry).toBeDefined();
+    expect(filterBarEntry?.slugs).toEqual(['filter-bar']);
   });
 });
