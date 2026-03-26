@@ -5,6 +5,7 @@ out
 dist
 coverage
 .storybook-static
+apps/storybook/storybook-static/
 .vite
-.DS_Store
+
 *.log
