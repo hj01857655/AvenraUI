@@ -26,10 +26,10 @@ export * from './components/switch/switch';
 export * from './components/table/table';
 export * from './components/tabs/tabs';
 export * from './components/textarea/textarea';
-
+export * from './components/tooltip/tooltip';
 
 /**
- * Experimental / in-progress surface
+
  *
  * These exports are available in the package today so the repo and early adopters can evaluate them,
  * but they are not yet part of the stable support contract. APIs and support expectations may change.
