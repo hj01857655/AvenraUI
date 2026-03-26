@@ -39,7 +39,7 @@ const storybookSurfaceEntries: StorybookSurfaceEntry[] = [
   {
     fileName: 'actions-navigation.stories.tsx',
     title: 'Components/Actions and Navigation/Stable Overview',
-    slugs: ['breadcrumb', 'icon-button', 'pagination', 'steps', 'tabs']
+    slugs: ['breadcrumb', 'icon-button', 'pagination', 'steps', 'tabs', 'tree']
   },
   {
     fileName: 'feedback-status.stories.tsx',
@@ -49,17 +49,19 @@ const storybookSurfaceEntries: StorybookSurfaceEntry[] = [
   {
     fileName: 'forms-input.stories.tsx',
     title: 'Components/Forms and Input/Stable Overview',
-    slugs: ['checkbox', 'input', 'radio', 'select', 'switch', 'textarea', 'upload']
+    slugs: ['autocomplete', 'checkbox', 'input', 'radio', 'select', 'switch', 'textarea', 'upload']
   },
+  
   {
     fileName: 'layout-overlay.stories.tsx',
     title: 'Components/Layout and Overlay/Stable Overview',
     slugs: ['card', 'dialog', 'inline', 'popover', 'stack', 'table', 'tooltip']
   },
+
   {
     fileName: 'forms-input-experimental-search.stories.tsx',
     title: 'Components/Forms and Input/Experimental/Search and Selection',
-    slugs: ['autocomplete', 'cascader', 'combobox', 'command', 'multi-select', 'tag-input']
+    slugs: ['cascader', 'combobox', 'command', 'multi-select', 'tag-input']
   },
   {
     fileName: 'forms-input-experimental-date.stories.tsx',
@@ -89,7 +91,7 @@ const storybookSurfaceEntries: StorybookSurfaceEntry[] = [
   {
     fileName: 'navigation-display-experimental.stories.tsx',
     title: 'Components/Navigation and Display/Experimental Overview',
-    slugs: ['tree']
+    slugs: []
   }
 ];
 
@@ -156,6 +158,12 @@ describe('storybook surface coverage governance', () => {
     for (const entry of plannedStorybookSurfaceEntries) {
       expect(entry.slugs).toEqual([]);
     }
+  });
+
+  it('keeps the navigation-display experimental story outside docs-governed coverage once tree becomes stable', () => {
+    const navigationDisplayEntry = storybookSurfaceEntries.find((entry) => entry.fileName === 'navigation-display-experimental.stories.tsx');
+
+    expect(navigationDisplayEntry?.slugs).toEqual([]);
   });
 
   it('registers real storybook coverage for filter bar instead of leaving it as a planned surface', () => {

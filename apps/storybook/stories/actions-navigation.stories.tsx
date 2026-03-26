@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 
-import { Breadcrumb, IconButton, Pagination, Steps, Tabs } from '@avenra/ui';
+import { Breadcrumb, IconButton, Pagination, Steps, Tabs, Tree } from '@avenra/ui';
 
 function SearchIcon() {
   return (
@@ -81,6 +81,31 @@ export const StepsProgression: Story = {
         ]}
       />
     </div>
+  )
+};
+
+export const TreeHierarchyStates: Story = {
+  render: () => (
+    <Tree
+      ariaLabel="Content structure"
+      defaultExpandedIds={['workspace', 'docs']}
+      defaultSelectedId="guides"
+      nodes={[
+        {
+          id: 'workspace',
+          label: 'Workspace',
+          children: [
+            { id: 'design-system', label: 'Design system' },
+            { id: 'assets', label: 'Assets', disabled: true },
+            {
+              id: 'docs',
+              label: 'Docs',
+              children: [{ id: 'guides', label: 'Guides' }]
+            }
+          ]
+        }
+      ]}
+    />
   )
 };
 

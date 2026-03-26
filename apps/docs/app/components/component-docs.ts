@@ -50,6 +50,7 @@ export const stableComponentSlugs = [
   'icon-button',
   'inline',
   'input',
+  'autocomplete',
   'pagination',
   'popover',
   'progress',
@@ -60,6 +61,7 @@ export const stableComponentSlugs = [
   'switch',
   'table',
   'tabs',
+  'tree',
   'textarea',
   'tooltip',
   'upload'
@@ -67,7 +69,7 @@ export const stableComponentSlugs = [
 
 
 export const experimentalComponentSlugs = [
-  'autocomplete',
+
   'cascader',
   'combobox',
   'command',
@@ -82,7 +84,6 @@ export const experimentalComponentSlugs = [
   'multi-select',
   'skeleton',
   'tag-input',
-  'tree',
   'toast'
 ] as const;
 
