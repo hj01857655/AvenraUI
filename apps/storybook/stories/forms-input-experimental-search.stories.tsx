@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties, ReactNode } from 'react';
 
-import { Cascader, MultiSelect, Stack, TagInput } from '@avenra/ui';
+import { Cascader, MultiSelect } from '@avenra/ui';
 
 const canvasStyle = {
   display: 'grid',
@@ -99,20 +99,3 @@ export const MultiSelectStates: Story = {
   )
 };
 
-export const TagInputField: Story = {
-  render: () => (
-    <div style={canvasStyle}>
-      <StorySection title="Tag Input" description="Free-form tags commit with keyboard shortcuts while keeping each token removable with its own action.">
-        <Stack gap="md">
-          <TagInput
-            id="storybook-tag-input"
-            label="Project tags"
-            hint="Press Enter or comma to add a new tag"
-            placeholder="Add a tag"
-            defaultValue={['React', 'Design system']}
-          />
-        </Stack>
-      </StorySection>
-    </div>
-  )
-};

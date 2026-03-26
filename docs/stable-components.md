@@ -32,6 +32,7 @@ This document defines the current Avenra UI support split between the stable sur
 - Stack
 - Steps
 - Switch
+- TagInput
 - Tabs
 - Textarea
 - Tooltip
@@ -51,7 +52,6 @@ This document defines the current Avenra UI support split between the stable sur
 - MultiSelect
 - Pagination
 - Skeleton
-- TagInput
 - Tree
 - Toast
 

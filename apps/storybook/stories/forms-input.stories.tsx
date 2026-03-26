@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { CSSProperties, ReactNode } from 'react'
 import { useState } from 'react'
 
-import { Autocomplete, Checkbox, Combobox, Command, Input, Radio, Select, Switch, Textarea } from '@avenra/ui'
+import { Autocomplete, Checkbox, Combobox, Command, Input, Radio, Select, Switch, TagInput, Textarea } from '@avenra/ui'
 
 const canvasStyle = {
   display: 'grid',
@@ -265,6 +265,39 @@ export const SelectFieldStates: Story = {
           <option value="staging">Staging</option>
           <option value="production">Production</option>
         </Select>
+      </StorySection>
+    </StoryCanvas>
+  )
+}
+
+export const TagInputFieldStates: Story = {
+  render: () => (
+    <StoryCanvas>
+      <StorySection
+        title="Tag Input"
+        description="Free-form tags stay on the stable forms surface while keyboard commit, duplicate prevention, and removable tokens remain visible in the shared field shell."
+      >
+        <TagInput
+          id="storybook-tag-input"
+          label="Project tags"
+          hint="Press Enter or comma to add a new tag"
+          placeholder="Add a tag"
+          defaultValue={['React', 'Design system']}
+        />
+        <TagInput
+          id="storybook-tag-input-invalid"
+          label="Release labels"
+          error="Add at least one label before publishing"
+          invalid
+          defaultValue={[]}
+        />
+        <TagInput
+          id="storybook-tag-input-disabled"
+          label="Locked tags"
+          hint="Managed from the synced workspace taxonomy"
+          defaultValue={['Stable', 'Internal']}
+          disabled
+        />
       </StorySection>
     </StoryCanvas>
   )

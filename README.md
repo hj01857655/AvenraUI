@@ -167,6 +167,7 @@ The current stable support surface is:
 - `Stack`
 - `Steps`
 - `Switch`
+- `TagInput`
 - `Tabs`
 - `Textarea`
 - `Tooltip`
@@ -191,7 +192,6 @@ The following components are exported today, but still governed as experimental 
 - `MultiSelect`
 - `Pagination`
 - `Skeleton`
-- `TagInput`
 - `Tree`
 - `Toast`
 - `Upload`

@@ -346,6 +346,7 @@ The current stable support surface is:
 - `Switch`
 - `Table`
 - `Tabs`
+- `TagInput`
 - `Textarea`
 - `Tooltip`
 - `Upload`
@@ -366,7 +367,6 @@ The current experimental surface is:
 - `MultiSelect`
 - `Pagination`
 - `Skeleton`
-- `TagInput`
 - `Tree`
 - `Toast`
 

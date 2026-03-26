@@ -63,6 +63,7 @@ export const stableComponentSlugs = [
   'switch',
   'table',
   'tabs',
+  'tag-input',
   'tree',
   'textarea',
   'tooltip',
@@ -83,7 +84,6 @@ export const experimentalComponentSlugs = [
   'form-field',
   'multi-select',
   'skeleton',
-  'tag-input',
   'toast'
 ] as const;
 

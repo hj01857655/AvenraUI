@@ -49,7 +49,7 @@ const storybookSurfaceEntries: StorybookSurfaceEntry[] = [
   {
     fileName: 'forms-input.stories.tsx',
     title: 'Components/Forms and Input/Stable Overview',
-    slugs: ['autocomplete', 'checkbox', 'combobox', 'command', 'input', 'radio', 'select', 'switch', 'textarea', 'upload']
+    slugs: ['autocomplete', 'checkbox', 'combobox', 'command', 'input', 'radio', 'select', 'switch', 'tag-input', 'textarea', 'upload']
   },
   {
     fileName: 'layout-overlay.stories.tsx',
@@ -60,13 +60,14 @@ const storybookSurfaceEntries: StorybookSurfaceEntry[] = [
   {
     fileName: 'forms-input-experimental-search.stories.tsx',
     title: 'Components/Forms and Input/Experimental/Search and Selection',
-    slugs: ['cascader', 'multi-select', 'tag-input']
+    slugs: ['cascader', 'multi-select']
   },
   {
     fileName: 'forms-input-experimental-date.stories.tsx',
     title: 'Components/Forms and Input/Experimental/Date Inputs',
     slugs: ['date-picker', 'date-range-picker']
   },
+
   {
     fileName: 'filter-bar-experimental.stories.tsx',
     title: 'Components/Forms and Input/Experimental/Filter Bar',
@@ -178,7 +179,7 @@ describe('storybook surface coverage governance', () => {
 
     expect(actionsNavigationEntry?.slugs).toContain('steps');
   });
-  it('covers upload, autocomplete, command, and combobox inside the stable forms surface instead of experimental forms surfaces', () => {
+  it('covers upload, autocomplete, command, combobox, and tag-input inside the stable forms surface instead of experimental forms surfaces', () => {
     const stableFormsEntry = storybookSurfaceEntries.find((entry) => entry.fileName === 'forms-input.stories.tsx');
     const experimentalFormShellEntry = storybookSurfaceEntries.find((entry) => entry.fileName === 'forms-input-experimental-form-shell.stories.tsx');
     const experimentalSearchEntry = storybookSurfaceEntries.find((entry) => entry.fileName === 'forms-input-experimental-search.stories.tsx');
@@ -187,9 +188,11 @@ describe('storybook surface coverage governance', () => {
     expect(stableFormsEntry?.slugs).toContain('autocomplete');
     expect(stableFormsEntry?.slugs).toContain('command');
     expect(stableFormsEntry?.slugs).toContain('combobox');
+    expect(stableFormsEntry?.slugs).toContain('tag-input');
     expect(experimentalFormShellEntry?.slugs).not.toContain('upload');
     expect(experimentalSearchEntry?.slugs).not.toContain('autocomplete');
     expect(experimentalSearchEntry?.slugs).not.toContain('command');
     expect(experimentalSearchEntry?.slugs).not.toContain('combobox');
+    expect(experimentalSearchEntry?.slugs).not.toContain('tag-input');
   });
 });
