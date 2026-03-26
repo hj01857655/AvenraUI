@@ -335,6 +335,7 @@ The current stable support surface is:
 - `Inline`
 - `Input`
 - `Autocomplete`
+- `Command`
 - `Popover`
 - `Progress`
 - `Radio`
@@ -354,9 +355,8 @@ The current experimental surface is:
 
 - `Cascader`
 - `Combobox`
-- `Command`
 - `DataGrid`
-- `DatePicker`
+
 
 - `Drawer`
 - `DropdownMenu`

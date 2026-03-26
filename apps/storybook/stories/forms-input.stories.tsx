@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { CSSProperties, ReactNode } from 'react'
 
-import { Autocomplete, Checkbox, Input, Radio, Select, Switch, Textarea } from '@avenra/ui'
+import { Autocomplete, Checkbox, Command, Input, Radio, Select, Switch, Textarea } from '@avenra/ui'
 
 const canvasStyle = {
   display: 'grid',
@@ -156,6 +156,28 @@ export const CheckboxStates: Story = {
         <Checkbox id="story-checkbox-default" label="Email product updates" hint="Stay informed when new stable components ship" defaultChecked />
         <Checkbox id="story-checkbox-invalid" label="Accept release policy" error="You must accept the release policy before continuing" invalid required />
         <Checkbox id="story-checkbox-disabled" label="Readonly deployment alerts" hint="This preference is managed by workspace policy" defaultChecked disabled />
+      </StorySection>
+    </StoryCanvas>
+  )
+}
+
+export const CommandPalette: Story = {
+  render: () => (
+    <StoryCanvas>
+      <StorySection
+        title="Command"
+        description="Keyboard-first search stays on the stable forms surface for command discovery, empty states, and workspace action recall without leaving the current flow."
+      >
+        <Command
+          inputProps={{ 'aria-label': 'Search workspace commands' }}
+          placeholder="Search commands"
+          emptyMessage="Nothing found"
+          options={[
+            { value: 'open-settings', label: 'Open settings', keywords: ['preferences', 'workspace'] },
+            { value: 'create-project', label: 'Create project', keywords: ['new', 'workspace'] },
+            { value: 'invite-member', label: 'Invite member', keywords: ['user', 'team'] }
+          ]}
+        />
       </StorySection>
     </StoryCanvas>
   )

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties, ReactNode } from 'react';
 import { useState } from 'react';
 
-import { Cascader, Combobox, Command, MultiSelect, Stack, TagInput } from '@avenra/ui';
+import { Cascader, Combobox, MultiSelect, Stack, TagInput } from '@avenra/ui';
 
 const canvasStyle = {
   display: 'grid',
@@ -106,25 +106,6 @@ export const CascaderStates: Story = {
 
 export const ComboboxStates: Story = {
   render: () => <ControlledComboboxPreview />
-};
-
-export const CommandPalette: Story = {
-  render: () => (
-    <div style={canvasStyle}>
-      <StorySection title="Command" description="Keyboard-first search keeps frequent actions discoverable without forcing a full navigation step.">
-        <Command
-          inputProps={{ 'aria-label': 'Search workspace commands' }}
-          placeholder="Search commands"
-          emptyMessage="Nothing found"
-          options={[
-            { value: 'open-settings', label: 'Open settings', keywords: ['preferences', 'workspace'] },
-            { value: 'create-project', label: 'Create project', keywords: ['new', 'workspace'] },
-            { value: 'invite-member', label: 'Invite member', keywords: ['user', 'team'] }
-          ]}
-        />
-      </StorySection>
-    </div>
-  )
 };
 
 export const MultiSelectStates: Story = {

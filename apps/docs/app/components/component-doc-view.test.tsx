@@ -125,6 +125,17 @@ describe('ComponentDocView', () => {
     cleanup();
 
     render(
+      <ComponentDocView doc={componentDocs.command} previous={componentDocs.autocomplete} next={componentDocs['date-picker']} />
+    );
+
+    expect(screen.getByPlaceholderText(/search commands/i)).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: /open settings/i })).toBeInTheDocument();
+    expect(screen.getByText(/^stable$/i, { selector: '.avenra-badge' })).toBeInTheDocument();
+    expect(screen.queryByText(/experimental \/ in-progress/i)).not.toBeInTheDocument();
+
+    cleanup();
+
+    render(
       <ComponentDocView doc={componentDocs.select} previous={componentDocs.radio} next={componentDocs.stack} />
     );
 

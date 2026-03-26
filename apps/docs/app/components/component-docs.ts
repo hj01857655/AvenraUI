@@ -51,6 +51,7 @@ export const stableComponentSlugs = [
   'inline',
   'input',
   'autocomplete',
+  'command',
   'pagination',
   'popover',
   'progress',
@@ -72,7 +73,6 @@ export const experimentalComponentSlugs = [
 
   'cascader',
   'combobox',
-  'command',
   'data-grid',
   'date-picker',
   'date-range-picker',

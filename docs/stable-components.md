@@ -23,6 +23,7 @@ This document defines the current Avenra UI support split between the stable sur
 - Inline
 - Input
 - Autocomplete
+- Command
 - Popover
 - Progress
 - Radio
@@ -39,9 +40,8 @@ This document defines the current Avenra UI support split between the stable sur
 
 - Cascader
 - Combobox
-- Command
 - DataGrid
-- DatePicker
+
 
 - Drawer
 - DropdownMenu

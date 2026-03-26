@@ -158,6 +158,7 @@ The current stable support surface is:
 - `Inline`
 - `Input`
 - `Autocomplete`
+- `Command`
 - `Popover`
 - `Progress`
 - `Radio`
@@ -179,9 +180,8 @@ The following components are exported today, but still governed as experimental 
 
 - `Cascader`
 - `Combobox`
-- `Command`
 - `DataGrid`
-- `DatePicker`
+
 
 - `Drawer`
 - `DropdownMenu`
