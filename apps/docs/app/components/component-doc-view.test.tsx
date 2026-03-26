@@ -243,6 +243,22 @@ describe('ComponentDocView', () => {
     expect(screen.getAllByText(/import \{ Upload \} from '@avenra\/ui';/i)).toHaveLength(2);
   });
 
+  it('renders filter bar docs with grouped controls and action buttons in the preview', () => {
+    render(
+      <ComponentDocView doc={componentDocs['filter-bar']} previous={componentDocs.form} next={componentDocs['form-field']} />
+    );
+
+    expect(screen.getByRole('heading', { level: 1, name: /filter bar/i })).toBeInTheDocument();
+    expect(screen.getByRole('search', { name: /release filters/i })).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: /search releases/i })).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: /status/i })).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: /teams/i })).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: /launch window/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /^clear$/i })).toBeInTheDocument();
+
+    expect(screen.getAllByText(/import \{ Button, DateRangePicker, FilterBar, Input, MultiSelect, Select \} from '@avenra\/ui';/i)).toHaveLength(1);
+  });
+
   it('renders tree docs with a live hierarchical preview', () => {
     render(
       <ComponentDocView doc={componentDocs.tree} previous={componentDocs.upload} next={componentDocs['empty-state']} />

@@ -20,6 +20,7 @@ import { Dialog } from '@avenra/ui/src/components/dialog/dialog';
 import { Drawer } from '@avenra/ui/src/components/drawer/drawer';
 import { DropdownMenu } from '@avenra/ui/src/components/dropdown-menu/dropdown-menu';
 import { EmptyState } from '@avenra/ui/src/components/empty-state/empty-state';
+import { FilterBar } from '@avenra/ui/src/components/filter-bar/filter-bar';
 import { Form } from '@avenra/ui/src/components/form/form';
 import { FormField } from '@avenra/ui/src/components/form-field/form-field';
 import { IconButton } from '@avenra/ui/src/components/icon-button/icon-button';
@@ -249,6 +250,38 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
           </Form>
         </PreviewCanvas>
       );
+    case 'filter-bar':
+      return (
+        <PreviewCanvas>
+          <FilterBar
+            title="Release filters"
+            description="Narrow the delivery board by team, status, and launch range."
+            actions={
+              <>
+                <Button variant="ghost">Clear</Button>
+                <Button>Apply filters</Button>
+              </>
+            }
+          >
+            <Input aria-label="Search releases" placeholder="Search releases" />
+            <Select aria-label="Status" defaultValue="review">
+              <option value="review">In review</option>
+              <option value="ready">Ready</option>
+              <option value="blocked">Blocked</option>
+            </Select>
+            <MultiSelect
+              aria-label="Teams"
+              options={[
+                { value: 'design', label: 'Design' },
+                { value: 'platform', label: 'Platform' },
+                { value: 'docs', label: 'Docs' },
+              ]}
+              defaultValue={['design']}
+            />
+            <DateRangePicker label="Launch window" defaultValue={{ start: '2026-03-18', end: '2026-03-24' }} />
+          </FilterBar>
+        </PreviewCanvas>
+      );
 
     case 'form-field':
       return (
@@ -263,6 +296,7 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
           </Stack>
         </PreviewCanvas>
       );
+
 
     case 'checkbox':
       return (

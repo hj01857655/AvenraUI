@@ -72,6 +72,7 @@ export const experimentalComponentSlugs = [
   'date-range-picker',
   'drawer',
   'dropdown-menu',
+  'filter-bar',
   'form',
   'form-field',
   'multi-select',
@@ -1275,6 +1276,58 @@ category: 'Forms and input',
       }
     ]
   },
+  'filter-bar': {
+    slug: 'filter-bar',
+    title: 'Filter Bar',
+    packageImport: "import { FilterBar } from '@avenra/ui';",
+    category: 'Forms and input',
+    summary: 'Composable search-and-filter shell that groups product filters and apply/reset actions into one coherent workflow surface.',
+    usage:
+      'Use Filter Bar when a page needs multiple coordinated filters plus explicit apply or clear actions, and the experience should read as one dedicated filtering workflow instead of scattered standalone fields.',
+    exampleCode: [
+      "import { Button, DateRangePicker, FilterBar, Input, MultiSelect, Select } from '@avenra/ui';",
+      '',
+      'export function ReleaseFilters() {',
+      '  return (',
+      '    <FilterBar',
+      '      title="Release filters"',
+      '      description="Narrow the delivery board by team, status, and launch range."',
+      '      actions={(',
+      '        <>',
+      '          <Button variant="ghost">Clear</Button>',
+      '          <Button>Apply filters</Button>',
+      '        </>',
+      '      )}',
+      '    >',
+      '      <Input aria-label="Search releases" placeholder="Search releases" />',
+      '      <Select aria-label="Status" defaultValue="review">',
+      '        <option value="review">In review</option>',
+      '        <option value="ready">Ready</option>',
+      '      </Select>',
+      '      <MultiSelect',
+      '        aria-label="Teams"',
+      '        options={[',
+      "          { value: 'design', label: 'Design' },",
+      "          { value: 'platform', label: 'Platform' }",
+      '        ]}',
+      "        defaultValue={['design']}",
+      '      />',
+      '      <DateRangePicker label="Launch window" />',
+
+      '  );',
+      '}'
+    ].join('\n'),
+    sections: [
+      {
+        title: 'One filtering surface',
+        body: 'Filter Bar gives search, selection, date, and action controls one product shell so teams do not need to rebuild a custom filter panel for every list or board.'
+      },
+      {
+        title: 'Action slot discipline',
+        body: 'Keep apply, reset, and saved-view actions inside the built-in action area so the filter workflow stays legible as one unit instead of looking like unrelated controls floating above a table.'
+      }
+    ]
+  },
   'form-field': {
     slug: 'form-field',
     title: 'FormField',
@@ -1852,6 +1905,21 @@ export const componentDocMetadata = {
       'Form-level disabled and submitting state flow through the same contract, which keeps wrapped fields and direct fields aligned.'
     ]
   },
+  'filter-bar': {
+    props: [
+      { name: 'title', type: 'string', description: 'Optional visible heading for the filter workflow.' },
+      { name: 'description', type: 'string', description: 'Optional supporting copy under the heading.' },
+      { name: 'actions', type: 'ReactNode', description: 'Action slot for apply, clear, save-view, or export controls.' },
+      { name: 'density', type: "'comfortable' | 'compact'", description: 'Controls roomier or denser spacing for the filter shell.' },
+      { name: 'sticky', type: 'boolean', description: 'Keeps the filter shell visually sticky at the top of a scrolling result view.' },
+      { name: 'children', type: 'ReactNode', required: true, description: 'Filter controls rendered inside the shared search region.' }
+    ],
+    states: ['With heading', 'Compact', 'Sticky', 'With action slot'],
+    accessibility: [
+      'Filter Bar exposes a `search` landmark so assistive technology can recognize the grouped filtering workflow as one dedicated region.',
+      'Use a meaningful title or aria-label so the region clearly announces which records, releases, or entities the filters affect.'
+    ]
+  },
   cascader: {
     props: [
       { name: 'options', type: 'CascaderOption[]', required: true, description: 'Hierarchical option tree rendered as progressive columns.' },
@@ -2195,4 +2263,3 @@ export const componentDocList = Object.values(componentDocs);
 export function getComponentDoc(slug: string) {
   return componentDocList.find((item) => item.slug === slug) ?? null;
 }
-

@@ -42,6 +42,7 @@ export * from './components/date-picker/date-picker';
 export * from './components/date-range-picker/date-range-picker';
 export * from './components/drawer/drawer';
 export * from './components/dropdown-menu/dropdown-menu';
+export * from './components/filter-bar/filter-bar';
 export * from './components/form/form';
 export * from './components/form-field/form-field';
 export * from './components/multi-select/multi-select';

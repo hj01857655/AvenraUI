@@ -2595,3 +2595,65 @@
   color: var(--color-text-muted);
   font-size: 0.875rem;
 }
+
+.avenra-filter-bar {
+  display: grid;
+  gap: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-elevated);
+  padding: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.avenra-filter-bar--compact {
+  gap: 0.75rem;
+  padding: 0.875rem;
+}
+
+.avenra-filter-bar--sticky {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.avenra-filter-bar__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+}
+
+.avenra-filter-bar__heading {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.avenra-filter-bar__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.avenra-filter-bar__description {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.avenra-filter-bar__actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.avenra-filter-bar__controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 0.75rem;
+  align-items: start;
+}

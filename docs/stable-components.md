@@ -35,15 +35,24 @@ This document defines the current Avenra UI support split between the stable sur
 ## Experimental / in-progress
 
 - Autocomplete
+- Cascader
 - Combobox
 - Command
+- DataGrid
+- DatePicker
+- DateRangePicker
 - Drawer
 - DropdownMenu
+- FilterBar
 - Form
 - FormField
+- MultiSelect
 - Pagination
 - Skeleton
+- TagInput
+- Tree
 - Toast
+- Upload
 
 ## Expression alignment
 

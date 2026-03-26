@@ -276,6 +276,7 @@ Use this checklist before broad adoption.
 - `Combobox`
 - `Autocomplete`
 - `Command`
+- `FilterBar`
 - `TagInput`
 - `MultiSelect`
 
@@ -314,7 +315,83 @@ Use this checklist before broad adoption.
 
 ---
 
-## 9. Form Experience Contract
+## 9. Current Support Snapshot
+
+### Stable
+
+The current stable support surface is:
+
+- `Alert`
+- `Avatar`
+- `Badge`
+- `Breadcrumb`
+- `Button`
+- `Card`
+- `Checkbox`
+- `Dialog`
+- `EmptyState`
+- `IconButton`
+- `Inline`
+- `Input`
+- `Popover`
+- `Progress`
+- `Radio`
+- `Select`
+- `Stack`
+- `Switch`
+- `Table`
+- `Tabs`
+- `Textarea`
+- `Tooltip`
+
+### Experimental / in-progress
+
+The current experimental surface is:
+
+- `Autocomplete`
+- `Cascader`
+- `Combobox`
+- `Command`
+- `DataGrid`
+- `DatePicker`
+- `DateRangePicker`
+- `Drawer`
+- `DropdownMenu`
+- `FilterBar`
+- `Form`
+- `FormField`
+- `MultiSelect`
+- `Pagination`
+- `Skeleton`
+- `TagInput`
+- `Tree`
+- `Toast`
+- `Upload`
+
+This snapshot exists so a reader can understand the current support contract in one place without cross-reading multiple files first.
+
+---
+
+## 10. Current Higher-Value Expansion Wave
+
+Beyond the first foundation surface, Avenra UI now also includes these higher-value product lines:
+
+- `TagInput`
+- `MultiSelect`
+- `DatePicker`
+- `DateRangePicker`
+- `FilterBar`
+- `Table`
+- `DataGrid`
+- `Upload`
+- `Tree`
+- `Cascader`
+
+These lines matter because they push the product beyond primitives and into real workflow-building territory.
+
+---
+
+## 11. Form Experience Contract
 
 The current form contract is built around three layers:
 
@@ -360,7 +437,7 @@ Choice controls keep their own visible label and should use `FormField layout="c
 
 ---
 
-## 10. Selection Component Guidance
+## 12. Selection Component Guidance
 
 ### Select
 
@@ -411,7 +488,7 @@ Use `TagInput` when:
 
 ---
 
-## 11. Date Input Guidance
+## 13. Date Input Guidance
 
 Date input is a product-critical surface.
 
@@ -434,7 +511,7 @@ The line should grow carefully:
 
 ---
 
-## 12. Product Patterns
+## 14. Product Patterns
 
 Avenra UI is trying to support real product patterns, not isolated widget demos.
 
@@ -448,6 +525,7 @@ Avenra UI is trying to support real product patterns, not isolated widget demos.
 - users search through structured options
 - single-value and multi-value selection are clearly separated
 - tokenized and suggestion-based entry are available when appropriate
+- grouped page-level filters can be expressed as one coherent workflow instead of scattered standalone controls
 
 ### Overlay-assisted workflows
 
@@ -468,7 +546,7 @@ Avenra UI is trying to support real product patterns, not isolated widget demos.
 
 ---
 
-## 13. Current Product Direction
+## 15. Current Product Direction
 
 ### Completed foundation lines
 
@@ -482,6 +560,7 @@ The repository has already established meaningful lines such as:
 - overlay and feedback polish
 - documentation reliability hardening
 - high-frequency input expansion through `TagInput`, `MultiSelect`, `DatePicker`, and `DateRangePicker`
+- grouped filtering workflows through `FilterBar`
 - stronger workflow and structure surfaces through `Upload`, `Tree`, and `Cascader`
 - stronger data-display capability through `Table` and `DataGrid`
 
@@ -528,7 +607,7 @@ Avenra UI is prioritizing:
 
 ---
 
-## 14. What This Handbook Is For
+## 16. What This Handbook Is For
 
 This handbook is the must-have product document for Avenra UI.
 
@@ -545,7 +624,7 @@ this file should be the first place they can read.
 
 ---
 
-## 15. Current Product Areas
+## 17. Current Product Areas
 
 The current Avenra UI surface now spans these product areas:
 
@@ -562,7 +641,7 @@ This matters because the product is no longer only a primitive foundation set. I
 
 ---
 
-## 16. Current Reality
+## 18. Current Reality
 
 The current Avenra UI reality is:
 
@@ -576,7 +655,7 @@ That is the current product truth this documentation should continue to express.
 
 ---
 
-## 17. Who The Product Is For
+## 19. Who The Product Is For
 
 Avenra UI is currently best suited to:
 
@@ -593,7 +672,7 @@ It is not yet the right default fit for teams that require:
 
 ---
 
-## 18. Quality Bar For New Lines
+## 20. Quality Bar For New Lines
 
 Avenra UI should not treat a new line as meaningful product progress until the following are in place:
 
@@ -608,7 +687,7 @@ This quality bar exists to prevent matrix inflation without product credibility.
 
 ---
 
-## 19. What Makes The Product Different
+## 21. What Makes The Product Different
 
 The current differentiation is not “the largest matrix today.”
 
@@ -624,7 +703,7 @@ This is the current bet: coherence and honesty can become a real competitive adv
 
 ---
 
-## 20. What Comes Next
+## 22. What Comes Next
 
 The next meaningful gains should come from:
 

@@ -176,15 +176,24 @@ Promotion and support expectations are collected in `docs/product-handbook.md` a
 The following components are exported today, but still governed as experimental / in-progress:
 
 - `Autocomplete`
+- `Cascader`
 - `Combobox`
 - `Command`
+- `DataGrid`
+- `DatePicker`
+- `DateRangePicker`
 - `Drawer`
 - `DropdownMenu`
+- `FilterBar`
 - `Form`
 - `FormField`
+- `MultiSelect`
 - `Pagination`
 - `Skeleton`
+- `TagInput`
+- `Tree`
 - `Toast`
+- `Upload`
 
 These components are useful and actively documented, but their API and support expectations may still change while the stable contract is being tightened.
 
@@ -223,6 +232,15 @@ Together, the current documented foundation wave includes:
 - `Combobox`
 - `Command`
 - `Autocomplete`
+- `Cascader`
+- `DataGrid`
+- `DatePicker`
+- `DateRangePicker`
+- `FilterBar`
+- `MultiSelect`
+- `TagInput`
+- `Tree`
+- `Upload`
 
 This is a foundation release wave, not the final surface area of the library.
 
@@ -236,6 +254,7 @@ Beyond the first foundation surface, Avenra UI now also includes these higher-va
 - `MultiSelect`
 - `DatePicker`
 - `DateRangePicker`
+- `FilterBar`
 - `Table`
 - `DataGrid`
 - `Upload`
@@ -250,7 +269,7 @@ The current product surface now spans these areas:
 
 - foundation actions and navigation
 - form and field primitives
-- search and selection
+- search, filtering, and selection
 - date input
 - overlay and feedback
 - data display
@@ -265,6 +284,7 @@ The current direction is to expand in a way that compounds product value instead
 
 - harden form, selection, overlay, and feedback groups before jumping too early into the heaviest enterprise widgets
 - add high-frequency enhanced inputs such as `TagInput`, `MultiSelect`, `DatePicker`, and `DateRangePicker`
+- turn grouped search and filtering into a first-class product workflow through `FilterBar`
 - continue moving into stronger workflow and structure surfaces such as `Upload`, `Tree`, `Cascader`, `Table`, and `DataGrid`
 - keep exports, docs, tests, and support governance aligned as the surface grows
 
