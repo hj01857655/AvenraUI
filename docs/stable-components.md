@@ -32,6 +32,7 @@ This document defines the current Avenra UI support split between the stable sur
 - Tabs
 - Textarea
 - Tooltip
+- Upload
 
 ## Experimental / in-progress
 
@@ -53,7 +54,6 @@ This document defines the current Avenra UI support split between the stable sur
 - TagInput
 - Tree
 - Toast
-- Upload
 
 ## Expression alignment
 

@@ -35,7 +35,7 @@ export interface ComponentDocGovernance {
   supportSummary: string;
 }
 
-export interface ComponentDoc extends ComponentDocContent, ComponentDocMetadata, ComponentDocGovernance {}
+export interface ComponentDoc extends ComponentDocContent, ComponentDocMetadata, ComponentDocGovernance { }
 
 export const stableComponentSlugs = [
   'alert',
@@ -60,7 +60,8 @@ export const stableComponentSlugs = [
   'table',
   'tabs',
   'textarea',
-  'tooltip'
+  'tooltip',
+  'upload'
 ] as const;
 
 
@@ -82,8 +83,7 @@ export const experimentalComponentSlugs = [
   'skeleton',
   'tag-input',
   'tree',
-  'toast',
-  'upload'
+  'toast'
 ] as const;
 
 const stableComponentSlugSet = new Set<string>(stableComponentSlugs);
@@ -1252,7 +1252,7 @@ const componentDocContent = {
     slug: 'form',
     title: 'Form',
     packageImport: "import { Form } from '@avenra/ui';",
-category: 'Forms and input',
+    category: 'Forms and input',
     summary: 'Form-level context that propagates disabled and submitting state across fields.',
     usage:
       'Use Form to coordinate submit and disabled state across related fields without replacing native form semantics or forcing a form-library dependency.',
@@ -1334,7 +1334,7 @@ category: 'Forms and input',
     slug: 'form-field',
     title: 'FormField',
     packageImport: "import { FormField } from '@avenra/ui';",
-category: 'Forms and input',
+    category: 'Forms and input',
     summary: 'Unified field shell for label, hint, error, required, invalid, and disabled state.',
     usage:
       'Use FormField as the standard structure around text inputs and choice controls so labels, hints, errors, and accessibility wiring stay consistent across the library.',
@@ -2108,23 +2108,6 @@ export const componentDocMetadata = {
       'Enter and comma commit the current token, while Backspace removes the last committed tag when the text slot is empty.'
     ]
   },
-  upload: {
-    props: [
-      { name: 'label', type: 'string', required: true, description: 'Visible field label when Upload owns its own field shell.' },
-      { name: 'value', type: 'File[]', description: 'Controlled selected file list.' },
-      { name: 'defaultValue', type: 'File[]', description: 'Initial selected file list in uncontrolled mode.' },
-      { name: 'buttonLabel', type: 'string', description: 'Visible trigger button label used to open the native file picker.' },
-      { name: 'multiple', type: 'boolean', description: 'Allows choosing multiple files instead of replacing the current selection.' },
-      { name: 'accept', type: 'string', description: 'Native file input accept filter for limiting selectable file types.' },
-      { name: 'onValueChange', type: '(files: File[]) => void', description: 'Called whenever the selected file list changes.' }
-    ],
-    states: ['Empty', 'With selected files', 'Invalid', 'Disabled'],
-    accessibility: [
-      ...commonFieldAccessibility,
-      'Upload keeps the native file input in the accessibility tree while exposing a clearer trigger button, so screen readers still interact with the underlying file selection control.',
-      'Each selected file row exposes a dedicated remove button so keyboard and assistive technology users can correct the selection set without reopening the picker.'
-    ]
-  },
   tree: {
     props: [
       { name: 'nodes', type: 'TreeNode[]', required: true, description: 'Structured node hierarchy rendered as nested tree items.' },
@@ -2139,6 +2122,23 @@ export const componentDocMetadata = {
     accessibility: [
       'Tree uses `tree`, `group`, and `treeitem` roles with `aria-expanded`, `aria-selected`, and `aria-disabled` so assistive technology can understand nested branch state.',
       'Branch toggles and node labels stay keyboard reachable, and ArrowLeft / ArrowRight collapse or expand the current branch without requiring pointer-only interaction.'
+    ]
+  },
+  upload: {
+    props: [
+
+      { name: 'value', type: 'File[]', description: 'Controlled selected file list.' },
+      { name: 'defaultValue', type: 'File[]', description: 'Initial selected file list in uncontrolled mode.' },
+      { name: 'buttonLabel', type: 'string', description: 'Visible trigger button label used to open the native file picker.' },
+      { name: 'multiple', type: 'boolean', description: 'Allows choosing multiple files instead of replacing the current selection.' },
+      { name: 'accept', type: 'string', description: 'Native file input accept filter for limiting selectable file types.' },
+      { name: 'onValueChange', type: '(files: File[]) => void', description: 'Called whenever the selected file list changes.' }
+    ],
+    states: ['Empty', 'With selected files', 'Invalid', 'Disabled'],
+    accessibility: [
+      ...commonFieldAccessibility,
+      'Upload keeps the native file input in the accessibility tree while exposing a clearer trigger button, so screen readers still interact with the underlying file selection control.',
+      'Each selected file row exposes a dedicated remove button so keyboard and assistive technology users can correct the selection set without reopening the picker.'
     ]
   },
   steps: {
@@ -2200,7 +2200,7 @@ export const componentDocMetadata = {
   },
   tooltip: {
     props: [
-
+      { name: 'content', type: 'ReactNode', required: true, description: 'Short helper text shown on hover or focus.' },
       { name: 'children', type: 'ReactElement', required: true, description: 'Single interactive trigger element.' }
     ],
     states: ['Hidden', 'Visible on hover', 'Visible on focus'],

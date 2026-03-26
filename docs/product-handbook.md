@@ -345,6 +345,7 @@ The current stable support surface is:
 - `Tabs`
 - `Textarea`
 - `Tooltip`
+- `Upload`
 
 ### Experimental / in-progress
 
@@ -368,7 +369,6 @@ The current experimental surface is:
 - `TagInput`
 - `Tree`
 - `Toast`
-- `Upload`
 
 This snapshot exists so a reader can understand the current support contract in one place without cross-reading multiple files first.
 
@@ -379,7 +379,8 @@ This snapshot exists so a reader can understand the current support contract in 
 Beyond the first foundation surface, Avenra UI now also includes these higher-value product lines:
 
 - `TagInput`
-- `MultiSelect`
+- `Upload`
+
 - `DatePicker`
 - `DateRangePicker`
 - `FilterBar`
@@ -565,7 +566,7 @@ The repository has already established meaningful lines such as:
 - high-frequency input expansion through `TagInput`, `MultiSelect`, `DatePicker`, and `DateRangePicker`
 - grouped filtering workflows through `FilterBar`
 - guided multi-step progression through `Steps`
-- stronger workflow and structure surfaces through `Upload`, `Tree`, and `Cascader`
+- stronger workflow and structure surfaces through `Tree` and `Cascader`, with `Upload` now promoted into the stable support baseline
 
 
 ### Current expansion philosophy
@@ -602,8 +603,8 @@ Avenra UI is prioritizing:
 #### Next
 
 - deepen the new `DataGrid` surface beyond the current baseline
-- continue strengthening workflow and structure surfaces such as `Upload`, `Tree`, and `Cascader`
-- deepen guided flow surfaces such as `Steps` where progress context materially improves completion
+- continue strengthening workflow and structure surfaces such as `Tree` and `Cascader`
+
 
 
 #### Later

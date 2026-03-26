@@ -49,7 +49,7 @@ const storybookSurfaceEntries: StorybookSurfaceEntry[] = [
   {
     fileName: 'forms-input.stories.tsx',
     title: 'Components/Forms and Input/Stable Overview',
-    slugs: ['checkbox', 'input', 'radio', 'select', 'switch', 'textarea']
+    slugs: ['checkbox', 'input', 'radio', 'select', 'switch', 'textarea', 'upload']
   },
   {
     fileName: 'layout-overlay.stories.tsx',
@@ -74,7 +74,7 @@ const storybookSurfaceEntries: StorybookSurfaceEntry[] = [
   {
     fileName: 'forms-input-experimental-form-shell.stories.tsx',
     title: 'Components/Forms and Input/Experimental/Form Shell',
-    slugs: ['form', 'form-field', 'upload']
+    slugs: ['form', 'form-field']
   },
   {
     fileName: 'overlay-experimental.stories.tsx',
@@ -169,5 +169,12 @@ describe('storybook surface coverage governance', () => {
     const actionsNavigationEntry = storybookSurfaceEntries.find((entry) => entry.fileName === 'actions-navigation.stories.tsx');
 
     expect(actionsNavigationEntry?.slugs).toContain('steps');
+  });
+  it('covers upload inside the stable forms surface instead of the experimental form-shell surface', () => {
+    const stableFormsEntry = storybookSurfaceEntries.find((entry) => entry.fileName === 'forms-input.stories.tsx');
+    const experimentalFormShellEntry = storybookSurfaceEntries.find((entry) => entry.fileName === 'forms-input-experimental-form-shell.stories.tsx');
+
+    expect(stableFormsEntry?.slugs).toContain('upload');
+    expect(experimentalFormShellEntry?.slugs).not.toContain('upload');
   });
 });

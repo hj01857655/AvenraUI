@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Button, Checkbox, Combobox, Form, FormField, Input, Select, Stack, Upload } from '@avenra/ui';
+import { Button, Checkbox, Combobox, Form, FormField, Input, Select, Stack } from '@avenra/ui';
 
 const meta = {
   title: 'Components/Forms and Input/Experimental/Form Shell',
@@ -67,26 +67,7 @@ export const FormFieldShellStates: Story = {
       <FormField layout="control" hint="Required before continuing" error="You must accept the terms">
         <Checkbox label="Accept working agreement" />
       </FormField>
-      <FormField label="Archive bundle" disabled hint="Inherited disabled state keeps the shell and control aligned">
-        <Upload buttonLabel="Archive bundle" />
-      </FormField>
     </Stack>
   )
 };
 
-export const UploadWorkflowStates: Story = {
-  render: () => (
-    <div style={{ maxWidth: '40rem' }}>
-      <Upload
-        id="storybook-upload"
-        label="Project files"
-        hint="Upload the assets needed for review"
-        buttonLabel="Project files"
-        defaultValue={[
-          new File(['brief'], 'brief.pdf', { type: 'application/pdf' }),
-          new File(['preview'], 'preview.png', { type: 'image/png' })
-        ]}
-      />
-    </div>
-  )
-};
