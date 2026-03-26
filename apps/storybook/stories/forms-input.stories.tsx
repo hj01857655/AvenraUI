@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { CSSProperties, ReactNode } from 'react'
 import { useState } from 'react'
 
-import { Autocomplete, Checkbox, Combobox, Command, Input, MultiSelect, Radio, Select, Switch, TagInput, Textarea } from '@avenra/ui'
+import { Autocomplete, Cascader, Checkbox, Combobox, Command, Input, MultiSelect, Radio, Select, Switch, TagInput, Textarea } from '@avenra/ui'
 
 const canvasStyle = {
   display: 'grid',
@@ -207,6 +207,83 @@ export const MultiSelectFieldStates: Story = {
           defaultValue={['react']}
           disabled
           options={frameworkOptions.slice()}
+        />
+      </StorySection>
+    </StoryCanvas>
+  )
+}
+
+export const CascaderFieldStates: Story = {
+  render: () => (
+    <StoryCanvas>
+      <StorySection
+        title="Cascader"
+        description="Stable hierarchical selection walks users through each branch while preserving labels, hints, validation, and disabled coverage inside the shared field shell."
+      >
+        <Cascader
+          label="Location"
+          hint="Choose the section to edit"
+          defaultValue={['workspace', 'guides', 'api']}
+          options={[
+            {
+              value: 'workspace',
+              label: 'Workspace',
+              children: [
+                {
+                  value: 'guides',
+                  label: 'Guides',
+                  children: [
+                    { value: 'api', label: 'API' },
+                    { value: 'design', label: 'Design' }
+                  ]
+                },
+                { value: 'assets', label: 'Assets', disabled: true }
+              ]
+            }
+          ]}
+        />
+        <Cascader
+          label="Escalation path"
+          error="Choose a valid escalation branch"
+          invalid
+          options={[
+            {
+              value: 'support',
+              label: 'Support',
+              children: [
+                {
+                  value: 'priority',
+                  label: 'Priority',
+                  children: [
+                    { value: 'sev-1', label: 'SEV-1' },
+                    { value: 'sev-2', label: 'SEV-2' }
+                  ]
+                }
+              ]
+            }
+          ]}
+        />
+        <Cascader
+          label="Archived taxonomy"
+          hint="Readonly trees still reveal the selected branch"
+          defaultValue={['archive', '2025', 'q4']}
+          disabled
+          options={[
+            {
+              value: 'archive',
+              label: 'Archive',
+              children: [
+                {
+                  value: '2025',
+                  label: '2025',
+                  children: [
+                    { value: 'q4', label: 'Q4' },
+                    { value: 'q3', label: 'Q3' }
+                  ]
+                }
+              ]
+            }
+          ]}
         />
       </StorySection>
     </StoryCanvas>

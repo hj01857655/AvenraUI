@@ -53,6 +53,7 @@ export const stableComponentSlugs = [
   'autocomplete',
   'combobox',
   'command',
+  'cascader',
   'multi-select',
   'pagination',
   'popover',
@@ -74,7 +75,6 @@ export const stableComponentSlugs = [
 
 export const experimentalComponentSlugs = [
 
-  'cascader',
   'data-grid',
   'date-picker',
   'date-range-picker',

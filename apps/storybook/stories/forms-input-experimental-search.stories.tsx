@@ -19,14 +19,13 @@ const sectionStyle = {
   background: 'var(--avenra-color-surface, #FFFFFF)'
 } satisfies CSSProperties;
 
-const frameworkOptions = [
-  { value: 'react', label: 'React' },
-  { value: 'vue', label: 'Vue' },
-  { value: 'svelte', label: 'Svelte' },
-  { value: 'angular', label: 'Angular', disabled: true }
-] as const;
+type StorySectionProps = {
+  title: string;
+  description: string;
+  children: ReactNode;
+};
 
-function StorySection({ title, description, children }: { title: string; description: string; children: ReactNode }) {
+function StorySection({ title, description, children }: StorySectionProps) {
   return (
     <section style={sectionStyle}>
       <div style={{ display: 'grid', gap: '0.25rem' }}>
