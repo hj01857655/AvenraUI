@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Breadcrumb, IconButton, Steps, Tabs } from '@avenra/ui';
+import { useState } from 'react';
+
+import { Breadcrumb, IconButton, Pagination, Steps, Tabs } from '@avenra/ui';
 
 function SearchIcon() {
   return (
@@ -17,6 +19,12 @@ function PlusIcon() {
       <path d="M4 10H16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
+}
+
+function ControlledPaginationPreview() {
+  const [page, setPage] = useState(6);
+
+  return <Pagination ariaLabel="Release pages" currentPage={page} totalPages={12} onPageChange={setPage} />;
 }
 
 const meta = {
@@ -90,7 +98,7 @@ export const TabsSections: Story = {
           {
             id: 'navigation',
             label: 'Navigation',
-            content: 'Breadcrumbs, steps, and tabs help users stay oriented while moving across related product sections.'
+            content: 'Breadcrumbs, steps, tabs, and pagination help users stay oriented while moving across related product sections.'
           },
           {
             id: 'actions',
@@ -99,6 +107,7 @@ export const TabsSections: Story = {
           }
         ]}
       />
+      <ControlledPaginationPreview />
     </div>
   )
 };

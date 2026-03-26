@@ -39,7 +39,7 @@ const storybookSurfaceEntries: StorybookSurfaceEntry[] = [
   {
     fileName: 'actions-navigation.stories.tsx',
     title: 'Components/Actions and Navigation/Stable Overview',
-    slugs: ['breadcrumb', 'icon-button', 'steps', 'tabs']
+    slugs: ['breadcrumb', 'icon-button', 'pagination', 'steps', 'tabs']
   },
   {
     fileName: 'feedback-status.stories.tsx',
@@ -89,7 +89,7 @@ const storybookSurfaceEntries: StorybookSurfaceEntry[] = [
   {
     fileName: 'navigation-display-experimental.stories.tsx',
     title: 'Components/Navigation and Display/Experimental Overview',
-    slugs: ['pagination', 'tree']
+    slugs: ['tree']
   }
 ];
 
