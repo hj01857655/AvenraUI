@@ -37,6 +37,7 @@ This document defines the current Avenra UI support split between the stable sur
 - Textarea
 - Tooltip
 - Upload
+- MultiSelect
 
 ## Experimental / in-progress
 
@@ -49,9 +50,8 @@ This document defines the current Avenra UI support split between the stable sur
 - FilterBar
 - Form
 - FormField
-- MultiSelect
 - Pagination
-- Skeleton
+
 - Tree
 - Toast
 

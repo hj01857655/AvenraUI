@@ -171,6 +171,7 @@ The current stable support surface is:
 - `Tabs`
 - `Textarea`
 - `Tooltip`
+- `MultiSelect`
 
 These are the components the repository currently treats as stable for external adoption.
 
@@ -189,9 +190,8 @@ The following components are exported today, but still governed as experimental 
 - `FilterBar`
 - `Form`
 - `FormField`
-- `MultiSelect`
 - `Pagination`
-- `Skeleton`
+
 - `Tree`
 - `Toast`
 - `Upload`

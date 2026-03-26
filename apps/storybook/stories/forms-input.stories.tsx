@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { CSSProperties, ReactNode } from 'react'
 import { useState } from 'react'
 
-import { Autocomplete, Checkbox, Combobox, Command, Input, Radio, Select, Switch, TagInput, Textarea } from '@avenra/ui'
+import { Autocomplete, Checkbox, Combobox, Command, Input, MultiSelect, Radio, Select, Switch, TagInput, Textarea } from '@avenra/ui'
 
 const canvasStyle = {
   display: 'grid',
@@ -168,6 +168,46 @@ export const InputFieldStates: Story = {
         <Input id="story-input-default" label="Workspace email" hint="Use the address tied to your workspace" required placeholder="team@avenra.dev" defaultValue="design@avenra.dev" />
         <Input id="story-input-invalid" label="Billing email" hint="Receipts and invoices go here" error="Enter a valid billing email" invalid defaultValue="billing@" />
         <Input id="story-input-disabled" label="Workspace slug" hint="Stable identifiers cannot change after provisioning" defaultValue="avenra-core" disabled />
+      </StorySection>
+    </StoryCanvas>
+  )
+}
+
+export const MultiSelectFieldStates: Story = {
+  render: () => (
+    <StoryCanvas>
+      <StorySection
+        title="Multi Select"
+        description="Stable multi-selection keeps chosen options visible as removable chips while search, validation, and disabled state coverage stay inside the shared field shell."
+      >
+        <MultiSelect
+          id="storybook-multi-select"
+          label="Frameworks"
+          hint="Pick every framework active in this workspace"
+          placeholder="Search frameworks"
+          defaultValue={['react', 'vue']}
+          options={frameworkOptions.slice()}
+        />
+        <MultiSelect
+          id="storybook-multi-select-invalid"
+          label="Target regions"
+          error="Select at least one rollout region"
+          invalid
+          defaultValue={[]}
+          options={[
+            { value: 'apac', label: 'APAC' },
+            { value: 'emea', label: 'EMEA' },
+            { value: 'latam', label: 'LATAM' }
+          ]}
+        />
+        <MultiSelect
+          id="storybook-multi-select-disabled"
+          label="Archived frameworks"
+          hint="Readonly selections remain visible after migration freeze"
+          defaultValue={['react']}
+          disabled
+          options={frameworkOptions.slice()}
+        />
       </StorySection>
     </StoryCanvas>
   )

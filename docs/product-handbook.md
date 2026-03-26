@@ -350,6 +350,7 @@ The current stable support surface is:
 - `Textarea`
 - `Tooltip`
 - `Upload`
+- `MultiSelect`
 
 ### Experimental / in-progress
 
@@ -364,9 +365,8 @@ The current experimental surface is:
 - `FilterBar`
 - `Form`
 - `FormField`
-- `MultiSelect`
 - `Pagination`
-- `Skeleton`
+
 - `Tree`
 - `Toast`
 
@@ -380,9 +380,10 @@ Beyond the first foundation surface, Avenra UI now also includes these higher-va
 
 - `TagInput`
 - `Upload`
+- `MultiSelect`
 
 - `DatePicker`
-- `DateRangePicker`
+
 - `FilterBar`
 - `Steps`
 - `Table`

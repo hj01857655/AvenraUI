@@ -53,6 +53,7 @@ export const stableComponentSlugs = [
   'autocomplete',
   'combobox',
   'command',
+  'multi-select',
   'pagination',
   'popover',
   'progress',
@@ -82,7 +83,6 @@ export const experimentalComponentSlugs = [
   'filter-bar',
   'form',
   'form-field',
-  'multi-select',
   'skeleton',
   'toast'
 ] as const;

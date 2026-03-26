@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties, ReactNode } from 'react';
 
-import { Cascader, MultiSelect } from '@avenra/ui';
+import { Cascader } from '@avenra/ui';
 
 const canvasStyle = {
   display: 'grid',
@@ -82,20 +82,5 @@ export const CascaderStates: Story = {
   )
 };
 
-export const MultiSelectStates: Story = {
-  render: () => (
-    <div style={canvasStyle}>
-      <StorySection title="Multi Select" description="Selected options stay visible as removable chips while the input keeps filtering a larger option set.">
-        <MultiSelect
-          id="storybook-multi-select"
-          label="Frameworks"
-          hint="Pick every framework active in this workspace"
-          placeholder="Search frameworks"
-          defaultValue={['react', 'vue']}
-          options={frameworkOptions.slice()}
-        />
-      </StorySection>
-    </div>
-  )
-};
+
 

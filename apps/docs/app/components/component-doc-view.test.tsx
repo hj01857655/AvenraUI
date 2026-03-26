@@ -184,12 +184,14 @@ describe('ComponentDocView', () => {
     expect(screen.getAllByText(/import \{ TagInput \} from '@avenra\/ui';/i)).toHaveLength(2);
   });
 
-  it('renders multi select docs with selected chips and a live listbox preview', () => {
+  it('renders stable multi select docs with selected chips and a live listbox preview', () => {
     render(
       <ComponentDocView doc={componentDocs['multi-select']} previous={componentDocs.input} next={componentDocs.radio} />
     );
 
     expect(screen.getByRole('heading', { level: 1, name: /multi select/i })).toBeInTheDocument();
+    expect(screen.getByText(/^stable$/i, { selector: '.avenra-badge' })).toBeInTheDocument();
+    expect(screen.queryByText(/experimental \/ in-progress/i)).not.toBeInTheDocument();
     const input = screen.getByRole('combobox', { name: /frameworks/i });
     expect(input).toBeInTheDocument();
     expect(screen.getByText('React')).toBeInTheDocument();
