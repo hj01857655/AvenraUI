@@ -72,8 +72,8 @@ const releaseRows: ReleaseRow[] = [
 ];
 
 const meta = {
-  title: 'Components/Layout & Overlay',
-  component: Card,
+  title: 'Components/Layout and Overlay/Stable Overview',
+
   parameters: {
     layout: 'padded'
   }
@@ -82,7 +82,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const CardOverview: Story = {
+export const CardSurfaceOverview: Story = {
   render: () => (
     <div style={{ maxWidth: '32rem' }}>
       <Card
@@ -107,7 +107,7 @@ export const InlineActions: Story = {
   )
 };
 
-export const StackSections: Story = {
+export const StackLayoutSections: Story = {
   render: () => (
     <Stack gap="md" style={{ maxWidth: '28rem' }}>
       <Card title="Planning" description="Confirm timeline and owners before implementation.">
@@ -123,7 +123,7 @@ export const StackSections: Story = {
   )
 };
 
-export const DataTableReadiness: Story = {
+export const TableReadinessSurface: Story = {
   render: () => (
     <div style={{ maxWidth: '60rem', display: 'grid', gap: '0.75rem' }}>
       <div style={{ maxHeight: '18rem', overflow: 'auto', paddingRight: '0.25rem' }}>
@@ -147,9 +147,12 @@ export const DataTableReadiness: Story = {
           }
         />
       </div>
-      <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--avenra-color-text-subtle)' }}>
-        Use compact density, sticky headers, sorting, and row tone emphasis when operators need to scan larger release datasets quickly.
-      </p>
+      <Table
+        caption="Release readiness empty state"
+        columns={releaseColumns}
+        rows={[]}
+        emptyState="No releases match the current filters."
+      />
     </div>
   )
 };
@@ -185,7 +188,7 @@ export const FilterPopover: Story = {
   )
 };
 
-export const HelpfulTooltip: Story = {
+export const TooltipWritingGuidance: Story = {
   render: () => (
     <Tooltip content="Use concise titles so dialog headings stay scannable.">
       <Button variant="ghost">Writing tip</Button>

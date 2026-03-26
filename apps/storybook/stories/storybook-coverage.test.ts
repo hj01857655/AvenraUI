@@ -43,7 +43,7 @@ const storybookSurfaceEntries: StorybookSurfaceEntry[] = [
   },
   {
     fileName: 'feedback-status.stories.tsx',
-    title: 'Components/Feedback & Status',
+    title: 'Components/Feedback and Status/Stable Overview',
     slugs: ['alert', 'avatar', 'badge', 'empty-state', 'progress']
   },
   {
@@ -53,7 +53,7 @@ const storybookSurfaceEntries: StorybookSurfaceEntry[] = [
   },
   {
     fileName: 'layout-overlay.stories.tsx',
-    title: 'Components/Layout & Overlay',
+    title: 'Components/Layout and Overlay/Stable Overview',
     slugs: ['card', 'dialog', 'inline', 'popover', 'stack', 'table', 'tooltip']
   },
   {
@@ -119,6 +119,7 @@ describe('storybook surface coverage governance', () => {
       const source = readStorySource(entry.fileName);
 
       expect(source).toContain(`title: '${entry.title}'`);
+      expect(entry.title.startsWith('Components/')).toBe(true);
     }
   });
 
@@ -139,6 +140,18 @@ describe('storybook surface coverage governance', () => {
     }
   });
 
+  it('uses stable-overview naming for grouped stable surfaces and experimental naming for experimental groups', () => {
+    for (const entry of storybookSurfaceEntries) {
+      if (entry.slugs.length > 1 && entry.slugs.every((slug) => stableSlugSet.has(slug))) {
+        expect(entry.title.endsWith('/Stable Overview')).toBe(true);
+      }
+
+      if (entry.slugs.some((slug) => experimentalSlugSet.has(slug))) {
+        expect(entry.title.includes('/Experimental')).toBe(true);
+      }
+    }
+  });
+
   it('keeps planned surfaces outside the docs-governed public component set until the component line lands', () => {
     for (const entry of plannedStorybookSurfaceEntries) {
       expect(entry.slugs).toEqual([]);
@@ -152,3 +165,4 @@ describe('storybook surface coverage governance', () => {
     expect(filterBarEntry?.slugs).toEqual(['filter-bar']);
   });
 });
+

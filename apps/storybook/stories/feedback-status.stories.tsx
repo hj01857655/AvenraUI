@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Alert, Avatar, Badge, Button, EmptyState, Inline, Progress, Stack } from '@avenra/ui';
 
 const meta = {
-  title: 'Components/Feedback & Status',
-  component: Alert,
+  title: 'Components/Feedback and Status/Stable Overview',
+
   parameters: {
     layout: 'padded'
   }
