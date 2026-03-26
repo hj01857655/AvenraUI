@@ -39,7 +39,7 @@ const storybookSurfaceEntries: StorybookSurfaceEntry[] = [
   {
     fileName: 'actions-navigation.stories.tsx',
     title: 'Components/Actions and Navigation/Stable Overview',
-    slugs: ['breadcrumb', 'icon-button', 'tabs']
+    slugs: ['breadcrumb', 'icon-button', 'steps', 'tabs']
   },
   {
     fileName: 'feedback-status.stories.tsx',
@@ -164,5 +164,10 @@ describe('storybook surface coverage governance', () => {
     expect(filterBarEntry).toBeDefined();
     expect(filterBarEntry?.slugs).toEqual(['filter-bar']);
   });
-});
 
+  it('covers steps inside the grouped actions and navigation stable surface', () => {
+    const actionsNavigationEntry = storybookSurfaceEntries.find((entry) => entry.fileName === 'actions-navigation.stories.tsx');
+
+    expect(actionsNavigationEntry?.slugs).toContain('steps');
+  });
+});

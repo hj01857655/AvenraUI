@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Breadcrumb, IconButton, Tabs } from '@avenra/ui';
+import { Breadcrumb, IconButton, Steps, Tabs } from '@avenra/ui';
 
 function SearchIcon() {
   return (
@@ -51,6 +51,31 @@ export const IconButtonStates: Story = {
   )
 };
 
+export const StepsProgression: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: '1.5rem', maxWidth: '56rem' }}>
+      <Steps
+        currentStep={1}
+        items={[
+          { id: 'details', title: 'Project details', description: 'Name and ownership' },
+          { id: 'review', title: 'Review', description: 'Check the release scope' },
+          { id: 'launch', title: 'Launch', description: 'Ship to production' }
+        ]}
+      />
+      <Steps
+        ariaLabel="Onboarding progress"
+        currentStep={2}
+        orientation="vertical"
+        items={[
+          { id: 'account', title: 'Create account', meta: '2 min' },
+          { id: 'workspace', title: 'Set up workspace', meta: '5 min' },
+          { id: 'invite', title: 'Invite teammates', meta: 'Optional' }
+        ]}
+      />
+    </div>
+  )
+};
+
 export const TabsSections: Story = {
   render: () => (
     <div style={{ maxWidth: '36rem' }}>
@@ -65,7 +90,7 @@ export const TabsSections: Story = {
           {
             id: 'navigation',
             label: 'Navigation',
-            content: 'Breadcrumbs and tabs help users stay oriented while moving across related product sections.'
+            content: 'Breadcrumbs, steps, and tabs help users stay oriented while moving across related product sections.'
           },
           {
             id: 'actions',
