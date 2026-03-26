@@ -21,11 +21,12 @@ export * from './components/progress/progress';
 export * from './components/radio/radio';
 export * from './components/select/select';
 export * from './components/stack/stack';
+export * from './components/steps/steps';
 export * from './components/switch/switch';
 export * from './components/table/table';
 export * from './components/tabs/tabs';
 export * from './components/textarea/textarea';
-export * from './components/tooltip/tooltip';
+
 
 /**
  * Experimental / in-progress surface

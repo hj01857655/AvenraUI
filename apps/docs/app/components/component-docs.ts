@@ -55,12 +55,14 @@ export const stableComponentSlugs = [
   'radio',
   'select',
   'stack',
+  'steps',
   'switch',
   'table',
   'tabs',
   'textarea',
   'tooltip'
 ] as const;
+
 
 export const experimentalComponentSlugs = [
   'autocomplete',
@@ -1313,9 +1315,9 @@ category: 'Forms and input',
       "        defaultValue={['design']}",
       '      />',
       '      <DateRangePicker label="Launch window" />',
-
+      '    </FilterBar>',
       '  );',
-      '}'
+
     ].join('\n'),
     sections: [
       {
@@ -1496,6 +1498,38 @@ category: 'Forms and input',
       }
     ]
   },
+  steps: {
+    slug: 'steps',
+    title: 'Steps',
+    packageImport: "import { Steps } from '@avenra/ui';",
+    category: 'Actions and navigation',
+    summary: 'Structured progress indicator for multi-step product flows with current, complete, and upcoming state.',
+    usage:
+      'Use Steps when users need a clear sense of progress through a sequence such as setup, review, approval, or onboarding and each step should remain visible as context.',
+    exampleCode: [
+      "import { Steps } from '@avenra/ui';",
+      '',
+      'const releaseSteps = [',
+      "  { id: 'details', title: 'Project details', description: 'Name and ownership' },",
+      "  { id: 'review', title: 'Review', description: 'Check the release scope' },",
+      "  { id: 'launch', title: 'Launch', description: 'Ship to production' }",
+      '];',
+      '',
+      'export function ReleaseProgress() {',
+      '  return <Steps items={releaseSteps} currentStep={1} />;',
+      '}',
+    ].join('\n'),
+    sections: [
+      {
+        title: 'Progress model',
+        body: 'Steps keeps the whole flow visible so users can see what is done, what is active now, and what comes next without reading a separate status summary.'
+      },
+      {
+        title: 'Orientation',
+        body: 'Use the default horizontal orientation for compact page-level progress and switch to vertical orientation when descriptions or supporting metadata need more room.'
+      }
+    ]
+  },
   tabs: {
     slug: 'tabs',
     title: 'Tabs',
@@ -1517,7 +1551,7 @@ category: 'Forms and input',
       '      defaultTabId="general"',
       '    />',
       '  );',
-      '}'
+      '}',
     ].join('\n'),
     sections: [
       {
@@ -1909,7 +1943,7 @@ export const componentDocMetadata = {
     props: [
       { name: 'title', type: 'string', description: 'Optional visible heading for the filter workflow.' },
       { name: 'description', type: 'string', description: 'Optional supporting copy under the heading.' },
-      { name: 'actions', type: 'ReactNode', description: 'Action slot for apply, clear, save-view, or export controls.' },
+
       { name: 'density', type: "'comfortable' | 'compact'", description: 'Controls roomier or denser spacing for the filter shell.' },
       { name: 'sticky', type: 'boolean', description: 'Keeps the filter shell visually sticky at the top of a scrolling result view.' },
       { name: 'children', type: 'ReactNode', required: true, description: 'Filter controls rendered inside the shared search region.' }
@@ -2107,6 +2141,19 @@ export const componentDocMetadata = {
       'Branch toggles and node labels stay keyboard reachable, and ArrowLeft / ArrowRight collapse or expand the current branch without requiring pointer-only interaction.'
     ]
   },
+  steps: {
+    props: [
+      { name: 'items', type: 'StepItem[]', required: true, description: 'Ordered step definitions with title plus optional description, meta, and status override.' },
+      { name: 'currentStep', type: 'number', description: 'Zero-based active step index when status is derived instead of provided per item.' },
+      { name: 'orientation', type: "'horizontal' | 'vertical'", description: 'Controls row-based or stacked step layout.' },
+      { name: 'ariaLabel', type: 'string', description: 'Accessible label for the ordered step list.' }
+    ],
+    states: ['Complete', 'Current', 'Upcoming', 'Vertical'],
+    accessibility: [
+      'Steps exposes an ordered list and marks the active item with `aria-current="step"` so assistive technology can track progress through the sequence.',
+      'Keep step titles concise and use descriptions for supporting context instead of hiding key progress meaning in decoration alone.'
+    ]
+  },
   tabs: {
     props: [
       { name: 'items', type: 'TabsItem[]', required: true, description: 'Ordered tab labels and panel content.' },
@@ -2153,7 +2200,7 @@ export const componentDocMetadata = {
   },
   tooltip: {
     props: [
-      { name: 'content', type: 'ReactNode', required: true, description: 'Short helper text shown on hover or focus.' },
+
       { name: 'children', type: 'ReactElement', required: true, description: 'Single interactive trigger element.' }
     ],
     states: ['Hidden', 'Visible on hover', 'Visible on focus'],

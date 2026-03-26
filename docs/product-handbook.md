@@ -256,6 +256,7 @@ Use this checklist before broad adoption.
 - `Button`
 - `IconButton`
 - `Breadcrumb`
+- `Steps`
 - `Tabs`
 - `Pagination`
 - `DropdownMenu`
@@ -338,6 +339,7 @@ The current stable support surface is:
 - `Radio`
 - `Select`
 - `Stack`
+- `Steps`
 - `Switch`
 - `Table`
 - `Tabs`
@@ -381,9 +383,10 @@ Beyond the first foundation surface, Avenra UI now also includes these higher-va
 - `DatePicker`
 - `DateRangePicker`
 - `FilterBar`
+- `Steps`
 - `Table`
 - `DataGrid`
-- `Upload`
+
 - `Tree`
 - `Cascader`
 
@@ -561,8 +564,9 @@ The repository has already established meaningful lines such as:
 - documentation reliability hardening
 - high-frequency input expansion through `TagInput`, `MultiSelect`, `DatePicker`, and `DateRangePicker`
 - grouped filtering workflows through `FilterBar`
+- guided multi-step progression through `Steps`
 - stronger workflow and structure surfaces through `Upload`, `Tree`, and `Cascader`
-- stronger data-display capability through `Table` and `DataGrid`
+
 
 ### Current expansion philosophy
 
@@ -599,7 +603,8 @@ Avenra UI is prioritizing:
 
 - deepen the new `DataGrid` surface beyond the current baseline
 - continue strengthening workflow and structure surfaces such as `Upload`, `Tree`, and `Cascader`
-- deepen date and selection surfaces where they improve real product use
+- deepen guided flow surfaces such as `Steps` where progress context materially improves completion
+
 
 #### Later
 

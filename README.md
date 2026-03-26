@@ -162,6 +162,7 @@ The current stable support surface is:
 - `Radio`
 - `Select`
 - `Stack`
+- `Steps`
 - `Switch`
 - `Tabs`
 - `Textarea`
@@ -237,9 +238,10 @@ Together, the current documented foundation wave includes:
 - `DatePicker`
 - `DateRangePicker`
 - `FilterBar`
+- `Steps`
 - `MultiSelect`
 - `TagInput`
-- `Tree`
+
 - `Upload`
 
 This is a foundation release wave, not the final surface area of the library.
@@ -255,9 +257,10 @@ Beyond the first foundation surface, Avenra UI now also includes these higher-va
 - `DatePicker`
 - `DateRangePicker`
 - `FilterBar`
+- `Steps`
 - `Table`
 - `DataGrid`
-- `Upload`
+
 - `Tree`
 - `Cascader`
 
@@ -285,8 +288,9 @@ The current direction is to expand in a way that compounds product value instead
 - harden form, selection, overlay, and feedback groups before jumping too early into the heaviest enterprise widgets
 - add high-frequency enhanced inputs such as `TagInput`, `MultiSelect`, `DatePicker`, and `DateRangePicker`
 - turn grouped search and filtering into a first-class product workflow through `FilterBar`
+- add guided multi-step progression through `Steps` where workflows need visible progress context
 - continue moving into stronger workflow and structure surfaces such as `Upload`, `Tree`, `Cascader`, `Table`, and `DataGrid`
-- keep exports, docs, tests, and support governance aligned as the surface grows
+
 
 This is how Avenra UI intends to become a strong React ecosystem library: not by pretending the whole matrix is already done, but by making each new line credible when it lands.
 
@@ -300,6 +304,7 @@ The current roadmap shape is:
 - keep docs and support governance aligned with the real surface
 - make field, selection, date, overlay, and feedback groups feel internally coherent
 - finish turning newer workflow and structure surfaces into credible product lines, including the new `DataGrid` surface
+- make guided setup and release flows more legible through the new `Steps` surface
 
 ### Next
 

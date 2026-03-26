@@ -28,7 +28,7 @@ export interface HomepageShowcaseEntry {
 const componentCatalogGroupConfigs: readonly ComponentCatalogGroupConfig[] = [
   {
     title: 'Actions and navigation',
-    description: 'Core controls used to move through product workflows and trigger work.'
+    description: 'Core controls used to move through product workflows, show progression, and trigger work.'
   },
   {
     title: 'Forms and input',

@@ -27,6 +27,7 @@ This document defines the current Avenra UI support split between the stable sur
 - Radio
 - Select
 - Stack
+- Steps
 - Switch
 - Tabs
 - Textarea

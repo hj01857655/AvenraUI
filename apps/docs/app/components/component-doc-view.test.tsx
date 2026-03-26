@@ -202,6 +202,19 @@ describe('ComponentDocView', () => {
     expect(screen.getAllByText(/import \{ DateRangePicker \} from '@avenra\/ui';/i)).toHaveLength(2);
   });
 
+  it('renders steps docs with horizontal and vertical progress previews', () => {
+    render(
+      <ComponentDocView doc={componentDocs.steps} previous={componentDocs.switch} next={componentDocs.tabs} />
+    );
+
+    expect(screen.getByRole('heading', { level: 1, name: /steps/i })).toBeInTheDocument();
+    expect(screen.getByRole('list', { name: /progress steps/i })).toBeInTheDocument();
+    expect(screen.getByRole('list', { name: /onboarding progress/i })).toBeInTheDocument();
+    expect(screen.getAllByRole('listitem')[1]).toHaveAttribute('aria-current', 'step');
+    expect(screen.getByText(/invite teammates/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/import \{ Steps \} from '@avenra\/ui';/i)).toHaveLength(2);
+  });
+
   it('renders table docs with a live data grid preview and empty state example', () => {
     render(
       <ComponentDocView doc={componentDocs.table} previous={componentDocs.tabs} next={componentDocs.textarea} />
@@ -288,3 +301,4 @@ describe('ComponentDocView', () => {
     expect(screen.getAllByText(/import \{ Cascader \} from '@avenra\/ui';/i)).toHaveLength(2);
   });
 });
+

@@ -34,11 +34,14 @@ import { Radio } from '@avenra/ui/src/components/radio/radio';
 import { Select } from '@avenra/ui/src/components/select/select';
 import { Skeleton } from '@avenra/ui/src/components/skeleton/skeleton';
 import { Stack } from '@avenra/ui/src/components/stack/stack';
+import { Steps } from '@avenra/ui/src/components/steps/steps';
 import { Switch } from '@avenra/ui/src/components/switch/switch';
 import { Table } from '@avenra/ui/src/components/table/table';
-import { TagInput } from '@avenra/ui/src/components/tag-input/tag-input';
 import { Tabs } from '@avenra/ui/src/components/tabs/tabs';
+import { TagInput } from '@avenra/ui/src/components/tag-input/tag-input';
+
 import { Textarea } from '@avenra/ui/src/components/textarea/textarea';
+
 import { ToastProvider, useToast } from '@avenra/ui/src/components/toast/toast';
 import { Tree } from '@avenra/ui/src/components/tree/tree';
 import { Tooltip } from '@avenra/ui/src/components/tooltip/tooltip';
@@ -708,13 +711,38 @@ export function ComponentPreview({ slug }: { slug: ComponentDoc['slug'] }) {
     case 'tag-input':
       return (
         <PreviewCanvas>
-          <TagInput
-            id="preview-tag-input"
+            <TagInput
+
             label="Project tags"
             hint="Press Enter or comma to add a new tag"
             placeholder="Add a tag"
             defaultValue={['React', 'Design system']}
           />
+        </PreviewCanvas>
+      );
+    case 'steps':
+      return (
+        <PreviewCanvas>
+          <Stack gap="lg">
+            <Steps
+              currentStep={1}
+              items={[
+                { id: 'details', title: 'Project details', description: 'Name and ownership' },
+                { id: 'review', title: 'Review', description: 'Check the release scope' },
+                { id: 'launch', title: 'Launch', description: 'Ship to production' }
+              ]}
+            />
+            <Steps
+              ariaLabel="Onboarding progress"
+              currentStep={2}
+              orientation="vertical"
+              items={[
+                { id: 'account', title: 'Create account', meta: '2 min' },
+                { id: 'workspace', title: 'Set up workspace', meta: '5 min' },
+                { id: 'invite', title: 'Invite teammates', meta: 'Optional' }
+              ]}
+            />
+          </Stack>
         </PreviewCanvas>
       );
     case 'tabs':
