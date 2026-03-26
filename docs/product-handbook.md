@@ -334,6 +334,7 @@ The current stable support surface is:
 - `IconButton`
 - `Inline`
 - `Input`
+- `Autocomplete`
 - `Popover`
 - `Progress`
 - `Radio`
@@ -351,13 +352,12 @@ The current stable support surface is:
 
 The current experimental surface is:
 
-- `Autocomplete`
 - `Cascader`
 - `Combobox`
 - `Command`
 - `DataGrid`
 - `DatePicker`
-- `DateRangePicker`
+
 - `Drawer`
 - `DropdownMenu`
 - `FilterBar`

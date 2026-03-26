@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { CSSProperties, ReactNode } from 'react'
 
-import { Checkbox, Input, Radio, Select, Switch, Textarea } from '@avenra/ui'
+import { Autocomplete, Checkbox, Input, Radio, Select, Switch, Textarea } from '@avenra/ui'
 
 const canvasStyle = {
   display: 'grid',
@@ -67,6 +67,54 @@ const meta = {
 export default meta
 
 type Story = StoryObj<typeof meta>
+
+export const AutocompleteFieldStates: Story = {
+  render: () => (
+    <StoryCanvas>
+      <StorySection
+        title="Autocomplete"
+        description="Stable typeahead examples keep the shared field shell while showing thresholded search, empty messaging, validation, and disabled behavior."
+      >
+        <Autocomplete
+          label="Country"
+          hint="Type 2+ characters to start searching"
+          placeholder="Search countries"
+          emptyMessage="No country found"
+          minQueryLength={2}
+          defaultInputValue="au"
+          options={[
+            { value: 'ar', label: 'Argentina' },
+            { value: 'au', label: 'Australia' },
+            { value: 'at', label: 'Austria' }
+          ]}
+        />
+        <Autocomplete
+          label="Billing region"
+          error="Select a supported billing region"
+          invalid
+          placeholder="Search billing regions"
+          emptyMessage="No region found"
+          options={[
+            { value: 'apac', label: 'APAC' },
+            { value: 'emea', label: 'EMEA' },
+            { value: 'latam', label: 'LATAM' }
+          ]}
+        />
+        <Autocomplete
+          label="Archived market"
+          hint="Readonly selections stay visible after sunset"
+          placeholder="Search archived markets"
+          defaultInputValue="Australia"
+          disabled
+          options={[
+            { value: 'au', label: 'Australia' },
+            { value: 'nz', label: 'New Zealand' }
+          ]}
+        />
+      </StorySection>
+    </StoryCanvas>
+  )
+}
 
 export const InputFieldStates: Story = {
   render: () => (

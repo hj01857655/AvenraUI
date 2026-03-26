@@ -119,6 +119,8 @@ describe('ComponentDocView', () => {
 
     expect(screen.getByRole('combobox', { name: /^country$/i })).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/type 2\+ characters/i)).toBeInTheDocument();
+    expect(screen.getByText(/^stable$/i, { selector: '.avenra-badge' })).toBeInTheDocument();
+    expect(screen.queryByText(/experimental \/ in-progress/i)).not.toBeInTheDocument();
 
     cleanup();
 

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties, ReactNode } from 'react';
 import { useState } from 'react';
 
-import { Autocomplete, Cascader, Combobox, Command, MultiSelect, Stack, TagInput } from '@avenra/ui';
+import { Cascader, Combobox, Command, MultiSelect, Stack, TagInput } from '@avenra/ui';
 
 const canvasStyle = {
   display: 'grid',
@@ -71,28 +71,6 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
-
-export const AutocompleteStates: Story = {
-  render: () => (
-    <div style={canvasStyle}>
-      <StorySection title="Autocomplete" description="Typeahead stays quiet until the query reaches the threshold, then filters the option set inside the shared field shell.">
-        <Autocomplete
-          label="Country"
-          hint="Type 2+ characters to start searching"
-          placeholder="Search countries"
-          emptyMessage="No country found"
-          minQueryLength={2}
-          defaultInputValue="au"
-          options={[
-            { value: 'ar', label: 'Argentina' },
-            { value: 'au', label: 'Australia' },
-            { value: 'at', label: 'Austria' }
-          ]}
-        />
-      </StorySection>
-    </div>
-  )
-};
 
 export const CascaderStates: Story = {
   render: () => (

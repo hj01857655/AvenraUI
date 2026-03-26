@@ -51,7 +51,6 @@ const storybookSurfaceEntries: StorybookSurfaceEntry[] = [
     title: 'Components/Forms and Input/Stable Overview',
     slugs: ['autocomplete', 'checkbox', 'input', 'radio', 'select', 'switch', 'textarea', 'upload']
   },
-  
   {
     fileName: 'layout-overlay.stories.tsx',
     title: 'Components/Layout and Overlay/Stable Overview',
@@ -178,11 +177,14 @@ describe('storybook surface coverage governance', () => {
 
     expect(actionsNavigationEntry?.slugs).toContain('steps');
   });
-  it('covers upload inside the stable forms surface instead of the experimental form-shell surface', () => {
+  it('covers upload and autocomplete inside the stable forms surface instead of experimental forms surfaces', () => {
     const stableFormsEntry = storybookSurfaceEntries.find((entry) => entry.fileName === 'forms-input.stories.tsx');
     const experimentalFormShellEntry = storybookSurfaceEntries.find((entry) => entry.fileName === 'forms-input-experimental-form-shell.stories.tsx');
+    const experimentalSearchEntry = storybookSurfaceEntries.find((entry) => entry.fileName === 'forms-input-experimental-search.stories.tsx');
 
     expect(stableFormsEntry?.slugs).toContain('upload');
+    expect(stableFormsEntry?.slugs).toContain('autocomplete');
     expect(experimentalFormShellEntry?.slugs).not.toContain('upload');
+    expect(experimentalSearchEntry?.slugs).not.toContain('autocomplete');
   });
 });

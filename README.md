@@ -157,6 +157,7 @@ The current stable support surface is:
 - `IconButton`
 - `Inline`
 - `Input`
+- `Autocomplete`
 - `Popover`
 - `Progress`
 - `Radio`
@@ -176,13 +177,12 @@ Promotion and support expectations are collected in `docs/product-handbook.md` a
 
 The following components are exported today, but still governed as experimental / in-progress:
 
-- `Autocomplete`
 - `Cascader`
 - `Combobox`
 - `Command`
 - `DataGrid`
 - `DatePicker`
-- `DateRangePicker`
+
 - `Drawer`
 - `DropdownMenu`
 - `FilterBar`
